@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sneha Islam — Nanotechnology Engineering · Software &amp; AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070b14; --bg2:#0c1322; --panel:#0f1829; --line:#1c2a44; --grid:rgba(79,209,197,.06);
+  --cyan:#4fd1c5; --cyan-d:#2c9c93; --amber:#f6ad55; --violet:#9f7aea; --red:#fc8181;
+  --text:#e2e8f0; --muted:#8a9bb8; --dim:#56688a;
+  --mono:'JetBrains Mono',ui-monospace,monospace; --sans:'Space Grotesk',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;overflow-x:hidden;
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px),
+    linear-gradient(rgba(79,209,197,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(79,209,197,.025) 1px,transparent 1px);
+  background-size:80px 80px,80px 80px,16px 16px,16px 16px;}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+.mono{font-family:var(--mono)}
+b.hl{color:var(--text);font-weight:500}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:50;background:rgba(7,11,20,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-family:var(--mono);font-weight:700;color:var(--cyan);letter-spacing:.04em;display:flex;align-items:center;gap:10px}
+.logo svg{width:26px;height:26px}
+.navlinks{display:flex;gap:18px;font-family:var(--mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.08em}
+.navlinks a{color:var(--muted);transition:color .2s}
+.navlinks a:hover{color:var(--cyan)}
+.navlinks a span{color:var(--dim)}
+@media(max-width:1000px){.navlinks{display:none}}
+
+/* HERO */
+.hero{padding:90px 0 60px;position:relative}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr}}
+.tag{font-family:var(--mono);font-size:.78rem;color:var(--cyan);letter-spacing:.12em;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px}
+.tag::before{content:"";width:28px;height:1px;background:var(--cyan)}
+h1{font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.02;font-weight:700;margin:18px 0 18px;letter-spacing:-.02em}
+h1 .accent{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{color:var(--muted);font-size:1.12rem;max-width:580px}
+.lede b{color:var(--text);font-weight:500}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.btn{font-family:var(--mono);font-size:.82rem;padding:11px 18px;border:1px solid var(--line);border-radius:4px;display:inline-flex;align-items:center;gap:8px;transition:all .2s;background:var(--panel)}
+.btn:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px)}
+.btn.primary{background:var(--cyan);color:#04201d;border-color:var(--cyan);font-weight:700}
+.btn.primary:hover{background:#6fe3d8;color:#04201d}
+.btn svg{width:15px;height:15px}
+.readout{margin-top:38px;display:grid;grid-template-columns:repeat(4,auto);gap:24px;justify-content:start;font-family:var(--mono)}
+@media(max-width:560px){.readout{grid-template-columns:repeat(2,auto)}}
+.readout div{border-left:2px solid var(--cyan-d);padding-left:12px}
+.readout .k{font-size:.68rem;color:var(--dim);text-transform:uppercase;letter-spacing:.1em}
+.readout .v{font-size:.95rem;color:var(--text)}
+
+/* hero figure tabs */
+.schem{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:6px;padding:18px;position:relative}
+.schem .hdr{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.68rem;color:var(--dim);letter-spacing:.1em;margin-bottom:8px;gap:10px}
+.schem .hdr b{color:var(--amber);font-weight:500}
+.schem svg{width:100%;height:auto;display:block}
+.figtabs{display:flex;gap:6px;margin-bottom:10px}
+.figtabs button{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;padding:5px 9px;border:1px solid var(--line);background:var(--bg2);color:var(--muted);border-radius:3px;cursor:pointer}
+.figtabs button.on{border-color:var(--cyan);color:var(--cyan)}
+.fig{display:none}.fig.on{display:block}
+.corner{position:absolute;width:12px;height:12px;border-color:var(--cyan);border-style:solid}
+.c1{top:-1px;left:-1px;border-width:2px 0 0 2px}.c2{top:-1px;right:-1px;border-width:2px 2px 0 0}
+.c3{bottom:-1px;left:-1px;border-width:0 0 2px 2px}.c4{bottom:-1px;right:-1px;border-width:0 2px 2px 0}
+@keyframes flow{to{stroke-dashoffset:-40}}
+.flow{stroke-dasharray:6 6;animation:flow 2s linear infinite}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+.pulse{animation:pulse 2.4s ease-in-out infinite}
+
+/* metrics strip */
+.metrics{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--line);border-radius:6px;background:var(--panel);margin-top:10px}
+@media(max-width:960px){.metrics{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.metrics{grid-template-columns:repeat(2,1fr)}}
+.metric{padding:18px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metric .n{font-family:var(--mono);font-size:1.5rem;font-weight:700;color:var(--cyan);line-height:1.1}
+.metric .l{font-size:.78rem;color:var(--muted);margin-top:6px;line-height:1.35}
+.metric .src{font-family:var(--mono);font-size:.6rem;color:var(--dim);letter-spacing:.08em;margin-top:6px;text-transform:uppercase}
+
+/* SECTIONS */
+section{padding:80px 0;border-top:1px solid var(--line)}
+.sec-h{display:flex;align-items:baseline;gap:18px;margin-bottom:40px;flex-wrap:wrap}
+.sec-h .num{font-family:var(--mono);color:var(--cyan);font-size:.85rem}
+.sec-h h2{font-size:2rem;font-weight:600;letter-spacing:-.01em}
+.sec-h .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);min-width:60px}
+.sec-h .note{font-family:var(--mono);font-size:.72rem;color:var(--dim)}
+
+/* about */
+.about{display:grid;grid-template-columns:1.3fr 1fr;gap:40px}
+@media(max-width:860px){.about{grid-template-columns:1fr}}
+.about p{color:var(--muted);margin-bottom:16px;font-size:1.05rem}
+.about p b{color:var(--text);font-weight:500}
+.spec{border:1px solid var(--line);border-radius:6px;overflow:hidden;font-family:var(--mono);font-size:.82rem;background:var(--panel)}
+.spec .row{display:grid;grid-template-columns:130px 1fr;border-bottom:1px solid var(--line)}
+.spec .row:last-child{border-bottom:none}
+.spec .row>*{padding:11px 14px}
+.spec .row .k{color:var(--dim);background:rgba(255,255,255,.015);border-right:1px solid var(--line);text-transform:uppercase;font-size:.7rem;letter-spacing:.08em;display:flex;align-items:center}
+.spec .row .v{color:var(--text)}
+.spec .hdrow{background:rgba(79,209,197,.08);color:var(--cyan);padding:9px 14px;font-size:.7rem;letter-spacing:.12em;border-bottom:1px solid var(--line)}
+
+.interests{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+@media(max-width:960px){.interests{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.interests{grid-template-columns:1fr}}
+.int{border:1px solid var(--line);border-radius:6px;padding:22px;background:var(--panel)}
+.int svg{width:42px;height:42px;margin-bottom:12px}
+.int h4{font-size:1.05rem;margin-bottom:6px}
+.int p{color:var(--muted);font-size:.92rem}
+
+/* EXPERIENCE */
+.xp{display:grid;gap:18px}
+.job{border:1px solid var(--line);border-radius:6px;background:var(--panel);transition:border-color .25s}
+.job:hover{border-color:var(--cyan-d)}
+.job .top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;color:var(--dim);flex-wrap:wrap}
+.job .top .kind{padding:3px 8px;border-radius:3px}
+.kd-sw{background:rgba(79,209,197,.12);color:var(--cyan)}
+.kd-ai{background:rgba(159,122,234,.15);color:var(--violet)}
+.kd-hw{background:rgba(246,173,85,.13);color:var(--amber)}
+.kd-cl{background:rgba(252,129,129,.12);color:var(--red)}
+.job .body{padding:20px 22px 8px}
+.job.feature .body{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:start}
+@media(max-width:860px){.job.feature .body{grid-template-columns:1fr}}
+.job h3{font-size:1.25rem;line-height:1.25}
+.job .org{font-family:var(--mono);font-size:.78rem;color:var(--violet);margin:4px 0 12px}
+.job ul{list-style:none}
+.job li{color:var(--muted);font-size:.93rem;padding-left:20px;position:relative;margin-bottom:8px}
+.job li::before{content:"▸";position:absolute;left:0;color:var(--cyan)}
+.job li b{color:var(--text);font-weight:500}
+.xp-two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:860px){.xp-two{grid-template-columns:1fr}}
+.arch{background:var(--bg2);border:1px solid var(--line);border-radius:4px;padding:12px}
+.arch .cap{font-family:var(--mono);font-size:.62rem;color:var(--dim);letter-spacing:.1em;margin-bottom:6px}
+
+/* projects */
+.projects{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+@media(max-width:860px){.projects{grid-template-columns:1fr}}
+.proj{border:1px solid var(--line);border-radius:6px;background:var(--panel);display:flex;flex-direction:column;transition:border-color .25s,transform .25s}
+.proj:hover{border-color:var(--cyan-d);transform:translateY(-3px)}
+.proj.feature{grid-column:1/-1}
+.proj .top{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;color:var(--dim)}
+.status{padding:3px 8px;border-radius:3px;font-weight:500}
+.s-done{background:rgba(79,209,197,.12);color:var(--cyan)}
+.s-wip{background:rgba(246,173,85,.12);color:var(--amber)}
+.proj .body{padding:22px 22px 18px;flex:1}
+.proj.feature .body{display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:center}
+@media(max-width:860px){.proj.feature .body{grid-template-columns:1fr}}
+.proj h3{font-size:1.3rem;margin-bottom:4px;line-height:1.25}
+.proj .course{font-family:var(--mono);font-size:.75rem;color:var(--violet);margin-bottom:12px}
+.proj p{color:var(--muted);font-size:.95rem;margin-bottom:12px}
+.proj ul{list-style:none;margin:8px 0 4px}
+.proj li{color:var(--muted);font-size:.9rem;padding-left:20px;position:relative;margin-bottom:6px}
+.proj li::before{content:"▸";position:absolute;left:0;color:var(--cyan)}
+.proj li b{color:var(--text);font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 22px 20px}
+.chip{font-family:var(--mono);font-size:.7rem;padding:4px 9px;border:1px solid var(--line);border-radius:3px;color:var(--muted);background:var(--bg2)}
+
+/* repos */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.filters button{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;padding:7px 12px;border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:3px;cursor:pointer;transition:all .2s}
+.filters button:hover{color:var(--text)}
+.filters button.on{border-color:var(--cyan);color:var(--cyan);background:rgba(79,209,197,.07)}
+.filters button i{font-style:normal;color:var(--dim);margin-left:6px}
+.repos{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media(max-width:860px){.repos{grid-template-columns:1fr}}
+.repo{border:1px solid var(--line);border-radius:6px;background:var(--panel);display:flex;flex-direction:column;transition:border-color .25s,transform .25s,opacity .3s}
+.repo:hover{border-color:var(--cyan-d);transform:translateY(-3px)}
+.repo.hide{display:none}
+.repo .rh{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 18px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.7rem;color:var(--dim);letter-spacing:.06em}
+.repo .rh .path{color:var(--muted)}
+.repo .rh .path b{color:var(--cyan);font-weight:700}
+.lang{display:inline-flex;align-items:center;gap:6px}
+.lang i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.repo .rb{padding:18px 18px 10px;flex:1}
+.repo h3{font-size:1.15rem;line-height:1.3;margin-bottom:6px}
+.repo p{color:var(--muted);font-size:.92rem;margin-bottom:14px}
+.repo p b{color:var(--text);font-weight:500}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:4px;background:var(--bg2);margin-bottom:12px}
+.stats div{padding:10px 10px;border-right:1px solid var(--line)}
+.stats div:last-child{border-right:none}
+.stats .n{font-family:var(--mono);font-weight:700;color:var(--cyan);font-size:1.02rem;line-height:1.15}
+.stats .l{font-size:.68rem;color:var(--dim);line-height:1.3;margin-top:3px}
+.repo .chips{padding:0 18px 14px}
+.repo .go{display:flex;justify-content:space-between;align-items:center;padding:11px 18px;border-top:1px dashed var(--line);font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.repo .go a{color:var(--cyan)}
+.repo .go a:hover{text-decoration:underline}
+.early{margin-top:26px;border:1px dashed var(--line);border-radius:6px;padding:18px 20px}
+.early h4{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.early ul{list-style:none;display:grid;gap:8px}
+.early li{display:grid;grid-template-columns:1fr auto;gap:12px;color:var(--muted);font-size:.9rem}
+.early li a{font-family:var(--mono);font-size:.74rem;color:var(--cyan);white-space:nowrap}
+.early li b{color:var(--text);font-weight:500}
+
+/* resume sheet */
+.cv-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px;font-family:var(--mono);font-size:.72rem;color:var(--dim)}
+.cv-bar .acts{display:flex;gap:8px}
+.cv-frame{border:1px solid var(--line);border-radius:6px;background:var(--bg2);padding:28px;position:relative}
+@media(max-width:600px){.cv-frame{padding:10px}}
+.sheet{background:#fbfbf8;color:#1b1f27;max-width:850px;margin:0 auto;padding:46px 54px;box-shadow:0 20px 60px rgba(0,0,0,.45);font-family:Georgia,'Times New Roman',serif;font-size:.86rem;line-height:1.42}
+@media(max-width:600px){.sheet{padding:24px 18px;font-size:.8rem}}
+.sheet h3{font-family:var(--sans);font-size:1.9rem;text-align:center;letter-spacing:.01em;color:#0b1220;margin-bottom:4px}
+.sheet .sub{text-align:center;font-style:italic;color:#333;max-width:640px;margin:0 auto 6px}
+.sheet .ct{text-align:center;font-size:.8rem;color:#333;margin-bottom:10px}
+.sheet .ct a{color:#0b5f59;text-decoration:underline}
+.sheet h5{font-family:var(--sans);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:#0b1220;border-bottom:1.5px solid #0b1220;padding-bottom:2px;margin:16px 0 8px}
+.sheet .ent{margin-bottom:10px}
+.sheet .er{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.sheet .er b{font-family:var(--sans);font-weight:600;color:#0b1220}
+.sheet .er span{font-style:italic;color:#444;white-space:nowrap}
+.sheet .org{color:#333}
+.sheet ul{margin:4px 0 0 18px}
+.sheet li{margin-bottom:3px}
+.sheet .cvsk b{font-family:var(--sans);font-weight:600;color:#0b1220}
+.sheet .cvsk p{margin-bottom:3px}
+.cv-note{font-family:var(--mono);font-size:.68rem;color:var(--dim);text-align:center;margin-top:14px}
+
+/* coursework */
+.cw-legend{display:flex;gap:18px;font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-bottom:22px;flex-wrap:wrap}
+.cw-legend span{display:inline-flex;align-items:center;gap:7px}
+.dot{width:9px;height:9px;border-radius:50%}
+.cw-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:760px){.cw-grid{grid-template-columns:1fr}}
+details.cw{border:1px solid var(--line);border-radius:6px;background:var(--panel);transition:border-color .2s}
+details.cw[open]{border-color:var(--cyan-d)}
+details.cw summary{list-style:none;cursor:pointer;padding:16px 18px;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center}
+details.cw summary::-webkit-details-marker{display:none}
+.code{font-family:var(--mono);font-size:.78rem;font-weight:700;padding:5px 9px;border-radius:3px;white-space:nowrap}
+.cw .ttl{font-weight:500;font-size:.98rem;line-height:1.3}
+.cw .ttl small{display:block;color:var(--dim);font-family:var(--mono);font-size:.68rem;font-weight:400;letter-spacing:.06em;margin-top:2px}
+.cw .chev{color:var(--dim);transition:transform .25s;font-family:var(--mono)}
+details.cw[open] .chev{transform:rotate(90deg);color:var(--cyan)}
+.cw .inner{border-top:1px dashed var(--line);margin:0 18px;padding:14px 0 18px}
+.cw .inner .chips{padding:0}
+.k-dev{background:rgba(79,209,197,.13);color:var(--cyan)}
+.k-phy{background:rgba(159,122,234,.15);color:var(--violet)}
+.k-mat{background:rgba(246,173,85,.13);color:var(--amber)}
+.k-sys{background:rgba(252,129,129,.12);color:var(--red)}
+.planned{opacity:.78;border-style:dashed}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.skills{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.skills{grid-template-columns:1fr}}
+.sk{border:1px solid var(--line);border-radius:6px;padding:20px;background:var(--panel)}
+.sk h4{font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.sk h4::before{content:"";width:8px;height:8px;border:1.5px solid var(--cyan);transform:rotate(45deg)}
+.sk .chips{padding:0}
+.certs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:760px){.certs{grid-template-columns:1fr}}
+.cert{border:1px solid var(--line);border-radius:6px;padding:18px 20px;background:var(--panel);display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.cert .badge{font-family:var(--mono);font-weight:700;font-size:.8rem;padding:10px 12px;border:1px solid var(--violet);color:var(--violet);border-radius:4px;text-align:center;line-height:1.2}
+.cert h4{font-size:1rem}
+.cert p{color:var(--muted);font-size:.88rem}
+
+/* timeline */
+.tl{position:relative;padding-left:30px}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:1px;background:linear-gradient(var(--cyan),var(--violet),transparent)}
+.tl-item{position:relative;margin-bottom:26px}
+.tl-item::before{content:"";position:absolute;left:-27px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--cyan)}
+.tl-item.next::before{border-color:var(--amber);box-shadow:0 0 0 4px rgba(246,173,85,.15)}
+.tl-item.work::before{border-color:var(--violet)}
+.tl-item .when{font-family:var(--mono);font-size:.74rem;color:var(--dim);letter-spacing:.06em}
+.tl-item h4{font-size:1.08rem;margin:2px 0 4px}
+.tl-item p{color:var(--muted);font-size:.94rem}
+.tl-legend{display:flex;gap:18px;font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-bottom:22px;flex-wrap:wrap}
+.tl-legend span{display:inline-flex;align-items:center;gap:7px}
+.ring{width:10px;height:10px;border-radius:50%;border:2px solid}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+@media(max-width:860px){.contact{grid-template-columns:1fr}}
+.contact p{color:var(--muted);font-size:1.05rem;margin-bottom:22px}
+.links{display:grid;gap:10px}
+.lnk{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--line);border-radius:6px;background:var(--panel);transition:all .2s}
+.lnk:hover{border-color:var(--cyan);transform:translateX(4px)}
+.lnk .ic{width:40px;height:40px;border-radius:4px;background:var(--bg2);border:1px solid var(--line);display:grid;place-items:center;color:var(--cyan)}
+.lnk .ic svg{width:18px;height:18px}
+.lnk .lb{font-family:var(--mono);font-size:.68rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
+.lnk .val{font-size:.95rem}
+.lnk .arr{color:var(--dim);font-family:var(--mono)}
+.copy{font-family:var(--mono);font-size:.68rem;padding:5px 9px;border:1px solid var(--line);background:var(--bg2);color:var(--muted);border-radius:3px;cursor:pointer}
+.copy:hover{border-color:var(--cyan);color:var(--cyan)}
+
+footer{border-top:1px solid var(--line);padding:40px 0 50px}
+.tblock{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;border:1px solid var(--line);font-family:var(--mono);font-size:.72rem}
+@media(max-width:700px){.tblock{grid-template-columns:1fr 1fr}}
+.tblock>div{padding:10px 14px;border-right:1px solid var(--line)}
+.tblock>div:last-child{border-right:none}
+.tblock .k{color:var(--dim);letter-spacing:.1em;font-size:.62rem}
+.tblock .v{color:var(--text);margin-top:2px}
+
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.flow,.pulse{animation:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="logo">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
+        <polygon points="16,3 28,10 28,22 16,29 4,22 4,10"/>
+        <circle cx="16" cy="16" r="3" fill="currentColor"/>
+        <line x1="16" y1="3" x2="16" y2="13"/><line x1="4" y1="22" x2="13.4" y2="17.5"/><line x1="28" y1="22" x2="18.6" y2="17.5"/>
+      </svg>
+      S.ISLAM
+    </a>
+    <div class="navlinks">
+      <a href="#about"><span>01</span> About</a>
+      <a href="#experience"><span>02</span> Experience</a>
+      <a href="#projects"><span>03</span> Projects</a>
+      <a href="#repos"><span>04</span> Code</a>
+      <a href="#coursework"><span>05</span> Courses</a>
+      <a href="#skills"><span>06</span> Skills</a>
+      <a href="#path"><span>07</span> Path</a>
+      <a href="#resume"><span>08</span> Résumé</a>
+      <a href="#contact"><span>09</span> Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="rv">
+      <div class="tag">Nanotechnology Engineering · University of Waterloo</div>
+      <h1>Sneha Islam<br><span class="accent">from silicon to software.</span></h1>
+      <p class="lede">3rd-year <b>Nanotechnology Engineering</b> student specializing in <b>nanoelectronics</b>. Across four terms of industry and research work I've shipped <b>production AI systems</b>, built <b>full-stack backends</b> and written <b>embedded battery-management code</b> — and in the lab I fabricate thin-film devices. Long term: <b>quantum computing hardware</b>.</p>
+      <div class="cta">
+        <a class="btn primary" href="#resume">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          Résumé
+        </a>
+        <a class="btn" href="#experience">View experience →</a>
+        <a class="btn" href="https://github.com/snehaislamm" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+      <div class="readout">
+        <div><div class="k">Program</div><div class="v">BASc NE</div></div>
+        <div><div class="k">Specialization</div><div class="v">Nanoelectronics</div></div>
+        <div><div class="k">Experience</div><div class="v">4 terms</div></div>
+        <div><div class="k">Open source</div><div class="v">8 repos</div></div>
+      </div>
+    </div>
+
+    <div class="schem rv">
+      <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
+      <div class="figtabs" role="tablist">
+        <button class="on" data-fig="f1">FIG. 01 · DEVICE</button>
+        <button data-fig="f2">FIG. 02 · SYSTEM</button>
+      </div>
+      <div class="fig on" id="f1">
+        <div class="hdr"><span>MIS CAPACITOR · CROSS-SECTION</span><b>NE 343</b></div>
+        <svg viewBox="0 0 420 300" font-family="JetBrains Mono, monospace">
+          <defs>
+            <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="8" stroke="#9f7aea" stroke-width="1" opacity=".35"/>
+            </pattern>
+            <pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse">
+              <circle cx="5" cy="5" r="1" fill="#4fd1c5" opacity=".35"/>
+            </pattern>
+            <linearGradient id="al" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#cbd5e0"/><stop offset="1" stop-color="#718096"/></linearGradient>
+          </defs>
+          <line x1="210" y1="20" x2="210" y2="70" stroke="#f6ad55" stroke-width="2"/>
+          <circle cx="210" cy="18" r="5" fill="none" stroke="#f6ad55" stroke-width="2"/>
+          <text x="222" y="22" fill="#f6ad55" font-size="11">V<tspan font-size="8" dy="3">G</tspan></text>
+          <rect x="130" y="70" width="160" height="26" fill="url(#al)" rx="1"/>
+          <text x="210" y="87" fill="#1a202c" font-size="11" text-anchor="middle" font-weight="700">Al (PVD)</text>
+          <rect x="40" y="96" width="340" height="22" fill="#9f7aea" fill-opacity=".18" stroke="#9f7aea" stroke-width="1"/>
+          <rect x="40" y="96" width="340" height="22" fill="url(#hatch)"/>
+          <text x="52" y="111" fill="#c4b5fd" font-size="10">SiNₓ · PECVD</text>
+          <rect x="40" y="118" width="340" height="120" fill="#4fd1c5" fill-opacity=".07" stroke="#2c9c93" stroke-width="1"/>
+          <rect x="40" y="118" width="340" height="120" fill="url(#dots)"/>
+          <text x="52" y="226" fill="#4fd1c5" font-size="11">p-Si substrate</text>
+          <path d="M130 118 L290 118 L290 150 Q210 164 130 150 Z" fill="#f6ad55" fill-opacity=".1" stroke="#f6ad55" stroke-dasharray="4 3" class="pulse"/>
+          <text x="210" y="142" fill="#f6ad55" font-size="9" text-anchor="middle">depletion</text>
+          <g stroke="#4fd1c5" stroke-width="1.2" class="flow" opacity=".7">
+            <line x1="160" y1="98" x2="160" y2="146"/><line x1="185" y1="98" x2="185" y2="152"/>
+            <line x1="210" y1="98" x2="210" y2="155"/><line x1="235" y1="98" x2="235" y2="152"/><line x1="260" y1="98" x2="260" y2="146"/>
+          </g>
+          <rect x="40" y="238" width="340" height="10" fill="url(#al)"/>
+          <line x1="210" y1="248" x2="210" y2="272" stroke="#56688a" stroke-width="2"/>
+          <g stroke="#56688a" stroke-width="2"><line x1="194" y1="272" x2="226" y2="272"/><line x1="199" y1="278" x2="221" y2="278"/><line x1="204" y1="284" x2="216" y2="284"/></g>
+          <g stroke="#8a9bb8" stroke-width="1">
+            <line x1="388" y1="96" x2="404" y2="96"/><line x1="388" y1="118" x2="404" y2="118"/>
+            <line x1="398" y1="96" x2="398" y2="118"/>
+            <polyline points="395,101 398,96 401,101" fill="none"/><polyline points="395,113 398,118 401,113" fill="none"/>
+          </g>
+          <text x="404" y="88" fill="#8a9bb8" font-size="9" text-anchor="end">t ≈ 102.6 nm</text>
+          <text x="404" y="78" fill="#56688a" font-size="8" text-anchor="end">ellipsometry</text>
+        </svg>
+      </div>
+      <div class="fig" id="f2">
+        <div class="hdr"><span>AGENTIC NEWSLETTER PIPELINE</span><b>COMMUNITECH</b></div>
+        <svg viewBox="0 0 420 300" font-family="JetBrains Mono, monospace">
+          <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#4fd1c5"/></marker></defs>
+          <g font-size="9">
+            <rect x="14" y="30" width="92" height="40" rx="3" fill="#0c1322" stroke="#4fd1c5"/>
+            <text x="60" y="47" fill="#e2e8f0" text-anchor="middle">50+ sources</text>
+            <text x="60" y="61" fill="#56688a" text-anchor="middle" font-size="8">Playwright·BS4</text>
+            <rect x="164" y="30" width="92" height="40" rx="3" fill="#0c1322" stroke="#4fd1c5"/>
+            <text x="210" y="47" fill="#e2e8f0" text-anchor="middle">extract</text>
+            <text x="210" y="61" fill="#56688a" text-anchor="middle" font-size="8">+ dedup</text>
+            <rect x="314" y="30" width="92" height="40" rx="3" fill="#0c1322" stroke="#9f7aea"/>
+            <text x="360" y="47" fill="#e2e8f0" text-anchor="middle">summarize</text>
+            <text x="360" y="61" fill="#9f7aea" text-anchor="middle" font-size="8">Gemini API</text>
+            <rect x="314" y="130" width="92" height="40" rx="3" fill="#0c1322" stroke="#9f7aea"/>
+            <text x="360" y="147" fill="#e2e8f0" text-anchor="middle">personalize</text>
+            <text x="360" y="161" fill="#56688a" text-anchor="middle" font-size="8">re-rank per user</text>
+            <rect x="164" y="130" width="92" height="40" rx="3" fill="#0c1322" stroke="#f6ad55"/>
+            <text x="210" y="147" fill="#e2e8f0" text-anchor="middle">PostgreSQL</text>
+            <text x="210" y="161" fill="#56688a" text-anchor="middle" font-size="8">archive</text>
+            <rect x="14" y="130" width="92" height="40" rx="3" fill="#0c1322" stroke="#4fd1c5"/>
+            <text x="60" y="147" fill="#e2e8f0" text-anchor="middle">SendGrid</text>
+            <text x="60" y="161" fill="#56688a" text-anchor="middle" font-size="8">weekly email</text>
+            <rect x="164" y="220" width="92" height="40" rx="3" fill="#0c1322" stroke="#9f7aea"/>
+            <text x="210" y="237" fill="#e2e8f0" text-anchor="middle">Q&amp;A chatbot</text>
+            <text x="210" y="251" fill="#56688a" text-anchor="middle" font-size="8">natural language</text>
+          </g>
+          <g stroke="#4fd1c5" stroke-width="1.4" fill="none" class="flow" marker-end="url(#ar)">
+            <line x1="106" y1="50" x2="162" y2="50"/>
+            <line x1="256" y1="50" x2="312" y2="50"/>
+            <line x1="360" y1="70" x2="360" y2="128"/>
+            <line x1="314" y1="150" x2="258" y2="150"/>
+            <line x1="164" y1="150" x2="108" y2="150"/>
+            <line x1="210" y1="170" x2="210" y2="218"/>
+          </g>
+          <rect x="300" y="210" width="110" height="60" rx="3" fill="none" stroke="#1c2a44" stroke-dasharray="4 3"/>
+          <text x="355" y="230" fill="#8a9bb8" font-size="8" text-anchor="middle">React · TS · FastAPI</text>
+          <text x="355" y="244" fill="#8a9bb8" font-size="8" text-anchor="middle">Docker · Azure</text>
+          <text x="355" y="258" fill="#4fd1c5" font-size="8" text-anchor="middle">1,200+ companies</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="metrics rv">
+      <div class="metric"><div class="n">50+</div><div class="l">ecosystem sources summarized daily</div><div class="src">Communitech</div></div>
+      <div class="metric"><div class="n">1,200+</div><div class="l">companies covered by AI monitoring</div><div class="src">Communitech</div></div>
+      <div class="metric"><div class="n">&lt;300ms</div><div class="l">photo / audio / video retrieval</div><div class="src">The Plug Co</div></div>
+      <div class="metric"><div class="n">85%+</div><div class="l">semantic-matching accuracy</div><div class="src">The Plug Co</div></div>
+      <div class="metric"><div class="n">±2%</div><div class="l">state-of-charge estimation accuracy</div><div class="src">Battery WC</div></div>
+      <div class="metric"><div class="n">−35%</div><div class="l">BMS regression testing time</div><div class="src">Battery WC</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-h rv"><span class="num">§01</span><h2>About</h2><span class="rule"></span><span class="note">// whoami</span></div>
+    <div class="about">
+      <div class="rv">
+        <p>I'm a Nanotechnology Engineering student at the <b>University of Waterloo</b>, specializing in <b>nanoelectronics</b>. I went into engineering wanting to build physical hardware, and my coursework sits where physics meets fabrication: quantum mechanics, microfabrication, polymer science and continuum mechanics.</p>
+        <p>My work terms pulled me the other way, into <b>software and applied AI</b>. At <b>Communitech</b> I built and shipped an agentic AI system that monitors the Waterloo tech ecosystem; at <b>The Plug Co</b> I built an AI-integrated backend with vector search; and on the <b>Battery Workforce Challenge</b> I wrote state-of-charge algorithms and embedded C diagnostics for an EV battery pack.</p>
+        <p>Outside work I build <b>open-source engineering projects</b> end to end — an FPGA place-and-route tool and an ML kernel compiler in C++, EV control software in C99, a thin-film lab toolkit, and ML systems in Python and Go — each with tests, CI and honest benchmarks.</p>
+        <p>That mix is the point: I like problems where the <b>device, the data and the code</b> all matter. Long term, I want to work on the <b>hardware behind quantum computers</b>.</p>
+      </div>
+      <div class="spec rv">
+        <div class="hdrow">DATASHEET · S. ISLAM</div>
+        <div class="row"><div class="k">Institution</div><div class="v">University of Waterloo</div></div>
+        <div class="row"><div class="k">Degree</div><div class="v">BASc, Nanotechnology Eng.</div></div>
+        <div class="row"><div class="k">Option</div><div class="v">Nanoelectronics</div></div>
+        <div class="row"><div class="k">Standing</div><div class="v">3B (Fall 2026)</div></div>
+        <div class="row"><div class="k">Experience</div><div class="v">SWE · AI · Embedded · Research</div></div>
+        <div class="row"><div class="k">Certs</div><div class="v">Azure AZ-900 · AI-900</div></div>
+        <div class="row"><div class="k">Next</div><div class="v">Co-op term · Winter 2027</div></div>
+        <div class="row"><div class="k">Location</div><div class="v">Waterloo, ON</div></div>
+      </div>
+    </div>
+
+    <div class="interests">
+      <div class="int rv">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#4fd1c5" stroke-width="1.6">
+          <circle cx="24" cy="24" r="4" fill="#4fd1c5"/>
+          <ellipse cx="24" cy="24" rx="20" ry="8"/>
+          <ellipse cx="24" cy="24" rx="20" ry="8" transform="rotate(60 24 24)"/>
+          <ellipse cx="24" cy="24" rx="20" ry="8" transform="rotate(120 24 24)"/>
+        </svg>
+        <h4>Quantum hardware</h4>
+        <p>The devices and materials that turn quantum mechanics into working qubits.</p>
+      </div>
+      <div class="int rv">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#9f7aea" stroke-width="1.6">
+          <rect x="6" y="30" width="36" height="8"/><rect x="10" y="22" width="28" height="8"/><rect x="16" y="14" width="16" height="8"/>
+          <line x1="24" y1="4" x2="24" y2="14"/>
+        </svg>
+        <h4>Nanoelectronics</h4>
+        <p>Thin-film devices, CMOS process flows, and how fabrication shapes device behaviour.</p>
+      </div>
+      <div class="int rv">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#fc8181" stroke-width="1.6">
+          <circle cx="10" cy="24" r="4"/><circle cx="38" cy="12" r="4"/><circle cx="38" cy="36" r="4"/><circle cx="24" cy="24" r="5" fill="#fc8181" fill-opacity=".25"/>
+          <line x1="14" y1="24" x2="19" y2="24"/><line x1="28" y1="21" x2="34" y2="14"/><line x1="28" y1="27" x2="34" y2="34"/>
+        </svg>
+        <h4>Applied AI</h4>
+        <p>LLM pipelines, retrieval and agents that replace real manual work in production.</p>
+      </div>
+      <div class="int rv">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#f6ad55" stroke-width="1.6">
+          <polyline points="4,38 14,28 22,32 32,16 44,10"/>
+          <line x1="4" y1="44" x2="44" y2="44"/><line x1="4" y1="4" x2="4" y2="44"/>
+          <circle cx="32" cy="16" r="2.5" fill="#f6ad55"/>
+        </svg>
+        <h4>Fintech</h4>
+        <p>Quantitative modelling, from cash-flow analysis to AI investing tools.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-h rv"><span class="num">§02</span><h2>Experience</h2><span class="rule"></span><span class="note">// 4 terms · industry + research</span></div>
+    <div class="xp">
+
+      <article class="job feature rv">
+        <div class="top"><span>FEB 2026 – MAY 2026 · WATERLOO, ON</span><span class="kind kd-ai">SOFTWARE · APPLIED AI</span></div>
+        <div class="body">
+          <div>
+            <h3>Software Developer Co-op — AI Adoption Program</h3>
+            <div class="org">Communitech</div>
+            <ul>
+              <li>Built and shipped an <b>agentic AI system</b> (React/TypeScript, FastAPI, PostgreSQL) that scrapes, deduplicates and summarizes <b>50+ ecosystem sources daily</b> with the Gemini API — replacing manual cross-team monitoring across <b>1,200+ companies</b>.</li>
+              <li>Engineered a <b>weekly automated pipeline</b> (Playwright scraping, async concurrency control, SendGrid delivery) plus a <b>natural-language Q&amp;A chatbot</b> over the newsletter archive.</li>
+              <li>Designed and deployed a <b>personalization engine</b> that re-ranks and re-summarizes content per user from their bio, focus areas and keywords; containerized with <b>Docker on Azure</b>, behind Google OAuth.</li>
+              <li>Added portfolio tracking (CSV/Excel upload → AI-flagged mentions), PDF export and a per-user scheduler.</li>
+            </ul>
+          </div>
+          <div class="arch">
+            <div class="cap">SYSTEM MAP</div>
+            <svg viewBox="0 0 300 210" font-family="JetBrains Mono, monospace" style="width:100%">
+              <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#56688a"/></marker></defs>
+              <g font-size="8.5">
+                <rect x="8" y="10" width="284" height="34" rx="3" fill="#0f1829" stroke="#4fd1c5"/>
+                <text x="150" y="25" fill="#e2e8f0" text-anchor="middle">Frontend · React 18 + TypeScript + Tailwind</text>
+                <text x="150" y="37" fill="#56688a" text-anchor="middle" font-size="7.5">Home · Archive · Q&amp;A · Sources · Profile</text>
+                <rect x="8" y="70" width="284" height="56" rx="3" fill="#0f1829" stroke="#9f7aea"/>
+                <text x="150" y="85" fill="#e2e8f0" text-anchor="middle">Backend · FastAPI + Uvicorn</text>
+                <text x="24" y="101" fill="#8a9bb8" font-size="7.5">scrape → extract → dedup → relevance</text>
+                <text x="24" y="114" fill="#8a9bb8" font-size="7.5">summarize → personalize → email / PDF</text>
+                <rect x="8" y="152" width="88" height="44" rx="3" fill="#0f1829" stroke="#f6ad55"/>
+                <text x="52" y="172" fill="#e2e8f0" text-anchor="middle">PostgreSQL</text>
+                <text x="52" y="185" fill="#56688a" text-anchor="middle" font-size="7.5">users · issues</text>
+                <rect x="106" y="152" width="88" height="44" rx="3" fill="#0f1829" stroke="#9f7aea"/>
+                <text x="150" y="172" fill="#e2e8f0" text-anchor="middle">Gemini API</text>
+                <text x="150" y="185" fill="#56688a" text-anchor="middle" font-size="7.5">LLM</text>
+                <rect x="204" y="152" width="88" height="44" rx="3" fill="#0f1829" stroke="#4fd1c5"/>
+                <text x="248" y="172" fill="#e2e8f0" text-anchor="middle">SendGrid</text>
+                <text x="248" y="185" fill="#56688a" text-anchor="middle" font-size="7.5">Mon 7 AM ET</text>
+              </g>
+              <g stroke="#56688a" stroke-width="1.2" marker-end="url(#ar2)">
+                <line x1="150" y1="44" x2="150" y2="68"/>
+                <line x1="60" y1="126" x2="52" y2="150"/><line x1="150" y1="126" x2="150" y2="150"/><line x1="240" y1="126" x2="248" y2="150"/>
+              </g>
+              <text x="292" y="62" fill="#4fd1c5" font-size="7.5" text-anchor="end">Docker · Azure Container Apps</text>
+            </svg>
+          </div>
+        </div>
+        <div class="chips"><span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">FastAPI</span><span class="chip">PostgreSQL</span><span class="chip">Gemini API</span><span class="chip">Playwright</span><span class="chip">BeautifulSoup4</span><span class="chip">SendGrid</span><span class="chip">OAuth2 / JWT</span><span class="chip">Docker</span><span class="chip">Azure</span></div>
+      </article>
+
+      <div class="xp-two">
+        <article class="job rv">
+          <div class="top"><span>SEP 2025 – JAN 2026 · TORONTO, ON</span><span class="kind kd-sw">DATA · AI</span></div>
+          <div class="body">
+            <h3>Data Analysis &amp; AI Development Intern</h3>
+            <div class="org">The Plug Co</div>
+            <ul>
+              <li>Built a full-stack backend (FastAPI, PostgreSQL, AWS) retrieving photos, audio and video in <b>under 300 ms</b>, integrating speech-to-text, image recognition and semantic matching at <b>85%+ accuracy</b>.</li>
+              <li>Developed a <b>vector search pipeline</b> (Pinecone/FAISS) with SQL schemas supporting <b>10k+ timeline events</b>, plus Swift (iOS) and Unity (VR) MVP frontends.</li>
+              <li>Implemented <b>privacy-by-design</b> (RBAC, AES-256, GDPR Art. 17) and delivered an investor-ready AI prototype in <b>12 weeks</b>, running Jira sprints that sped delivery by 25%.</li>
+            </ul>
+          </div>
+          <div class="chips"><span class="chip">FastAPI</span><span class="chip">AWS</span><span class="chip">Pinecone</span><span class="chip">FAISS</span><span class="chip">Swift</span><span class="chip">Unity</span><span class="chip">Jira</span></div>
+        </article>
+
+        <article class="job rv">
+          <div class="top"><span>JAN 2025 – APR 2025 · WATERLOO, ON</span><span class="kind kd-hw">EMBEDDED · RESEARCH</span></div>
+          <div class="body">
+            <h3>Undergraduate Research Assistant</h3>
+            <div class="org">Battery Workforce Challenge · University of Waterloo</div>
+            <ul>
+              <li>Developed <b>state-of-charge estimation</b> (±2% accuracy) and fault-detection routines in MATLAB and Python, plus <b>embedded C</b> diagnostic logging for overvoltage, HVIL and isolation-resistance faults.</li>
+              <li>Built automated test scripts and <b>fault-injection simulations</b> that cut regression testing time by <b>35%</b> across BMS validation workflows.</li>
+              <li>Implemented <b>CAN bus</b> communication carrying <b>120+ DBC-defined signals</b> between BPCM and EVCU to simulate field conditions.</li>
+            </ul>
+          </div>
+          <div class="chips"><span class="chip">Embedded C</span><span class="chip">MATLAB</span><span class="chip">Python</span><span class="chip">CAN / DBC</span><span class="chip">BMS</span><span class="chip">Fault injection</span></div>
+        </article>
+
+        <article class="job rv">
+          <div class="top"><span>MAY 2024 – AUG 2024 · WATERLOO, ON</span><span class="kind kd-cl">CLOUD · AI</span></div>
+          <div class="body">
+            <h3>Software Developer</h3>
+            <div class="org">Avanade · Microsoft Azure &amp; AI (WE Accelerate)</div>
+            <ul>
+              <li>Earned <b>AZ-900 / AI-900</b> and worked with Avanade consultants on <b>3 AI projects</b>, including a chatbot prototype projected to cut client response time by 40%.</li>
+              <li>Designed AI-driven <b>Azure workflows</b> (+25% data-processing efficiency) and co-built a cross-platform <b>financial AI chatbot</b> (Flutter/Dart, Alpha Vantage + OpenAI APIs) — <a href="https://github.com/zahra-ahmed1/yunus-AI" target="_blank" rel="noopener" style="color:var(--cyan)">yunus-AI ↗</a>.</li>
+              <li>Delivered <b>10+ client-style presentations</b>; team placed <b>top 3 for innovation</b>.</li>
+            </ul>
+          </div>
+          <div class="chips"><span class="chip">Azure</span><span class="chip">Flutter / Dart</span><span class="chip">OpenAI API</span><span class="chip">Alpha Vantage</span><span class="chip">Agile consulting</span></div>
+        </article>
+
+        <article class="job rv">
+          <div class="top"><span>FALL 2026 – PRESENT · WATERLOO, ON</span><span class="kind kd-sw">LEADERSHIP</span></div>
+          <div class="body">
+            <h3>Engineering Ambassador</h3>
+            <div class="org">University of Waterloo Engineering</div>
+            <ul>
+              <li>Selected to represent <b>Nanotechnology Engineering</b> to prospective students through campus tours, shadow days and Ask a Warrior chats.</li>
+              <li>Support large recruitment events such as <b>Fall Open House</b> (200–300 volunteers).</li>
+              <li>Completed formal training in <b>public speaking, mentorship</b> and recruitment communication.</li>
+            </ul>
+          </div>
+          <div class="chips"><span class="chip">Public speaking</span><span class="chip">Mentorship</span><span class="chip">Outreach</span></div>
+        </article>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-h rv"><span class="num">§03</span><h2>Projects</h2><span class="rule"></span><span class="note">// lab · design · code</span></div>
+    <div class="projects">
+
+      <article class="proj feature rv">
+        <div class="top"><span>PRJ-001 · DEVICE FABRICATION</span><span class="status s-done">COMPLETE</span></div>
+        <div class="body">
+          <div>
+            <h3>MIS Capacitor Fabrication &amp; C–V Characterization</h3>
+            <div class="course">NE 343 · Microfabrication</div>
+            <p>Fabricated and characterized an Al / SiNₓ / p-Si metal–insulator–semiconductor capacitor, then wrote a ~15-page technical report on its processing and electrical behaviour.</p>
+            <ul>
+              <li>Deposited the <b>SiNₓ dielectric by PECVD</b> and the <b>Al gate by PVD</b> on a p-type silicon wafer.</li>
+              <li>Measured film thickness with <b>ellipsometry (102.6 nm)</b> and <b>stylus profilometry</b>; traced the disagreement to a <b>step-edge artefact</b> and justified ellipsometry as the reliable value.</li>
+              <li>Analysed <b>C–V curves</b>, interpreting minimum capacitance and <b>threshold-voltage shift</b> in terms of fixed and interface charge.</li>
+            </ul>
+          </div>
+          <svg viewBox="0 0 300 200" font-family="JetBrains Mono, monospace" style="width:100%">
+            <rect x="0" y="0" width="300" height="200" fill="#0c1322" stroke="#1c2a44"/>
+            <g stroke="#1c2a44"><line x1="40" y1="40" x2="290" y2="40"/><line x1="40" y1="80" x2="290" y2="80"/><line x1="40" y1="120" x2="290" y2="120"/><line x1="100" y1="15" x2="100" y2="165"/><line x1="165" y1="15" x2="165" y2="165"/><line x1="230" y1="15" x2="230" y2="165"/></g>
+            <line x1="40" y1="165" x2="290" y2="165" stroke="#56688a"/><line x1="40" y1="15" x2="40" y2="165" stroke="#56688a"/>
+            <path d="M45 30 C120 30 130 32 150 70 S180 145 210 148 S270 150 288 150" fill="none" stroke="#4fd1c5" stroke-width="2.2"/>
+            <path d="M45 30 C150 30 160 32 180 70 S210 145 240 148 S280 150 288 150" fill="none" stroke="#f6ad55" stroke-width="1.6" stroke-dasharray="5 4"/>
+            <line x1="150" y1="88" x2="180" y2="88" stroke="#fc8181" stroke-width="1.2"/>
+            <polyline points="175,84 180,88 175,92" fill="none" stroke="#fc8181" stroke-width="1.2"/>
+            <text x="150" y="100" fill="#fc8181" font-size="9">ΔV_T</text>
+            <text x="48" y="24" fill="#8a9bb8" font-size="9">C_ox</text>
+            <text x="250" y="144" fill="#8a9bb8" font-size="9">C_min</text>
+            <text x="165" y="186" fill="#56688a" font-size="10" text-anchor="middle">V_G (V)</text>
+            <text x="18" y="95" fill="#56688a" font-size="10" text-anchor="middle" transform="rotate(-90 18 95)">C (F)</text>
+            <text x="200" y="28" fill="#4fd1c5" font-size="8">— measured</text>
+            <text x="200" y="40" fill="#f6ad55" font-size="8">- - ideal</text>
+          </svg>
+        </div>
+        <div class="chips"><span class="chip">PECVD</span><span class="chip">PVD</span><span class="chip">Ellipsometry</span><span class="chip">Profilometry</span><span class="chip">C–V analysis</span><span class="chip">Technical writing</span></div>
+      </article>
+
+      <article class="proj rv">
+        <div class="top"><span>PRJ-002 · CAPSTONE</span><span class="status s-wip">IN PROGRESS</span></div>
+        <div class="body">
+          <h3>AI-Assisted Biosensor for Early Disease Detection</h3>
+          <div class="course">NE Capstone Design · Team project</div>
+          <p>Team capstone in the discovery stage: a medical-device biosensor pairing a <b class="hl">nanoelectronic sensing element</b> with a <b class="hl">machine-learning model</b> to catch early biomarker patterns.</p>
+          <ul>
+            <li>Problem discovery with faculty and industry consultants.</li>
+            <li>Evaluating early-detection targets, including sarcoma.</li>
+          </ul>
+        </div>
+        <div class="chips"><span class="chip">Biosensing</span><span class="chip">Nanoelectronics</span><span class="chip">ML</span><span class="chip">Medical devices</span></div>
+      </article>
+
+      <article class="proj rv">
+        <div class="top"><span>PRJ-003 · COMPUTATION</span><span class="status s-done">COMPLETE</span></div>
+        <div class="body">
+          <h3>Engineering Economics Analysis Toolkit</h3>
+          <div class="course">MSE 261 · Engineering Economics</div>
+          <p>Python scripts and Excel models for capital-investment decisions, built to solve and check problem sets end to end.</p>
+          <ul>
+            <li>PW / AW / FW, <b>IRR</b>, incremental IRR and ERR comparisons.</li>
+            <li>Replacement analysis, after-tax <b>CCA</b>, inflation, B/C ratios.</li>
+            <li>Sensitivity analysis, decision trees and <b>CPM project crashing</b>.</li>
+          </ul>
+        </div>
+        <div class="chips"><span class="chip">Python</span><span class="chip">Excel</span><span class="chip">Financial modelling</span></div>
+      </article>
+
+      <article class="proj rv">
+        <div class="top"><span>PRJ-004 · MATERIALS</span><span class="status s-done">COMPLETE</span></div>
+        <div class="body">
+          <h3>Recycling Multilayer Plastic Packaging</h3>
+          <div class="course">NE 333 · Polymer Science · Group project</div>
+          <p>Group study of why multilayer packaging is so hard to recycle. I owned the <b class="hl">Challenges</b> section — material incompatibility and separation barriers — and presented it to the class.</p>
+        </div>
+        <div class="chips"><span class="chip">Polymer blends</span><span class="chip">Sustainability</span><span class="chip">Presentation</span></div>
+      </article>
+
+      <article class="proj rv">
+        <div class="top"><span>PRJ-005 · COMPUTATION</span><span class="status s-done">COMPLETE</span></div>
+        <div class="body">
+          <h3>Tensor Transformation Solver</h3>
+          <div class="course">NE 318 · Continuum Mechanics</div>
+          <p>A Python script for tensor coordinate transformations, used to check hand derivations and cross-checked against fully worked analytical solutions.</p>
+        </div>
+        <div class="chips"><span class="chip">Python</span><span class="chip">NumPy</span><span class="chip">Linear algebra</span></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- REPOS -->
+<section id="repos">
+  <div class="wrap">
+    <div class="sec-h rv"><span class="num">§04</span><h2>Open Source</h2><span class="rule"></span><span class="note">// github.com/snehaislamm</span></div>
+    <div class="filters rv" id="filters">
+      <button class="on" data-f="all">All<i>8</i></button>
+      <button data-f="hw">Hardware &amp; EDA<i>2</i></button>
+      <button data-f="emb">Embedded &amp; Controls<i>2</i></button>
+      <button data-f="sys">Compilers &amp; Systems<i>2</i></button>
+      <button data-f="ml">ML &amp; Applied AI<i>3</i></button>
+    </div>
+    <div class="repos">
+
+      <article class="repo rv" data-cat="hw">
+        <div class="rh"><span class="path">snehaislamm/<b>vaclab</b></span><span class="lang"><i style="background:#3572A5"></i>Python</span></div>
+        <div class="rb">
+          <h3>Thin-film lab toolkit: vacuum, leaks, DoE &amp; metrology</h3>
+          <p>Pump-down certification, rate-of-rise and helium-spray leak finding, a 2³ sputtering DoE, spectral reflectometry and ion-beam wafer heating. Seeded with the <b>102.6 nm SiNₓ</b> I measured in my NE 343 MIS-capacitor lab.</p>
+          <div class="stats">
+            <div><div class="n">1.73→0.24 nm</div><div class="l">worst-case thickness error after index calibration</div></div>
+            <div><div class="n">&lt;1%</div><div class="l">leak-rate recovery error (vs 16% linear fit)</div></div>
+            <div><div class="n">28</div><div class="l">tests · CI</div></div>
+          </div>
+        </div>
+        <div class="chips"><span class="chip">Vacuum physics</span><span class="chip">DoE / t-tests</span><span class="chip">Reflectometry</span><span class="chip">NumPy · SciPy</span></div>
+        <div class="go"><span>Fab · metrology</span><a href="https://github.com/snehaislamm/vaclab" target="_blank" rel="noopener">View repo ↗</a></div>
+      </article>
+
+      <article class="repo rv" data-cat="hw">
+        <div class="rh"><span class="path">snehaislamm/<b>fabricfit</b></span><span class="lang"><i style="background:#f34b7d"></i>C++17</span></div>
+        <div class="rb">
+          <h3>FPGA place-and-route tool</h3>
+          <p>Models an island-style FPGA with IO, HSSI transceiver and NoC hard blocks as a routing-resource graph; <b>simulated-annealing placement</b>, <b>PathFinder</b> negotiated-congestion routing with A*, minimum channel-width search and static timing, rendered to SVG.</p>
+          <div class="stats">
+            <div><div class="n">2,218</div><div class="l">blocks routed on a 54×54 device</div></div>
+            <div><div class="n">−65%</div><div class="l">placement cost vs random</div></div>
+            <div><div class="n">89.5 MHz</div><div class="l">Fmax, 200-block design</div></div>
+          </div>
+        </div>
+        <div class="chips"><span class="chip">C++17</span><span class="chip">CMake</span><span class="chip">Graph algorithms</span><span class="chip">STA</span></div>
+        <div class="go"><span>EDA · FPGA</span><a href="https://github.com/snehaislamm/fabricfit" target="_blank" rel="noopener">View repo ↗</a></div>
+      </article>
+
+      <article class="repo rv" data-cat="emb">
+        <div class="rh"><span class="path">snehaislamm/<b>zonecore</b></span><span class="lang"><i style="background:#555555"></i>C99</span></div>
+        <div class="rb">
+          <h3>Vehicle controls stack for a quad-motor EV</h3>
+          <p>Embedded C for BMS (2-state <b>EKF SOC</b>), DC fast charging, thermal, propulsion, traction control, torque vectoring and functional safety, verified by a Python <b>software-in-the-loop</b> bench over E2E-protected CAN.</p>
+          <div class="stats">
+            <div><div class="n">46/46</div><div class="l">ASIL-tagged requirements traced to tests</div></div>
+            <div><div class="n">32</div><div class="l">closed-loop SIL scenarios, 9 fault-injection</div></div>
+            <div><div class="n">~3.1k</div><div class="l">lines C99, no heap, clang-tidy clean</div></div>
+          </div>
+        </div>
+        <div class="chips"><span class="chip">Embedded C</span><span class="chip">CAN / DBC</span><span class="chip">ISO 26262 style</span><span class="chip">SIL testing</span></div>
+        <div class="go"><span>Automotive · safety</span><a href="https://github.com/snehaislamm/zonecore" target="_blank" rel="noopener">View repo ↗</a></div>
+      </article>
+
+      <article class="repo rv" data-cat="emb">
+        <div class="rh"><span class="path">snehaislamm/<b>modcell</b></span><span class="lang"><i style="background:#3572A5"></i>Ladder · Python</span></div>
+        <div class="rb">
+          <h3>Controls package for a robotic module-assembly cell</h3>
+          <p>Rockwell-format <b>ladder logic</b> running on a custom 10 ms scan engine against a plant model: conveyor, clamps, vision inspection, fastening robot, MES reporting, an ISA-101 HMI and an ISO 13849 safeguarding concept.</p>
+          <div class="stats">
+            <div><div class="n">97</div><div class="l">rungs across 12 routines</div></div>
+            <div><div class="n">~520/h</div><div class="l">parts throughput incl. indexing</div></div>
+            <div><div class="n">10 ms</div><div class="l">E-stop to safe state (1 scan)</div></div>
+          </div>
+        </div>
+        <div class="chips"><span class="chip">PLC / ladder</span><span class="chip">Machine vision</span><span class="chip">HMI</span><span class="chip">Functional safety</span></div>
+        <div class="go"><span>Manufacturing controls</span><a href="https://github.com/snehaislamm/modcell" target="_blank" rel="noopener">View repo ↗</a></div>
+      </article>
+
+      <article class="repo rv" data-cat="sys">
+        <div class="rh"><span class="path">snehaislamm/<b>tilec</b></span><span class="lang"><i style="background:#f34b7d"></i>C++17 · LLVM</span></div>
+        <div class="rb">
+          <h3>Tile-based ML kernel compiler → LLVM IR</h3>
+          <p>Compiles a Triton-style DSL (matmul, softmax, LayerNorm, attention, GELU) through an SSA tile IR with CSE/DCE and <b>kernel fusion</b>, then lowers to cache-blocked LLVM IR. Tested with FileCheck IR tests, NumPy end-to-end checks and a <b>differential fuzzer</b>.</p>
+          <div class="stats">
+            <div><div class="n">15.7×</div><div class="l">tiled matmul vs naive (38.8 GFLOP/s)</div></div>
+            <div><div class="n">1.81×</div><div class="l">LayerNorm speed-up from fusion</div></div>
+            <div><div class="n">2,000</div><div class="l">fuzzed programs pass</div></div>
+          </div>
+        </div>
+        <div class="chips"><span class="chip">C++17</span><span class="chip">LLVM IR</span><span class="chip">Compilers</span><span class="chip">ASan / UBSan</span></div>
+        <div class="go"><span>Compilers · ML systems</span><a href="https://github.com/snehaislamm/tilec" target="_blank" rel="noopener">View repo ↗</a></div>
+      </article>
+
+      <article class="repo rv" data-cat="sys ml">
+        <div class="rh"><span class="path">snehaislamm/<b>muse</b></span><span class="lang"><i style="background:#00ADD8"></i>Go · Python · TS</span></div>
+        <div class="rb">
+          <h3>Visual discovery engine with an online A/B harness</h3>
+          <p>A home-feed recommender with a Go serving stack, Python ML pipeline and React client. Corrected <b>position bias</b> with inverse-propensity weighting and showed a naive offline metric would have rejected the better model. All data is simulated.</p>
+          <div class="stats">
+            <div><div class="n">+14.1%</div><div class="l">saves in a 4,000-user simulated A/B</div></div>
+            <div><div class="n">10.7 ms</div><div class="l">p99 at 359 QPS</div></div>
+            <div><div class="n">0.90</div><div class="l">Kendall τ for IPS vs 0.52 naive</div></div>
+          </div>
+        </div>
+        <div class="chips"><span class="chip">Go</span><span class="chip">Recommender systems</span><span class="chip">Causal eval</span><span class="chip">React / TS</span></div>
+        <div class="go"><span>RecSys · experimentation</span><a href="https://github.com/snehaislamm/muse" target="_blank" rel="noopener">View repo ↗</a></div>
+      </article>
+
+      <article class="repo rv" data-cat="ml">
+        <div class="rh"><span class="path">snehaislamm/<b>facesolve</b></span><span class="lang"><i style="background:#3572A5"></i>Python · NumPy</span></div>
+        <div class="rb">
+          <h3>Neural blendshape solver for facial capture</h3>
+          <p>Noisy landmark capture in, clean blendshape animation out as <b>UsdSkel</b> for Maya and Houdini. Kabsch stabilization and outlier rejection, then an MLP with <b>hand-derived, gradient-checked backprop</b>, plus a PyTorch/ONNX port.</p>
+          <div class="stats">
+            <div><div class="n">0.29 mm</div><div class="l">mean vertex error (0.40 least squares)</div></div>
+            <div><div class="n">~70×</div><div class="l">faster than the least-squares solve</div></div>
+            <div><div class="n">18.8→1.26</div><div class="l">landmark RMSE (mm) after cleaning</div></div>
+          </div>
+        </div>
+        <div class="chips"><span class="chip">NumPy</span><span class="chip">PyTorch · ONNX</span><span class="chip">USD</span><span class="chip">Docker · CI</span></div>
+        <div class="go"><span>ML · graphics pipeline</span><a href="https://github.com/snehaislamm/facesolve" target="_blank" rel="noopener">View repo ↗</a></div>
+      </article>
+
+      <article class="repo rv" data-cat="ml">
+        <div class="rh"><span class="path">snehaislamm/<b>coa-forge</b></span><span class="lang"><i style="background:#3572A5"></i>Python</span></div>
+        <div class="rb">
+          <h3>Course-of-action generation &amp; Monte Carlo war-gaming</h3>
+          <p>Generates candidate plans over a fictional scenario with threat-aware A* routing and <b>NSGA-II</b> search, pre-screened by a <b>random-forest surrogate</b>, war-games them stochastically, then writes a decision brief of three Pareto-optimal options with confidence intervals.</p>
+          <div class="stats">
+            <div><div class="n">~2,000</div><div class="l">COAs war-gamed in ~20 s on a laptop</div></div>
+            <div><div class="n">R² 0.97</div><div class="l">surrogate hold-out, mission success</div></div>
+            <div><div class="n">+3.9%</div><div class="l">best mission score vs plain NSGA-II</div></div>
+          </div>
+        </div>
+        <div class="chips"><span class="chip">Multi-objective optimization</span><span class="chip">scikit-learn</span><span class="chip">Simulation</span><span class="chip">Docker · CI</span></div>
+        <div class="go"><span>Decision support</span><a href="https://github.com/snehaislamm/coa-forge" target="_blank" rel="noopener">View repo ↗</a></div>
+      </article>
+
+    </div>
+
+    <div class="early rv">
+      <h4>EARLIER &amp; COLLABORATIVE WORK</h4>
+      <ul>
+        <li><span><b>yunus-AI</b> — Flutter financial AI chatbot (OpenAI + Alpha Vantage), built during Avanade WE Accelerate · 2024</span><a href="https://github.com/zahra-ahmed1/yunus-AI" target="_blank" rel="noopener">repo ↗</a></li>
+        <li><span><b>Selenium_Python_BestBuy</b> — Selenium scraper that filters 75–85″ TV listings by price and sale end date · 2024</span><a href="https://github.com/snehaislamm/Selenium_Python_BestBuy" target="_blank" rel="noopener">repo ↗</a></li>
+        <li><span><b>Ultimate tic-tac-toe</b> — team Pygame game · 2023</span><a href="https://github.com/varshini811/tic-tac-toe_game" target="_blank" rel="noopener">repo ↗</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- COURSEWORK -->
+<section id="coursework">
+  <div class="wrap">
+    <div class="sec-h rv"><span class="num">§05</span><h2>Technical Coursework</h2><span class="rule"></span><span class="note">// click to expand</span></div>
+    <div class="cw-legend rv">
+      <span><i class="dot" style="background:var(--cyan)"></i>Devices &amp; fabrication</span>
+      <span><i class="dot" style="background:var(--violet)"></i>Physics</span>
+      <span><i class="dot" style="background:var(--amber)"></i>Materials &amp; mechanics</span>
+      <span><i class="dot" style="background:var(--red)"></i>Systems, data &amp; economics</span>
+    </div>
+    <div class="cw-grid">
+      <details class="cw rv"><summary><span class="code k-dev">NE 343</span><span class="ttl">Microfabrication &amp; Thin Films<small>COMPLETED</small></span><span class="chev">›</span></summary>
+        <div class="inner"><div class="chips"><span class="chip">Photolithography</span><span class="chip">Nanopatterning</span><span class="chip">Junction formation</span><span class="chip">Thermal oxidation (Deal–Grove)</span><span class="chip">CMOS process flow</span><span class="chip">Thin-film transistors</span><span class="chip">PECVD / PVD</span></div></div></details>
+      <details class="cw rv"><summary><span class="code k-dev">NE 344</span><span class="ttl">Nanoelectronics specialization core<small>COMPLETED</small></span><span class="chev">›</span></summary>
+        <div class="inner"><div class="chips"><span class="chip">Nanoelectronics specialization</span></div></div></details>
+      <details class="cw rv"><summary><span class="code k-phy">NE 332</span><span class="ttl">Quantum Mechanics<small>COMPLETED · CROSS-LISTED CHEM 356</small></span><span class="chev">›</span></summary>
+        <div class="inner"><div class="chips"><span class="chip">Schrödinger equation</span><span class="chip">Tunneling &amp; scattering</span><span class="chip">Angular momentum</span><span class="chip">Spherical harmonics</span><span class="chip">Spin &amp; Pauli matrices</span><span class="chip">Variational principle</span></div></div></details>
+      <details class="cw rv"><summary><span class="code k-mat">NE 333</span><span class="ttl">Polymer Science<small>COMPLETED</small></span><span class="chev">›</span></summary>
+        <div class="inner"><div class="chips"><span class="chip">Step &amp; chain polymerization</span><span class="chip">ATRP / ROMP</span><span class="chip">Copolymer composition</span><span class="chip">GPC · MALDI-TOF · AFM</span><span class="chip">T<sub>g</sub>/T<sub>m</sub> · DSC</span><span class="chip">Flory–Huggins</span><span class="chip">Biodegradation</span></div></div></details>
+      <details class="cw rv"><summary><span class="code k-mat">NE 318</span><span class="ttl">Continuum Mechanics &amp; Transport<small>COMPLETED</small></span><span class="chev">›</span></summary>
+        <div class="inner"><div class="chips"><span class="chip">Shell momentum balances</span><span class="chip">Laminar &amp; two-fluid flow</span><span class="chip">Unsteady flow</span><span class="chip">Conductive heat transfer</span><span class="chip">Tensor transformations</span></div></div></details>
+      <details class="cw rv"><summary><span class="code k-sys">MSE 261</span><span class="ttl">Engineering Economics<small>COMPLETED</small></span><span class="chev">›</span></summary>
+        <div class="inner"><div class="chips"><span class="chip">PW / AW / IRR / ERR</span><span class="chip">Replacement analysis</span><span class="chip">Taxes &amp; CCA</span><span class="chip">Inflation</span><span class="chip">B/C ratio</span><span class="chip">Decision trees</span><span class="chip">CPM crashing</span></div></div></details>
+      <details class="cw planned rv"><summary><span class="code k-phy">PHYS 468</span><span class="ttl">Implementation of Quantum Information Processing<small>PLANNED · WINTER 2027</small></span><span class="chev">›</span></summary>
+        <div class="inner"><div class="chips"><span class="chip">Qubit platforms</span><span class="chip">Quantum hardware</span></div></div></details>
+      <details class="cw planned rv"><summary><span class="code k-sys">SYDE 572</span><span class="ttl">Pattern Recognition<small>PLANNED</small></span><span class="chev">›</span></summary>
+        <div class="inner"><div class="chips"><span class="chip">Classification</span><span class="chip">Statistical learning</span></div></div></details>
+      <details class="cw planned rv"><summary><span class="code k-sys">ECE 457B/C</span><span class="ttl">Computational Intelligence · Reinforcement Learning<small>PLANNED</small></span><span class="chev">›</span></summary>
+        <div class="inner"><div class="chips"><span class="chip">Neural networks</span><span class="chip">Fuzzy systems</span><span class="chip">Reinforcement learning</span></div></div></details>
+      <details class="cw planned rv"><summary><span class="code k-sys">MTE 544 · STAT 341</span><span class="ttl">Autonomous Mobile Robots · Computational Statistics<small>PLANNED</small></span><span class="chev">›</span></summary>
+        <div class="inner"><div class="chips"><span class="chip">Localization &amp; mapping</span><span class="chip">Statistical computing</span></div></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-h rv"><span class="num">§06</span><h2>Skills</h2><span class="rule"></span><span class="note">// toolkit</span></div>
+    <div class="skills">
+      <div class="sk rv"><h4>Languages</h4><div class="chips"><span class="chip">Python</span><span class="chip">TypeScript</span><span class="chip">C99 (embedded)</span><span class="chip">C++17</span><span class="chip">Go</span><span class="chip">Swift</span><span class="chip">Java</span><span class="chip">MATLAB</span><span class="chip">SQL</span><span class="chip">Dart</span></div></div>
+      <div class="sk rv"><h4>Software &amp; Web</h4><div class="chips"><span class="chip">FastAPI</span><span class="chip">React</span><span class="chip">PostgreSQL</span><span class="chip">Supabase</span><span class="chip">Playwright</span><span class="chip">BeautifulSoup4</span><span class="chip">Flutter</span><span class="chip">REST APIs</span><span class="chip">CMake</span><span class="chip">LLVM IR</span></div></div>
+      <div class="sk rv"><h4>AI / ML</h4><div class="chips"><span class="chip">Gemini API</span><span class="chip">OpenAI API</span><span class="chip">LLM summarization</span><span class="chip">Agentic pipelines</span><span class="chip">Pinecone</span><span class="chip">FAISS</span><span class="chip">PyTorch · ONNX</span><span class="chip">scikit-learn</span><span class="chip">NSGA-II</span><span class="chip">Recommender systems</span><span class="chip">Speech-to-text</span><span class="chip">Image recognition</span></div></div>
+      <div class="sk rv"><h4>Cloud &amp; DevOps</h4><div class="chips"><span class="chip">Azure</span><span class="chip">AWS</span><span class="chip">Docker</span><span class="chip">GitHub Actions CI</span><span class="chip">Vercel</span><span class="chip">Git</span><span class="chip">Jira</span><span class="chip">Confluence</span><span class="chip">Claude Code</span></div></div>
+      <div class="sk rv"><h4>Hardware &amp; Embedded</h4><div class="chips"><span class="chip">CAN bus / DBC</span><span class="chip">BMS validation</span><span class="chip">Fault injection</span><span class="chip">SIL testing</span><span class="chip">PLC ladder logic</span><span class="chip">FPGA place &amp; route</span><span class="chip">LTspice</span><span class="chip">COMSOL</span><span class="chip">SolidWorks</span></div></div>
+      <div class="sk rv"><h4>Fab &amp; Characterization</h4><div class="chips"><span class="chip">PECVD</span><span class="chip">PVD</span><span class="chip">Photolithography</span><span class="chip">Thermal oxidation</span><span class="chip">Ellipsometry</span><span class="chip">Profilometry</span><span class="chip">Reflectometry</span><span class="chip">C–V measurement</span><span class="chip">Vacuum &amp; leak testing</span></div></div>
+    </div>
+    <div class="certs">
+      <div class="cert rv"><div class="badge">AZ<br>900</div><div><h4>Microsoft Azure Fundamentals</h4><p>Earned through Avanade WE Accelerate, 2024.</p></div></div>
+      <div class="cert rv"><div class="badge">AI<br>900</div><div><h4>Microsoft Azure AI Fundamentals</h4><p>Earned through Avanade WE Accelerate, 2024.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PATH -->
+<section id="path">
+  <div class="wrap">
+    <div class="sec-h rv"><span class="num">§07</span><h2>Path</h2><span class="rule"></span><span class="note">// timeline</span></div>
+    <div class="tl-legend rv">
+      <span><i class="ring" style="border-color:var(--cyan)"></i>Academic</span>
+      <span><i class="ring" style="border-color:var(--violet)"></i>Work term</span>
+      <span><i class="ring" style="border-color:var(--amber)"></i>Next</span>
+    </div>
+    <div class="tl">
+      <div class="tl-item next rv"><div class="when">WINTER 2027 · NEXT</div><h4>Co-op work term</h4><p>Taking PHYS 468 (quantum information processing) alongside the work term.</p></div>
+      <div class="tl-item rv"><div class="when">NOV 2026</div><h4>Open-source build sprint</h4><p>Shipped fabricfit, tilec, zonecore, modcell, muse, facesolve, vaclab and coa-forge to GitHub.</p></div>
+      <div class="tl-item rv"><div class="when">FALL 2026 · NOW</div><h4>3B · Capstone discovery &amp; Engineering Ambassador</h4><p>Scoping an AI-assisted biosensor capstone and representing NE to prospective students.</p></div>
+      <div class="tl-item work rv"><div class="when">FEB – MAY 2026</div><h4>Communitech · Software Developer Co-op</h4><p>Shipped an agentic AI ecosystem-monitoring and newsletter platform to production on Azure.</p></div>
+      <div class="tl-item work rv"><div class="when">SEP 2025 – JAN 2026</div><h4>The Plug Co · Data Analysis &amp; AI Development Intern</h4><p>AI-integrated backend, vector search and an investor-ready prototype in 12 weeks.</p></div>
+      <div class="tl-item rv"><div class="when">2025</div><h4>3A · Devices &amp; materials</h4><p>Quantum mechanics, microfabrication, polymer science, engineering economics; fabricated an MIS capacitor.</p></div>
+      <div class="tl-item work rv"><div class="when">JAN – APR 2025</div><h4>Battery Workforce Challenge · Research Assistant</h4><p>SoC estimation, embedded fault diagnostics and CAN communication for an EV battery pack.</p></div>
+      <div class="tl-item work rv"><div class="when">MAY – AUG 2024</div><h4>Avanade WE Accelerate · Software Developer</h4><p>Azure AI workflows, a financial AI chatbot, AZ-900 and AI-900.</p></div>
+      <div class="tl-item rv"><div class="when">SEP 2023</div><h4>Started BASc Nanotechnology Engineering · University of Waterloo</h4><p>Specialization in nanoelectronics.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+  <div class="wrap">
+    <div class="sec-h rv"><span class="num">§08</span><h2>Résumé</h2><span class="rule"></span><span class="note">// general · engineering co-op</span></div>
+    <div class="cv-bar rv"><span>REV · NOV 2026 · 1 PAGE</span><span class="acts"><button class="copy" id="cvcopy">COPY AS TEXT</button></span></div>
+    <div class="cv-frame rv">
+      <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
+      <div class="sheet" id="cvsheet">
+        <h3>Sneha Islam</h3>
+        <p class="sub">University of Waterloo Engineering student with experience in Software Development, Embedded Systems and Data Analysis, pursuing 8-month co-op opportunities in engineering roles</p>
+        <p class="ct">Waterloo, ON · <a href="https://www.linkedin.com/in/SnehaIslam" target="_blank" rel="noopener">linkedin.com/in/SnehaIslam</a> · <a href="https://github.com/snehaislamm" target="_blank" rel="noopener">github.com/snehaislamm</a> · s32islam@uwaterloo.ca</p>
+
+        <h5>Profile Summary</h5>
+        <div class="cvsk">
+          <p><b>Software:</b> Python, TypeScript, Swift, C (Embedded), MATLAB, Java, FastAPI, React, Playwright, BeautifulSoup4</p>
+          <p><b>AI/ML:</b> Google Gemini API, LLM-based summarization, speech-to-text, image recognition, semantic/vector search (Pinecone, FAISS)</p>
+          <p><b>Tools &amp; platforms:</b> LTspice, SolidWorks, Supabase, Excel, SQL, Power BI, Git, Claude Code, Azure, AWS, COMSOL, PostgreSQL, Docker, Jira, Confluence, Flutter, Vercel</p>
+        </div>
+
+        <h5>Education</h5>
+        <div class="ent">
+          <div class="er"><b>University of Waterloo, ON</b><span>Sep 2023 – present</span></div>
+          <div class="org">Candidate for Bachelor of Applied Science, Nanotechnology Engineering + Specialization in Nano-Electronics</div>
+        </div>
+
+        <h5>Selected Experience</h5>
+        <div class="ent">
+          <div class="er"><b>Software Developer Co-op (AI-Adoption Program)</b><span>Feb 2026 – May 2026</span></div>
+          <div class="org">Communitech Corporation, Waterloo, ON</div>
+          <ul>
+            <li>Built and shipped an agentic AI system (React/TypeScript, FastAPI, PostgreSQL) that scrapes, deduplicates and summarizes 50+ ecosystem sources daily using the Gemini API, replacing manual cross-team monitoring and covering 1,200+ companies.</li>
+            <li>Engineered a weekly automated pipeline (Playwright scraping, async concurrency control, SendGrid delivery) alongside a natural-language Q&amp;A chatbot for querying newsletter archives.</li>
+            <li>Designed and deployed a full-stack personalization engine that re-ranks and re-summarizes content per user based on bio, focus areas and keywords, containerized via Docker on Azure.</li>
+          </ul>
+        </div>
+        <div class="ent">
+          <div class="er"><b>Data Analysis and AI Development Intern</b><span>Sep 2025 – Jan 2026</span></div>
+          <div class="org">The Plug Co, Toronto, ON</div>
+          <ul>
+            <li>Built a full-stack backend (FastAPI, PostgreSQL, AWS) retrieving photos, audio and video in under 300 ms, integrating AI models for speech-to-text, image recognition and semantic text matching at 85%+ accuracy.</li>
+            <li>Developed a vector search pipeline (Pinecone/FAISS) for similarity-based content retrieval, with SQL schemas supporting 10k+ timeline events and Swift (iOS)/Unity (VR) frontend MVPs.</li>
+            <li>Implemented privacy-by-design architecture (RBAC, AES-256, GDPR Art. 17) and delivered a complete AI prototype to investors within 12 weeks, managing sprints in Jira to improve delivery speed by 25%.</li>
+          </ul>
+        </div>
+        <div class="ent">
+          <div class="er"><b>Undergraduate Research Assistant</b><span>Jan 2025 – Apr 2025</span></div>
+          <div class="org">Battery Workforce Challenge, University of Waterloo, Waterloo, ON</div>
+          <ul>
+            <li>Developed State of Charge estimation algorithms (±2% accuracy) and fault detection routines in MATLAB and Python, plus embedded C diagnostic logging for overvoltage, HVIL and isolation resistance faults.</li>
+            <li>Built automated test scripts and fault-injection simulations that reduced regression testing time by 35%, improving debug coverage across BMS validation workflows.</li>
+            <li>Implemented CAN bus communication transmitting 120+ DBC-defined signals between BPCM and EVCU, simulating real-world field conditions for system validation.</li>
+          </ul>
+        </div>
+        <div class="ent">
+          <div class="er"><b>Software Developer</b><span>May 2024 – Aug 2024</span></div>
+          <div class="org">Avanade Microsoft Azure &amp; AI (WE Accelerate), University of Waterloo, Waterloo, ON</div>
+          <ul>
+            <li>Earned Microsoft AZ-900/AI-900 certifications and collaborated with Avanade consultants on 3 AI projects, including a chatbot prototype projected to cut client response time by 40%.</li>
+            <li>Designed and deployed AI-driven Azure workflows, improving data processing efficiency by 25%, and co-developed a cross-platform financial AI chatbot (Flutter/Dart) integrating Alpha Vantage and OpenAI APIs for real-time investing guidance.</li>
+            <li>Delivered 10+ client-style presentations using agile consulting practices, applying C++/Swift for performance-critical functionality, and earning top-3 team recognition for innovation.</li>
+          </ul>
+        </div>
+
+        <h5>Leadership</h5>
+        <div class="ent">
+          <div class="er"><b>Engineering Ambassador</b><span>Fall 2026 – Present</span></div>
+          <div class="org">University of Waterloo, Waterloo, ON</div>
+          <ul>
+            <li>Selected as a Waterloo Engineering Ambassador, representing Nanotechnology Engineering to prospective students through campus tours, shadow days and Ask a Warrior chats.</li>
+            <li>Supported large-scale recruitment events (e.g., Fall Open House, 200–300 volunteers) and completed formal ambassador training in public speaking, mentorship and recruitment communication.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cv-note">Tailored versions available on request.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-h rv"><span class="num">§09</span><h2>Contact</h2><span class="rule"></span><span class="note">// open a channel</span></div>
+    <div class="contact">
+      <div class="rv">
+        <p>I'm open to co-op roles in <b class="hl">software engineering, applied AI, embedded systems</b> and <b class="hl">nanoelectronics / quantum hardware</b>. Email is the best way to reach me.</p>
+        <div class="schem" style="padding:14px">
+          <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
+          <div class="hdr" style="margin:0"><span>STATUS</span><b>● AVAILABLE · W27 CO-OP</b></div>
+        </div>
+      </div>
+      <div class="links rv">
+        <div class="lnk">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg></span>
+          <a href="mailto:s32islam@uwaterloo.ca"><span class="lb">Email</span><br><span class="val">s32islam@uwaterloo.ca</span></a>
+          <button class="copy" data-copy="s32islam@uwaterloo.ca">COPY</button>
+        </div>
+        <a class="lnk" href="https://www.linkedin.com/in/SnehaIslam" target="_blank" rel="noopener">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg></span>
+          <span><span class="lb">LinkedIn</span><br><span class="val">linkedin.com/in/SnehaIslam</span></span><span class="arr">→</span>
+        </a>
+        <a class="lnk" href="https://github.com/snehaislamm" target="_blank" rel="noopener">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.690 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.770 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg></span>
+          <span><span class="lb">GitHub</span><br><span class="val">github.com/snehaislamm</span></span><span class="arr">→</span>
+        </a>
+        <a class="lnk" href="#resume">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>
+          <span><span class="lb">Résumé</span><br><span class="val">View on this page</span></span><span class="arr">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="tblock">
+      <div><div class="k">TITLE</div><div class="v">SNEHA ISLAM — PORTFOLIO</div></div>
+      <div><div class="k">DRAWN BY</div><div class="v">S. ISLAM</div></div>
+      <div><div class="k">REV</div><div class="v">2026.11-D</div></div>
+      <div><div class="k">SHEET</div><div class="v">1 / 1</div></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});}
+  else{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+    },{threshold:.12});
+    els.forEach(function(e){io.observe(e)});
+  }
+  document.querySelectorAll('.figtabs button').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('.figtabs button').forEach(function(x){x.classList.toggle('on',x===b)});
+      document.querySelectorAll('.fig').forEach(function(f){f.classList.toggle('on',f.id===b.dataset.fig)});
+    });
+  });
+  document.querySelectorAll('#filters button').forEach(function(b){
+    b.addEventListener('click',function(){
+      var f=b.dataset.f;
+      document.querySelectorAll('#filters button').forEach(function(x){x.classList.toggle('on',x===b)});
+      document.querySelectorAll('.repo').forEach(function(r){
+        var cats=(r.dataset.cat||'').split(' ');
+        r.classList.toggle('hide',!(f==='all'||cats.indexOf(f)>-1));
+        r.classList.add('in');
+      });
+    });
+  });
+  var cvb=document.getElementById('cvcopy');
+  if(cvb){cvb.addEventListener('click',function(){
+    var t=document.getElementById('cvsheet').innerText;
+    try{navigator.clipboard.writeText(t).then(function(){cvb.textContent='COPIED'},function(){cvb.textContent='COPY FAILED'});}
+    catch(e){cvb.textContent='COPY FAILED'}
+    setTimeout(function(){cvb.textContent='COPY AS TEXT'},1800);
+  });}
+  document.querySelectorAll('.copy[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=b.dataset.copy;
+      try{navigator.clipboard.writeText(t).then(function(){b.textContent='COPIED'},function(){b.textContent=t});}
+      catch(e){b.textContent=t}
+      setTimeout(function(){b.textContent='COPY'},1800);
+    });
+  });
+})();
+</script>
+</body>
+</html>
