@@ -1,51 +1,71 @@
 ---
 name: The Fab Line
-description: Visual identity for Sneha Islam's game portfolio. It keeps the current site's dark engineering-blueprint look and extends it with game UI.
+description: Visual identity for Sneha Islam's game portfolio, in the "Block Biome" direction. Blocky, earthy and game-like, with each Station drawn as its own landscape (biome).
 status: draft
 updated: 2026-11-25
+direction: "B · Block Biome (chosen by Sneha from .working/directions-1.html; replaces the old navy/cyan site palette)"
 sources:
-  - docs/content-inventory.md (§15 visual system, §14 SVGs, §19 character assets)
+  - docs/content-inventory.md (§14 SVGs, §19 character assets, D1, D13–D14)
   - _bmad-output/planning-artifacts/prds/prd-portfolio-2026-11-25/prd.md
+  - .working/directions-1.html (direction B)
 colors:
-  bg: '#070b14'
-  bg-2: '#0c1322'
-  panel: '#0f1829'
-  line: '#1c2a44'
-  grid: 'rgba(79,209,197,.06)'
-  text: '#e2e8f0'
-  muted: '#8a9bb8'
-  dim: '#7184a8'          # was #56688a; changed for WCAG AA (4.71:1 on panel)
-  rule: '#56688a'         # old dim, kept for non-text lines and dividers only
-  cyan: '#4fd1c5'
-  cyan-d: '#2c9c93'
-  violet: '#9f7aea'
-  amber: '#f6ad55'
-  red: '#fc8181'
-  on-cyan: '#04201d'
-  station-ai: '{colors.violet}'
-  station-power: '{colors.amber}'
-  station-compiler: '{colors.red}'
-  station-cleanroom: '{colors.cyan}'
-  status-done: '{colors.cyan}'
-  status-active: '{colors.amber}'
-  status-next: '{colors.violet}'
-  locked: '{colors.dim}'
+  # Surfaces
+  coal: '#1a1a17'         # page background
+  inset: '#222220'        # metric tiles, diagram wells
+  panel: '#2b2a25'        # cards, HUD, dialogue
+  edge: '#000000'         # block outlines (3–4 px)
+  # Text (all ≥4.5:1 on panel)
+  text: '#f3f0e6'         # 12.6:1
+  muted: '#c7c1ad'        # 8.0:1
+  dim: '#a39d8a'          # 5.3:1, small labels
+  # Earth & block colours
+  grass: '#7fb045'        # 5.6:1 as text
+  grass-dark: '#4f7a26'   # fills only
+  dirt: '#b07a45'         # fills/borders only (3.9:1, fails small text)
+  dirt-dark: '#6e4824'    # fills only
+  stone: '#8a8a84'        # fills/borders only (4.1:1 on panel)
+  stone-dark: '#5f5f5a'
+  stone-light: '#b5b5ae'
+  # Accents
+  gold: '#f2c94c'         # primary accent: Résumé, metric numbers, achievements (9.1:1)
+  gold-dark: '#b8922a'
+  gold-light: '#fff3b0'
+  sky: '#6fc0e8'          # 7.1:1
+  lava: '#ef8d4b'         # 5.9:1
+  amethyst: '#b79cf0'     # 6.2:1
+  snow: '#e6eef2'         # 12.2:1
+  on-accent: '#1a1a17'    # text on any accent fill (≥5:1 on all of them)
+  # Semantic roles
+  primary: '{colors.gold}'
+  station-ai: '{colors.sky}'          # "Sky Plains"
+  station-power: '{colors.lava}'      # "Mesa"
+  station-compiler: '{colors.amethyst}' # "Crystal Cave"
+  station-cleanroom: '{colors.snow}'  # "Snowfield Lab"
+  status-done: '{colors.grass}'
+  status-active: '{colors.gold}'
+  status-next: '{colors.sky}'
+  locked: '{colors.stone}'
 typography:
   display:
-    fontFamily: 'Space Grotesk'
-    fontSize: 'clamp(2.4rem, 6vw, 4.2rem)'
-    fontWeight: '700'
-    lineHeight: '1.02'
-    letterSpacing: -0.02em
+    fontFamily: 'JetBrains Mono'
+    fontSize: 'clamp(2.2rem, 6vw, 3.8rem)'
+    fontWeight: '800'
+    lineHeight: '1.05'
+    letterSpacing: 0.02em
+    textTransform: uppercase
+    textShadow: '4px 4px 0 {colors.edge}'
   station-title:
-    fontFamily: 'Space Grotesk'
-    fontSize: 'clamp(1.6rem, 4vw, 2.2rem)'
-    fontWeight: '600'
-    lineHeight: '1.15'
+    fontFamily: 'JetBrains Mono'
+    fontSize: 'clamp(1.5rem, 4vw, 2.1rem)'
+    fontWeight: '800'
+    lineHeight: '1.1'
+    letterSpacing: 0.04em
+    textTransform: uppercase
+    textShadow: '3px 3px 0 {colors.edge}'
   card-title:
     fontFamily: 'Space Grotesk'
     fontSize: 1.2rem
-    fontWeight: '600'
+    fontWeight: '700'
     lineHeight: '1.25'
   body:
     fontFamily: 'Space Grotesk'
@@ -55,29 +75,29 @@ typography:
   dialog:
     fontFamily: 'Space Grotesk'
     fontSize: 1.05rem
-    fontWeight: '500'
+    fontWeight: '600'
     lineHeight: '1.4'
   metric:
     fontFamily: 'JetBrains Mono'
-    fontSize: 1.5rem
-    fontWeight: '700'
+    fontSize: 1.45rem
+    fontWeight: '800'
     lineHeight: '1.1'
   label:
     fontFamily: 'JetBrains Mono'
     fontSize: 0.72rem
-    fontWeight: '500'
-    letterSpacing: 0.08em
-  hud:
-    fontFamily: 'JetBrains Mono'
-    fontSize: 0.78rem
-    fontWeight: '500'
+    fontWeight: '600'
     letterSpacing: 0.06em
+  button:
+    fontFamily: 'JetBrains Mono'
+    fontSize: 0.8rem
+    fontWeight: '800'
+    letterSpacing: 0.04em
+    textTransform: uppercase
 rounded:
-  sm: 3px
-  md: 4px
-  lg: 6px
-  pill: 9999px
+  none: 0px
+  DEFAULT: 0px
 spacing:
+  px: 4px                 # the "block pixel": borders, bevels and offsets are multiples of 4 px
   '1': 4px
   '2': 8px
   '3': 12px
@@ -86,134 +106,186 @@ spacing:
   '6': 32px
   '7': 48px
   '8': 80px
+  border: 4px
+  border-sm: 3px
+  bevel: 3px
+  drop: 6px
   gutter-mobile: 16px
   gutter-desktop: 28px
   content-max: 1120px
-  hud-height: 56px
+  hud-height: 60px
   touch-min: 44px
 components:
   hud-bar:
-    background: 'rgba(7,11,20,.86)'
-    border: '1px solid {colors.line}'
+    background: '{colors.panel}'
+    border-bottom: '{spacing.border} solid {colors.edge}'
     height: '{spacing.hud-height}'
-    font: '{typography.hud}'
-  hud-button-primary:
-    background: '{colors.cyan}'
-    foreground: '{colors.on-cyan}'
-    radius: '{rounded.md}'
+  button-primary:
+    background: '{colors.gold}'
+    foreground: '{colors.on-accent}'
+    border: '{spacing.border-sm} solid {colors.edge}'
+    bevel: 'inset -3px -3px 0 {colors.gold-dark}, inset 3px 3px 0 {colors.gold-light}'
+    pressed-bevel: 'inset 3px 3px 0 {colors.gold-dark}'
+    font: '{typography.button}'
+    radius: '{rounded.none}'
     min-size: '{spacing.touch-min}'
-  hud-icon-button:
-    background: '{colors.panel}'
-    foreground: '{colors.muted}'
-    hover-foreground: '{colors.cyan}'
-    radius: '{rounded.md}'
+  button-stone:
+    background: '{colors.stone}'
+    foreground: '{colors.on-accent}'
+    border: '{spacing.border-sm} solid {colors.edge}'
+    bevel: 'inset -3px -3px 0 {colors.stone-dark}, inset 3px 3px 0 {colors.stone-light}'
+    font: '{typography.button}'
     min-size: '{spacing.touch-min}'
-  dialog-box:
-    background: '{colors.panel}'
-    border: '1px solid {colors.line}'
-    accent-edge: '3px solid {colors.cyan}'
-    radius: '{rounded.lg}'
-    font: '{typography.dialog}'
-    portrait-size: 72px
+  button-grass:
+    background: '{colors.grass}'
+    foreground: '{colors.on-accent}'
+    border: '{spacing.border-sm} solid {colors.edge}'
+    bevel: 'inset -3px -3px 0 {colors.grass-dark}, inset 3px 3px 0 #a9d46c'
   level-card:
     background: '{colors.panel}'
-    border: '1px solid {colors.line}'
-    hover-border: '{colors.cyan-d}'
-    radius: '{rounded.lg}'
+    border: '{spacing.border} solid {colors.edge}'
+    shadow: '{spacing.drop} {spacing.drop} 0 {colors.edge}'
+    header: 'grass cap: {colors.grass} 70% over {colors.grass-dark} 30%, 4 px black underline'
+    header-foreground: '{colors.on-accent}'
+    radius: '{rounded.none}'
   metric-tile:
-    background: '{colors.bg-2}'
+    background: '{colors.inset}'
+    border: '{spacing.border-sm} solid {colors.edge}'
+    top-strip: 'inset 0 4px 0 {colors.dirt-dark}'
     number: '{typography.metric}'
-    number-color: '{colors.cyan}'
-    label-color: '{colors.dim}'
+    number-color: '{colors.gold}'
+    label-color: '{colors.muted}'
+  dialog-box:
+    background: '{colors.panel}'
+    border: '{spacing.border} solid {colors.edge}'
+    portrait-frame: '{spacing.border-sm} solid {colors.edge}'
+    portrait-size: 64px
+    font: '{typography.dialog}'
   xp-bar:
-    track: '{colors.line}'
-    fill: 'linear-gradient(90deg, {colors.cyan}, {colors.violet})'
-    height: 6px
-    radius: '{rounded.pill}'
+    track: '{colors.edge}'
+    fill: 'segments: {colors.grass} 10 px, {colors.grass-dark} 2 px gap'
+    height: 10px
   achievement-toast:
     background: '{colors.panel}'
-    border: '1px solid {colors.amber}'
-    icon-color: '{colors.amber}'
-    radius: '{rounded.lg}'
-  badge-status:
-    radius: '{rounded.sm}'
+    border: '{spacing.border} solid {colors.edge}'
+    inner-ring: 'inset 0 0 0 2px {colors.gold}'
+  status-pill:
+    border: '2px solid {colors.edge}'
     font: '{typography.label}'
+    radius: '{rounded.none}'
   minimap-node:
     size: 14px
-    visited: '{colors.cyan}'
-    current-ring: '{colors.amber}'
-    unvisited: '{colors.rule}'
-    locked: '{colors.locked}'
+    shape: square
+    border: '2px solid {colors.edge}'
+    unvisited: '#3d3b34'
+    visited: '{colors.grass}'
+    current: '{colors.gold}'
+    locked: '{colors.stone}'
+    connector: '4px {colors.edge}'
   skill-node:
-    background: '{colors.bg-2}'
-    border: '1px solid {colors.line}'
-    proven-border: '{colors.cyan-d}'
+    background: '{colors.inset}'
+    border: '{spacing.border-sm} solid {colors.edge}'
+    proven-cap: '{colors.grass}'
     unproven-opacity: 0.45
-    radius: '{rounded.md}'
   focus-ring:
-    outline: '2px solid {colors.cyan}'
-    offset: 2px
+    outline: '3px solid {colors.gold}'
+    offset: 3px
+  sprite:
+    style: 'pixel art, integer-scaled, image-rendering: pixelated'
+    native: '32×48 px'
+    display: '64×96 (×2) on desktop and mobile; never a fractional scale'
 ---
 
 ## Brand & Style
-The Fab Line is an **engineering blueprint that came alive**. Its visual DNA is the current site: dark navy paper, a cyan grid, mono labels, corner registration marks, "FIG. 01" captions, datasheet tables and a title-block footer. The game layer adds a HUD, a dialogue box, badges and an XP bar. These are drawn in the same thin-line, technical style, so the game feels like part of the drawing set, not a different product.
+**Block Biome:** the portfolio is a small blocky world. Every Station is a **biome** built from chunky, flat-coloured blocks, and the UI is made of the same blocks: thick black outlines, bevelled buttons you want to press, grass-capped cards and a segmented XP bar. It reads as **a game** within a second, which is the point, and it stays calm enough for a recruiter to scan.
 
-**The one warm exception** is Sneha's Ghibli-style portrait (D1). It appears on the Title Screen and in the dialogue box, framed like a photo pinned to a blueprint. The warmth signals *this is a person, not a spec sheet*, and the darkness around it signals *and she builds hard things*.
+The look is inspired by the earthy, blocky colours of sandbox building games. It uses **only flat colours and simple 4 px "pixel" speckles of our own**. It does **not** copy any game's textures, block art, logos, fonts, UI layouts or characters.
 
-Voice in visuals: precise, a little playful, never cute. Think lab notebook with doodles in the margin.
+**Sneha's Ghibli portrait (D1)** still appears on the Title Screen and in the dialogue box, set inside a thick black block frame like a painting hung in the world. Sneha chose B knowing it contrasts with the soft watercolour. The frame is what makes that contrast feel deliberate.
+
+**Voice in visuals:** chunky, friendly, precise. Every number is set in mono and gold, like loot.
 
 ## Colors
-- **Navy surfaces** (`{colors.bg}`, `{colors.bg-2}`, `{colors.panel}`) carry the whole UI. Cards sit on `panel`; diagrams and metric tiles sit on `bg-2`.
-- **Cyan** (`{colors.cyan}`) is the primary accent: links, the primary button (the Résumé), metric numbers, focus rings, *Completed* status and the Cleanroom Station.
-- **Violet** (`{colors.violet}`) marks AI: the AI in Production Station, *Next* status and the second half of the XP gradient.
-- **Amber** (`{colors.amber}`) marks hardware and *in progress*: the Power & Control Station, the *Active* Main Quest pill and achievement toasts. Amber always means "warm, live, look here".
-- **Red** (`{colors.red}`) marks systems: the Compiler & EDA Station. Never use it for errors, because there are no error states in content.
-- **Text ramp:** `{colors.text}` (15.9:1) for headings and values, `{colors.muted}` (6.3–7.0:1) for body, and `{colors.dim}` (4.7–5.2:1) for small labels. The old dim, now `{colors.rule}`, is **only for lines and dividers, never text**.
-- Category colour = Station colour = coursework legend colour. This mapping already exists on the site; keep it consistent.
+- **Coal, inset and panel** (`{colors.coal}`, `{colors.inset}`, `{colors.panel}`): the dark ground everything sits on. Cards are `panel`; metric tiles and diagram wells are `inset`.
+- **Black edge** (`{colors.edge}`): every block has a 3–4 px black outline. This is the single strongest stylistic rule.
+- **Grass** (`{colors.grass}` / `{colors.grass-dark}`): the cap on every Level Card header, *Completed* status and the XP bar. Green = done, growing.
+- **Dirt** (`{colors.dirt}` / `{colors.dirt-dark}`): ground strips, the top edge of metric tiles, and the soil under the horizon. **Fills and borders only, never text** (3.9:1).
+- **Stone** (`{colors.stone}`): secondary buttons (Copy link, More), contact icons and the locked Quantum Fab. **Never text** (4.1:1).
+- **Gold** (`{colors.gold}`): the **one primary accent**. It marks the Résumé button, every metric number, *Active* status, achievements and the focus ring. Gold means "valuable, look here".
+- **Biome colours:** each Station's tag, sky tint and diagram strokes use its own colour:
 
-**Avoid:** new hues, gradients other than the XP bar and the H1 accent, colour as the only signal (status pills always carry a word as well).
+  | Station | Biome | Colour |
+  |---|---|---|
+  | AI in Production | **Sky Plains** | `{colors.sky}` |
+  | Power & Control | **Mesa** | `{colors.lava}` |
+  | Compiler & EDA | **Crystal Cave** | `{colors.amethyst}` |
+  | Cleanroom | **Snowfield Lab**: white tiles, clean | `{colors.snow}` |
+
+- **Text ramp:** `{colors.text}` (12.6:1), `{colors.muted}` (8.0:1), `{colors.dim}` (5.3:1). Everything that is text meets WCAG AA on `panel`, `inset` and `coal`. Text on any accent fill uses `{colors.on-accent}` (≥5:1).
+
+**Avoid:** gradients (except the sky backdrops), rounded corners, glows, colour as the only signal, and brown or stone as text.
 
 ## Typography
-- **Space Grotesk** for anything read as language: the display name, Station titles, card titles, body, dialogue.
-- **JetBrains Mono** for anything read as data: metric numbers, labels, the HUD, Deep Link paths, status pills and the "FIG." captions.
-- Metric numbers are the loudest thing on a card after the diagram (`{typography.metric}`, cyan).
-- Fonts are self-hosted and subset (NFR-4), with `font-display: swap`. Fallbacks are `system-ui, sans-serif` and `ui-monospace, monospace`.
+- **JetBrains Mono ExtraBold, uppercase,** with a hard 3–4 px black drop shadow, for the name, Station titles, buttons and labels. This is the "game" voice and stays legible, unlike pixel fonts.
+- **Space Grotesk** for anything read as sentences: card titles, Captions, dialogue, body.
+- **Metric numbers:** JetBrains Mono ExtraBold in `{colors.gold}`.
+- **No pixel or bitmap fonts.** They fail readability at small sizes and on mobile.
+- Both fonts are self-hosted and subset (NFR-4), with `font-display: swap`.
 
 ## Layout & Spacing
-- **Content width:** `{spacing.content-max}`. Gutters are `{spacing.gutter-mobile}` below 600 px and `{spacing.gutter-desktop}` above.
-- **Station:** at least one viewport tall. The Station header sits top-left, the Level Cards follow in a 2-column grid at ≥860 px and a single column below.
-- **Main Level Card:** diagram on top (or left at ≥860 px when it is a feature card), then a 3-up metric row, then Captions. The metric row stays 3-up down to 360 px, with smaller numbers.
-- **HUD:** a top bar at ≥600 px, a bottom bar below 600 px (`{spacing.hud-height}`). Its safe-area insets are added on top.
-- **Background:** the existing 80 px / 16 px blueprint grid on `{colors.bg}`.
+- **The 4 px block pixel** (`{spacing.px}`): every border, bevel, shadow offset and speckle is a multiple of 4 px. That keeps the world feeling made of blocks.
+- **Content width:** `{spacing.content-max}`. Gutters are 16 px on mobile and 28 px on desktop.
+- **Each Station is a biome scene**, at least one viewport tall:
+  - a sky band in the biome colour
+  - a **stepped block horizon** (hills built from rectangles)
+  - a grass-and-dirt ground strip that the sprite walks along
+  - Level Cards standing on top
+- **Level Cards:** 2 columns at ≥860 px and 1 below. Feature cards (Communitech, MIS, capstone) span both columns.
+- **HUD:** top bar at ≥600 px, bottom bar below that (`{spacing.hud-height}`), plus safe-area insets.
 
 ## Elevation & Depth
-Flat, like a drawing. Depth comes from **borders and tone**, not shadows: `panel` on `bg`, `bg-2` insets inside panels. The two exceptions:
-- The **Inspect drawer** and the **Skill Tree / Quest Log sheets** sit above the page with a backdrop (`rgba(7,11,20,.7)`) and one soft shadow (`0 20px 60px rgba(0,0,0,.45)`, the same as the current résumé sheet).
-- The **achievement toast** uses the same shadow.
+Depth is **hard and pixel-like:** a solid black offset shadow (`6px 6px 0` black) under cards and toasts, and 3 px **bevels** (light top-left, dark bottom-right) on buttons. A pressed button swaps to an inner shadow and moves down 2 px. There are **no blurred shadows** anywhere. Overlays (the Inspect drawer and sheets) sit on a `rgba(0,0,0,.6)` backdrop, framed with a 4 px black border.
 
 ## Shapes
-Small, technical radii (`{rounded.sm}` 3 px for pills and chips, `{rounded.md}` 4 px for buttons, `{rounded.lg}` 6 px for cards). Only the XP bar and Mini-map nodes are fully round. **Corner registration marks** (the current `.corner` brackets) frame three things: the Title portrait, the active Station's diagram and the Main Quest card.
+**Square everything:** `{rounded.none}`. Circles appear only in Sneha's portrait image itself. Status pills, Mini-map nodes, skill nodes and avatar frames are all squares or rectangles. The Quantum Fab door is a **block arch** made of stone blocks, with a padlock.
 
 ## Components
-- **HUD bar:** left: the avatar (`sneha-avatar-256.webp` at 32 px) and "Sneha Islam" in mono. Centre: the Mini-map. Right: **Résumé** (primary cyan button, the only filled button in the HUD), then the Email, LinkedIn and GitHub icon buttons, then a "More" button (Recruiter Mode, Motion, Skill Tree, Quest Log). XP shows as a 6 px bar along the HUD's bottom edge. On mobile the bottom bar shows Résumé and 3 contact icons, with everything else under "More".
-- **Dialogue box:** a 72 px portrait crop (`sneha-portrait-256.webp`), a cyan left edge, and one Character Line in `{typography.dialog}`. It appears once per Station, under the Station title. No typewriter effect.
-- **Level Card:** a mono header row (`ai/communitech` path on the left, status pill on the right), title, diagram on `bg-2` with an optional FIG caption, a 3-up metric row, Captions, tech chips, then a footer with **Inspect ▸**, **Repo ↗** (if any) and **Copy link**.
-- **Metric tile:** the number (`{typography.metric}`, cyan) over a label (`{typography.label}`, dim, ≤6 words). Qualifiers ("simulated", "estimate") go in the label, never in a footnote.
-- **Status pill:** Completed (cyan, ✓), Active (amber, ●), Next (violet, →), Locked (dim, 🔒 icon as SVG). Always has a word.
-- **XP bar:** a cyan-to-violet gradient on a `line`-coloured track, labelled "Quests 9/17" in mono.
-- **Achievement toast:** amber border, a 24 px badge icon, title in `{typography.card-title}` and one line in `{typography.label}`. It appears bottom-right on desktop and above the bottom HUD on mobile.
-- **Mini-map node:** 14 px circles joined by a 1 px `rule` line. Visited nodes are filled cyan, the current one has an amber ring, unvisited ones are hollow, and the Quantum Fab node shows a padlock glyph.
-- **Skill node:** a mono chip. Proven skills have a cyan-d border and a count ("3 cards"). Unproven ones sit at 45% opacity with no count.
-- **Locked door (Quantum Fab):** the hexagon logo (SVG-1) enlarged, drawn in `dim` with a padlock, and one line beneath.
-- **Sprite** (see the brief in EXPERIENCE.md): 64 px tall, SVG, rides the Track line at the left edge of the viewport on ≥860 px and at the bottom-left on mobile.
+- **HUD bar:**
+  - Left: a square-framed avatar plus the name in mono uppercase.
+  - Centre: the Mini-map, as square nodes on a 4 px black connector.
+  - Right: **Résumé** (the gold bevelled button, the only gold button in the HUD), then Email, LinkedIn and GitHub as stone bevelled icon buttons, then "⋯ More" (stone).
+  - The XP bar is a 10 px segmented bar under the HUD.
+  - On mobile, the bottom bar keeps Résumé and the 3 contact icons, and everything else goes under More.
+- **Dialogue box:** a panel with a 4 px black border and a 4 px dark underside. It holds a 64 px portrait in a black square frame and one Character Line in `{typography.dialog}`.
+- **Level Card:**
+  - **Grass-cap header strip** in coal text: the path `ai/communitech` on the left, the status on the right.
+  - **Body:** title, diagram in an `inset` well (strokes in the biome colour, 2–3 px), the 3 metric tiles, Captions, tech chips.
+  - **Footer:** **Inspect ▸** (grass button), **Repo ↗** and **Copy link** (stone buttons).
+  - **Frame:** 4 px black border with a 6 px black drop.
+- **Metric tile:** `inset` background with a dirt-dark top strip (like soil under grass), a gold number and a muted label of ≤6 words. Qualifiers go in the label.
+- **Status pill:** a square pill with a 2 px black edge. Completed = grass with "✓ DONE", Active = gold with "● ACTIVE", Next = sky with "→ NEXT", Locked = stone with a padlock.
+- **Achievement toast:** a panel with a 4 px black border, a gold inner ring and a 24 px pixel badge icon. It slides in **in 4 px steps** (`steps()` easing).
+- **Mini-map node:** 14 px squares. Visited = grass, current = gold, unvisited = dark, locked = stone with a padlock.
+- **Skill node:** an inset chip. Proven skills get a grass cap and a count; unproven ones sit at 45% opacity.
+- **Biome backdrop (per Station):**
+  - SVG with `shape-rendering: crispEdges`: a sky band, 2–3 rows of stepped block hills, a grass strip (10 px light + 10 px dark), a dirt band with a few 20 px lighter "pebble" squares.
+  - Each biome changes only the sky colour and one prop silhouette: clouds for Sky Plains, mesa steps for Mesa, crystals for Crystal Cave, white tiles and a fume hood for Snowfield Lab.
+- **Title Screen:**
+  - The framed Ghibli portrait standing on a grass-block plinth.
+  - The name in display type with a black drop shadow, the tagline in Space Grotesk.
+  - Three chips as stone blocks.
+  - **▶ Start** (grass) and **Recruiter Mode** (stone).
+- **Locked door (Quantum Fab):** a stone-block arch with a dark doorway and a gold padlock, labelled "Dream: quantum computer hardware".
+- **Sprite:** pixel art; see EXPERIENCE.md §12.
 
 ## Do's and Don'ts
 | Do | Don't |
 |---|---|
-| Lead every card with the diagram | Put a paragraph above a diagram |
-| Use mono for every number | Set metrics in the sans font |
-| Keep qualifiers next to the number ("+14.1% · simulated") | Hide qualifiers in tooltips |
-| Use the existing SVG style: thin strokes, mono labels, navy fills | Introduce photographic, 3D or glossy styles |
-| Frame the warm portrait inside navy | Use the warm illustration as a full-bleed page background beyond the Title |
-| Give every status a word and a colour | Use colour alone |
-| Keep the Résumé button the only filled button in the HUD | Make other HUD buttons compete with it |
+| Outline every block in 3–4 px black | Use hairline borders or rounded corners |
+| Use flat colours plus our own 4 px speckles | Copy any game's textures, block art, logos or UI |
+| Make gold the only accent for value (Résumé, numbers, achievements) | Use gold for decoration |
+| Keep brown and stone to fills and borders | Set any text in brown or stone |
+| Use bevels and hard offset shadows for depth | Use blurred shadows or glows |
+| Use mono uppercase with a black drop shadow for titles | Use pixel or bitmap fonts |
+| Integer-scale the pixel sprite with `image-rendering: pixelated` | Scale pixel art by fractional factors (blurry) |
+| Frame the watercolour portrait in a thick black block frame | Put the portrait in a soft round frame |

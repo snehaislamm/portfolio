@@ -168,7 +168,7 @@ Overlays trap focus and restore it on close.
 | Button hover / press | 150 ms ease-out | Colour change only |
 | Inspect drawer / sheets open | 250 ms ease-out (slide + fade) | Instant |
 | Achievement toast | 200 ms in · 3 s hold · 200 ms out | Appears instantly; same hold |
-| Station arrival: Station-colour wash + title rise 16 px + diagram draw | 600 ms total, once per Station | Static |
+| Station arrival: biome sky fades to the Station colour, blocks of the horizon "pop" up in 4 px steps, title drops in, diagram draws | 600 ms total, once per Station, `steps()` easing for block motion | Static |
 | Diagram stroke "draw on" | ≤800 ms, once | Fully drawn |
 | Diagram dash-flow (existing `.flow`) | 2 s loop, only while in view | Off |
 | Metric count-up | 600 ms, once | Final number shown |
@@ -180,12 +180,12 @@ Overlays trap focus and restore it on close.
 **Never:** parallax on more than one layer, motion tied to scroll velocity, camera shake, flashing (>3 flashes per second), or autoplaying sound.
 
 ## 10. Accessibility floor
-- **Contrast:** WCAG 2.1 AA. Text uses `{colors.text}`, `{colors.muted}` and `{colors.dim}` only (all ≥4.5:1 on navy); `{colors.rule}` is never used for text. Status is never shown by colour alone.
+- **Contrast:** WCAG 2.1 AA. Text uses `{colors.text}`, `{colors.muted}` and `{colors.dim}` only (all ≥4.5:1 on `{colors.panel}`, `{colors.inset}` and `{colors.coal}`). `{colors.dirt}` and `{colors.stone}` are never used for text. Status is never shown by colour alone.
 - **Landmarks:** `header` (HUD), `nav` (Mini-map, labelled "Track"), `main` (Track), each Station a `section` with `aria-labelledby` pointing at its title.
 - **Diagram alt text:**
   - **Pattern:** each diagram is an `<svg role="img" aria-labelledby="t d">` with a `<title>` (short: "Newsletter pipeline diagram") and a `<desc>` (the flow in words: "50+ sources are scraped, extracted and deduplicated, summarized by Gemini, personalized per user, archived in PostgreSQL and emailed weekly via SendGrid").
   - **Also visible:** the same sentence is shown in Inspect L2, so sighted keyboard users get it too.
-  - **Decorative SVG** (background grid, corner marks, the sprite) is `aria-hidden`.
+  - **Decorative SVG** (biome backdrops, block horizon, the sprite) is `aria-hidden`.
 - **Live regions:** one polite region for toasts and "Copied" feedback.
 - **Target size:** ≥44×44 px for every control (`{spacing.touch-min}`).
 - **Zoom:** works at 200% and at 400% reflow (320 CSS px wide) with no loss of content. The HUD wraps to two rows if needed.
@@ -201,7 +201,7 @@ Overlays trap focus and restore it on close.
 Safe-area insets are respected. The iOS Safari address-bar resize must not trigger Station arrival animations twice.
 
 ## 12. Character design brief: Sneha's sprite (D13)
-**Purpose:** a small, original flat-vector character that walks the Track. The **Ghibli-style portrait (D1) stays the face** of the game, on the Title Screen, in the dialogue box and in the HUD. The sprite is the body that moves.
+**Purpose:** a small, original **pixel-art** character that walks the Track (Block Biome direction, D14). The **Ghibli-style portrait (D1) stays the face** of the game, on the Title Screen, in the dialogue box and in the HUD. The sprite is the body that moves.
 
 **Must stay recognisably Sneha** (from D1):
 - long, wavy, dark-brown hair
@@ -211,7 +211,7 @@ Safe-area insets are respected. The iOS Safari address-bar resize must not trigg
 **Outfit** *[ASSUMPTION; Sneha may change it]*:
 - the D1 black short-sleeve top and long pale-yellow skirt
 - under an **open white lab coat**, the nano-engineer layer
-- the skirt's yellow lines up with the `amber` token, and the coat with `text`
+- the skirt's yellow lines up with the `gold` token, and the coat with `snow`
 
 **Props** (one per state, all things on her CV):
 - **probe:** an electrical probe, from C–V measurement
@@ -228,18 +228,18 @@ Safe-area insets are respected. The iOS Safari address-bar resize must not trigg
 | **Celebrate** | Both arms up, small sparkle marks around her | — | When an Achievement unlocks |
 
 **Style rules:**
-- **Flat vector:** 2–3 tones per colour, no gradients, 1.5 px dark-navy outline (`#070b14`).
-- **Size:** designed at 128 px tall, displayed at 64 px (48 px on mobile). Delivered as SVG, ≤8 KB per state after optimisation, or a single WebP sprite sheet ≤40 KB.
-- **Proportions:** simple, 3–4 heads tall. Readable at 48 px, so the glasses must survive as two clear circles.
+- **Pixel art:** a native canvas of **32×48 px** per frame, a limited palette (≤16 colours, using DESIGN.md tokens where possible), a 1 px black outline, no anti-aliasing and no gradients.
+- **Size:** displayed at an **integer ×2 scale (64×96)** with `image-rendering: pixelated`, never at fractional scales. Delivered as **one PNG sprite sheet** (frames in a row: idle 1–2, walk 4, thinking 1–2, celebrate 2), ≤20 KB.
+- **Proportions:** chunky, about 3 heads tall. The glasses must read as two clear 3×3 px squares or rings at native size.
 - **Original only:** it must not resemble any existing game, anime or film character, and must not copy a studio's character designs. The Ghibli-*inspired* portrait is a style reference for warmth only.
 
-**Who makes it:** Sneha, using the same tool she used for the D1 illustration or a commission. When the images arrive, the image pipeline (`images.py`) optimises them. Until then, the fallback marker in §7 is used.
+**Who makes it:** Sneha, in a pixel editor (e.g. Aseprite, Piskel or LibreSprite), with an image tool, or by commission. When the images arrive, the image pipeline (`images.py`) optimises them. Until then, the fallback marker in §7 is used.
 
 ## 13. Key flows
 **F1: Dana, a tech recruiter, does the 60-second path** (realizes UJ-1):
 1. She opens the link on her laptop. The Title Screen shows the portrait, *Sneha Islam · Nano-Engineer · from silicon to software*, and the chips *4 terms · 8 repos · Azure ×2*.
 2. She scrolls. The Character Card shows *8-month co-op · Jan–Aug 2027 · Toronto* and the Azure badge, and the **Azure certified ×2** toast pops.
-3. She scrolls. AI in Production arrives: a violet wash, the sprite walks in, the dialogue says "I shipped an AI system watching 1,200+ companies." The pipeline diagram draws on, **50+ · 1,200+** count up, and the **Shipped to production** toast pops while the sprite celebrates.
+3. She scrolls. AI in Production (Sky Plains) arrives: the sky turns blue and the block hills pop up, the sprite walks in, the dialogue says "I shipped an AI system watching 1,200+ companies." The pipeline diagram draws on, **50+ · 1,200+** count up, and the **Shipped to production** toast pops while the sprite celebrates.
 4. She scrolls through Power & Control (±2% · −35% · 46/46) and Compiler & EDA (2,218 blocks).
 5. **Climax:** about 40 s in, she clicks **Résumé** in the HUD. The PDF opens in a new tab, and she has what she came for.
 
@@ -289,7 +289,7 @@ flowchart LR
 |---|---|
 | **Curious:** ≥3 things are rewarding to click | (1) Inspect L1→L3 on every card, (2) Skill Tree proof links, (3) the locked Quantum Fab door, (4) 3 real-fact easter eggs inside Inspect (Mon 7 AM ET, 10 ms E-stop, the skipped ~$611 kit) |
 | **Intelligent:** every project shows how it works | §5: all 14 Main Level Cards have a diagram (3 reuse existing SVGs, 11 new); Side Quests are explicitly icon-only |
-| **Fun:** ≥3 delightful moments | (1) Achievement toast + sprite celebrate, (2) Station arrival wash + sprite walking in, (3) metric count-up, (4) the locked-door nudge and line |
+| **Fun:** ≥3 delightful moments | (1) Achievement toast + sprite celebrate, (2) Station arrival: the biome builds itself block by block as the sprite walks in, (3) metric count-up, (4) the locked-door nudge and line |
 | **Hardworking:** Quest Log and XP visibly full | XP bar fills toward 17/17. Quest Log shows **16 Completed**. Speedrun Banner: 8 repos, Nov 2026 |
 | **Résumé in ≤2 clicks from every screen** | **1 click**, via the HUD on every Game Mode screen. Recruiter Mode has it in the top nav. |
 

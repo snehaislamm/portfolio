@@ -1,6 +1,8 @@
 # Wireframes: The Fab Line
 
 These are ASCII wireframes at low fidelity. The spines (`../DESIGN.md`, `../EXPERIENCE.md`) win on conflict.
+
+> **Visual direction: B · Block Biome** (DESIGN.md). Colour notes in these wireframes, such as "(violet)", "corner marks" or "navy", are from the earlier navy/cyan draft. Read them as the Block Biome equivalents: each Station uses its biome colour, frames are thick black block outlines, and the Ghibli portrait sits in a black square frame. Layout and behaviour are unchanged.
 Legend: `[ Button ]` · `( icon )` · `▓▓▓` diagram · `●` current · `○` unvisited · `◉` visited · `🔒` locked.
 
 ---
