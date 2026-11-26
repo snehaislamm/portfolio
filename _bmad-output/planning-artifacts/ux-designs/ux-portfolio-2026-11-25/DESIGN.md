@@ -274,7 +274,9 @@ Depth is **hard and pixel-like:** a solid black offset shadow (`6px 6px 0` black
   - The framed Ghibli portrait standing on a grass-block plinth.
   - The name in display type with a black drop shadow, the tagline in Space Grotesk.
   - Three chips as stone blocks.
-  - **▶ Start** (grass) and **Recruiter Mode** (stone).
+  - an availability line with a sky "→ NEXT" pill ("8-month co-op · Jan–Aug 2027").
+  - **3 Proof Tiles** in metric-tile style (gold number + ≤6-word label): 1,200+ · ±2% · 102.6 nm.
+  - **▶ Start** (grass) and **Résumé** (gold). There is no Recruiter Mode button (D15).
 - **Locked door (Quantum Fab):** a stone-block arch with a dark doorway and a gold padlock, labelled "Dream: quantum computer hardware".
 - **Sprite:** pixel art; see EXPERIENCE.md §12.
 

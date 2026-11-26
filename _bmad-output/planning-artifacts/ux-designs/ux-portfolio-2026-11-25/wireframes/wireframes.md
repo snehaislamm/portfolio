@@ -7,43 +7,38 @@ Legend: `[ Button ]` · `( icon )` · `▓▓▓` diagram · `●` current · `�
 
 ---
 
-## W1. Title Screen (desktop)
+## W1. Glance Card / Title Screen (desktop), updated for D15
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│ (◕) SNEHA ISLAM   ○──○──○──○──○──○─🔒        [ Résumé ] (✉)(in)(gh) [More ▾] │ ← HUD
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
 │   NANO-ENGINEER · UNIVERSITY OF WATERLOO        ┌┐──────────────────────┌┐   │
-│                                                 │                        │   │
-│   Sneha Islam                                   │   Ghibli portrait      │   │
-│   from silicon to software.                     │   (sneha-scene.webp)   │   │
-│                                                 │   framed, corner marks │   │
-│   [ 4 terms ] [ 8 repos ] [ Azure ×2 ]          │                        │   │
-│                                                 └┘──────────────────────└┘   │
-│   [ ▶ Start ]   [ Recruiter Mode ]                                            │
+│                                                 │   Ghibli portrait      │   │
+│   SNEHA ISLAM                                   │   black block frame,   │   │
+│   from silicon to software.                     │   grass plinth         │   │
+│   → 8-month co-op · Jan–Aug 2027                └┘──────────────────────└┘   │
 │                                                                              │
-│                       scroll ↓  ·  Space                                      │
+│   ┌──────────────┐ ┌──────────────┐ ┌──────────────┐                         │
+│   │ 1,200+       │ │ ±2%          │ │ 102.6 nm     │   ← 3 Proof Tiles       │
+│   │ companies,   │ │ SoC accuracy,│ │ SiNₓ film I  │                         │
+│   │ AI I shipped │ │ EV battery   │ │ made         │                         │
+│   └──────────────┘ └──────────────┘ └──────────────┘                         │
+│   [ ▶ Start ]   [ ⬇ Résumé ]                         scroll ↓ · Space        │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
-13 visible words, excluding buttons and HUD.
+≤30 visible words, excluding buttons. No HUD on this screen: the Résumé button is right here.
 
-## W1-m. Title Screen (mobile, 390 px)
+## W1-m. Glance Card (mobile, 390 px)
 ```
 ┌──────────────────────────┐
-│  ┌┐────────────────┌┐    │
-│  │ Ghibli portrait │     │
-│  │ (crop, 4:3)     │     │
+│  ┌┐ portrait 180px ┌┐    │
 │  └┘────────────────└┘    │
 │  NANO-ENGINEER · UW      │
-│  Sneha Islam             │
+│  SNEHA ISLAM             │
 │  from silicon to         │
 │  software.               │
-│  [4 terms][8 repos]      │
-│  [Azure ×2]              │
-│  [ ▶ Start ]             │
-│  [ Recruiter Mode ]      │
-├──────────────────────────┤
-│[Résumé] (✉) (in) (gh) ⋯ │ ← bottom HUD, safe-area aware
+│  → 8-mo co-op · Jan–Aug 27│
+│ [1,200+][±2%  ][102.6 nm]│
+│ [cos.  ][SoC  ][SiNₓ film]│
+│  [ ▶ Start ][ ⬇ Résumé ] │
 └──────────────────────────┘
 ```
 
@@ -207,17 +202,7 @@ Mobile: the drawer becomes a bottom sheet (85% height), with the same order.
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
-## W10. Recruiter Mode (desktop; reuses the current site layout)
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│ S.ISLAM   About · Experience · Projects · Code · Courses · Skills · Path ·   │
-│           Résumé · Contact                         [ ▶ Play the game ]       │
-├──────────────────────────────────────────────────────────────────────────────┤
-│ Current index.html sections §01–§09, in order, static, no animation,         │
-│ every Level Card at full L2 depth, early & collaborative work included,      │
-│ full HTML résumé sheet (with Leadership), Résumé PDF link in the top nav.    │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
+## W10. *(Removed by D15: there is no Recruiter Mode.)*
 
 ## W11. Mobile Station and card (390 px)
 ```

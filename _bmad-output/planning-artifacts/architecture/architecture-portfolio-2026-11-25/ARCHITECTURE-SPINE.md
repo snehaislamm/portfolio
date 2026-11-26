@@ -4,8 +4,8 @@ type: architecture-spine
 purpose: build-substrate
 altitude: feature
 paradigm: 'Islands architecture (progressive enhancement): static content layer + React game islands'
-scope: 'Whole portfolio site: Recruiter Mode, Game Mode, content, build-time tooling, CI and deploy'
-status: draft
+scope: 'Whole portfolio site: one progressive-depth page, content, build-time tooling, CI and deploy'
+status: final
 created: '2026-11-25'
 updated: '2026-11-25'
 binds: ['FR-1..FR-31', 'NFR-1..NFR-12', 'D1..D14']
@@ -23,7 +23,7 @@ companions:
 
 ## Design Paradigm
 
-**Islands architecture.** Astro pre-renders one static page containing **all** content as semantic HTML, which is the Recruiter Mode baseline. React **islands** hydrate on top to add the game. Islands enhance, they never own content.
+**Islands architecture.** Astro pre-renders one static page containing **all** content as semantic HTML, which is the static baseline (no JS). React **islands** hydrate on top to add the game. Islands enhance, they never own content.
 
 | Layer | Directory | Owns |
 |---|---|---|
@@ -58,7 +58,7 @@ Arrows point from dependency to dependent. Nothing depends on `src/islands`. `sr
 
 ### AD-2: One content source, schema-validated
 - **Binds:** FR-31, FR-30, all content FRs
-- **Prevents:** Game Mode, Recruiter Mode and the fact audit drifting apart, and copy hard-coded in components
+- **Prevents:** the page, the Inspect layers and the fact audit drifting apart, and copy hard-coded in components
 - **Rule:** All content lives in `src/content/*.json` and is validated by zod schemas in `src/content.config.ts`. Components and islands receive content only through Astro content collections, or as props derived from them. UI chrome strings ("Résumé", "Inspect ▸", "Copy link") live only in `src/content/ui.json`. A build fails on schema errors.
 
 ### AD-3: Stable slugs are the only identifiers
@@ -70,20 +70,20 @@ Arrows point from dependency to dependent. Nothing depends on `src/islands`. `sr
   - **Derived from the slug:** the DOM `id` is `<station>/<item>` (Station: `<station>`), and the URL hash is `#<station>/<item>`.
   - **References:** achievements, skills and Quest Log rows refer to Quests only by `"<station>/<item>"`.
 
-### AD-4: Modes differ only by attribute, never by markup tree
-- **Binds:** FR-25, FR-26, FR-27, NFR-7
-- **Prevents:** a second "recruiter" page or component tree drifting from the game one
+### AD-4: One view; the static page is the baseline, never a second mode *(amended by D15)*
+- **Binds:** FR-25, FR-27, NFR-7, NFR-12
+- **Prevents:** a second "plain" page or component tree drifting from the game one, and content that only exists after JS
 - **Rule:**
-  - **One page (`/`).** `<html data-mode="recruiter|game" data-motion="on|off">`. The markup ships `data-mode="recruiter"`.
-  - **A blocking inline script in `<head>`** sets the real mode before paint. The priority order is `?mode=` → localStorage → `game`. Motion is set from localStorage → `prefers-reduced-motion`.
-  - **Styling:** CSS selects on these attributes. Islands render nothing while `data-mode="recruiter"`.
+  - **One page (`/`), one markup tree, no mode switch.** There is no `data-mode` and no `?mode=`.
+  - **Inspect layers are native `<details>`** in the static markup. The InspectDrawer island enhances them into a drawer or sheet; without JS they still open in place.
+  - **A blocking inline script in `<head>`** sets only `<html data-motion="on|off">` before paint, from `localStorage["fabline:motion"]` → `prefers-reduced-motion`. The markup ships `data-motion="off"`.
 
 ### AD-5: `src/game/state.ts` is the sole mutator of game state
-- **Binds:** FR-7, FR-18, FR-22, FR-24, FR-26
+- **Binds:** FR-7, FR-18, FR-22, FR-24
 - **Prevents:** two islands tracking visits or achievements separately, and storage written from many places
 - **Rule:**
-  - **The store:** one nanostores module holds `mode`, `motion`, `currentStation`, `visitedStations`, `viewedQuests`, `unlockedAchievements` and `openOverlay`. Islands read through `@nanostores/react` and change state only by calling exported actions.
-  - **Persistence:** goes through one adapter wrapped in try/catch. Preferences (`mode`, `motion`) use `localStorage`. Progress uses `sessionStorage` *[ASSUMPTION per PRD FR-7]*.
+  - **The store:** one nanostores module holds `motion`, `currentStation`, `visitedStations`, `viewedQuests`, `unlockedAchievements` and `openOverlay`. Islands read through `@nanostores/react` and change state only by calling exported actions.
+  - **Persistence:** goes through one adapter wrapped in try/catch. The motion preference uses `localStorage`. Progress uses `sessionStorage` (PRD FR-7; confirmed by Sneha).
   - **Achievement rules:** live in `src/game/achievements.ts` as data (`trigger: "<station>/<item>" | screen slug`), never inside islands.
   - **Viewport observation:** only `islands/TrackController.tsx` observes it (one `IntersectionObserver`, 50% threshold) and calls `markVisited` / `markViewed`. No other island decides what has been seen.
 
@@ -155,7 +155,7 @@ Arrows point from dependency to dependent. Nothing depends on `src/islands`. `sr
 | **Status** | `"done" \| "active" \| "next"`; side quests have `side: true` |
 | **Diagrams** | `src/components/diagrams/<Name>.astro`, inline SVG with `role="img"`. `<title>` and `<desc>` come from the content entry's `diagram.title` and `diagram.alt`. |
 | **Overlays** | One at a time (`state.openOverlay`). Focus trap + Esc + focus restore, via one shared `useOverlay` hook. |
-| **Storage keys** | Prefixed `fabline:` (`fabline:mode`, `fabline:motion`, `fabline:progress`) |
+| **Storage keys** | Prefixed `fabline:` (`fabline:motion`, `fabline:progress`) |
 | **Errors** | Islands are wrapped in an error boundary that renders `null`, so the static content stays (NFR-12). No `console.error` noise in production. |
 | **Tests** | `src/game/*.test.ts` with Vitest for state, router and achievement rules; `tools/test_*.py` for the audit |
 
@@ -241,7 +241,7 @@ There are two environments, Preview (per PR) and Production (`main`). There are 
 | Skill Tree, Quest Log, XP (FR-15…FR-18) | `islands/SkillTree.tsx`, `islands/QuestLog.tsx`, `game/state.ts` | AD-2, AD-3, AD-5 |
 | Achievements (FR-22) | `game/achievements.ts` + `islands/Toasts.tsx` | AD-5, AD-7 |
 | HUD, Mini-map, motion toggle (FR-23, FR-24, FR-7, FR-8) | `islands/Hud.tsx` (static fallback nav in `Base.astro`) | AD-4, AD-5, AD-6, AD-7 |
-| Recruiter Mode, no-JS (FR-25…FR-27) | `Base.astro` mode script + CSS | AD-1, AD-4 |
+| Progressive depth, no-JS (FR-25, FR-27) | `LevelCard.astro` `<details>` + `islands/InspectDrawer.tsx`; `Base.astro` motion script | AD-1, AD-4 |
 | Deep links, copy link (FR-28, FR-29) | `game/router.ts` | AD-3, AD-6 |
 | Fact Audit, single source (FR-30, FR-31) | `tools/fact_audit.py`, `src/content/` | AD-2, AD-10, AD-11 |
 | Performance, assets, a11y, analytics (NFR-2…NFR-10) | `lighthouserc.json`, `public/`, `tokens.css`, `Base.astro` | AD-8, AD-9, AD-12, AD-13 |
