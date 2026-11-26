@@ -176,7 +176,7 @@ Tabs, cards and one skill-tree view. **Risk:** it reads as a themed dashboard ra
 | Time | Screen | What the recruiter sees | Action |
 |---|---|---|---|
 | 0–2 s | **Title** | Sunny illustration · "Sneha Islam · Nano-Engineer · from silicon to software" · chips: **4 terms · 8 repos · Azure ×2** · HUD: Résumé · Recruiter Mode · GitHub · LinkedIn · Email | Press **Start ▸** / scroll / Space |
-| 2–8 s | **Character card** | Portrait, UWaterloo BASc NE · Nanoelectronics · 3B · **Next quest: co-op term ⚠ (Summer vs Winter 2027, see Open Q1)** · Equipment: AZ-900, AI-900 · XP bar 17/18 | Scroll |
+| 2–8 s | **Character card** | Portrait, UWaterloo BASc NE · Nanoelectronics · 3B · **Next quest: 8-month co-op · Jan–Aug 2027** · Home base: Toronto · Equipment: AZ-900, AI-900 · XP bar 17/18 | Scroll |
 | 8–20 s | **AI in Production** *(shown first; see note)* | Newsletter pipeline SVG animates · "I shipped an AI system watching 1,200+ companies." · tiles **50+ sources/day · <300 ms · 85%+** · toast 🏆 *Shipped to production* | Scroll |
 | 20–30 s | **Power & Control** | Battery pack + CAN diagram · "My fault injection cut BMS testing time 35%." · tiles **±2% SoC · −35% · 46/46 reqs** | Scroll |
 | 30–38 s | **Compiler & EDA** | FPGA grid routing animation · "I routed 2,218 blocks on a 54×54 FPGA." · tiles **15.7× matmul · 89.5 MHz** | Scroll |
@@ -188,7 +188,7 @@ Tabs, cards and one skill-tree view. **Risk:** it reads as a themed dashboard ra
 - **(a)** Keep the true fab order and rely on the title chips and character card to front-load the AI signal.
 - **(b)** Play the line in reverse, "from software back to silicon", ending at the Quantum Fab door. That puts the strongest signal first *and* ends on her dream.
 
-I lean **(b)**. It's Sneha's call, and it goes to the product brief.
+**Decided: (b) reversed, software → silicon** (D6). The table above already follows this order: AI → Power & Control → Compiler & EDA → Cleanroom → Quantum Fab door.
 
 ### Achievements shortlist (all real facts, max 5)
 1. **Shipped to production:** Communitech, on Azure
@@ -199,14 +199,14 @@ I lean **(b)**. It's Sneha's call, and it goes to the product brief.
 
 ---
 
-## Open questions (must be resolved before the product brief)
+## Open questions: all resolved 2026-11-25 (see inventory D4–D7)
 
 | # | Question | Why it blocks |
 |---|---|---|
-| Q1 | **Next quest: Summer 2027 or Winter 2027?** The résumé says Summer 2027; the datasheet, Path and contact say Winter 2027 (W27). | It is on the character card and the contact status, and it is the single most important logistics fact for a recruiter. |
-| Q2 | **Location: Toronto or Waterloo?** | It appears on the character card ("home base"). |
-| Q3 | **Track order: silicon → software (true metaphor) or software → silicon (signal-first)?** | It sets the whole station sequence. |
-| Q4 | **Is the phone number OK in the public PDF?** | The PDF is linked from every screen. |
+| Q1 ✅ **Jan–Aug 2027, 8 months** | **Next quest: Summer 2027 or Winter 2027?** The résumé says Summer 2027; the datasheet, Path and contact say Winter 2027 (W27). | It is on the character card and the contact status, and it is the single most important logistics fact for a recruiter. |
+| Q2 ✅ **Toronto** | **Location: Toronto or Waterloo?** | It appears on the character card ("home base"). |
+| Q3 ✅ **Reversed** | **Track order: silicon → software (true metaphor) or software → silicon (signal-first)?** | It sets the whole station sequence. |
+| Q4 ✅ **Yes** | **Is the phone number OK in the public PDF?** | The PDF is linked from every screen. |
 
 ## Next step
 Product brief (**CB**), built from Concept A, using these answers and the inventory as the source of truth.

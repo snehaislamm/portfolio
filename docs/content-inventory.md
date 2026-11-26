@@ -495,3 +495,12 @@ Total ≈ 364 KB. **Not done yet:**
 
 **Palette note:** the illustration is warm daylight (greens, yellows, sky blue), while the current site is a dark navy blueprint (§15). Matching the two is a redesign decision, so it is left open.
 
+### Further decisions (2026-11-25, answers to brainstorm Q1–Q4)
+
+| # | Topic | Decision | Site updated? |
+|---|---|---|---|
+| D4 | **Availability** | **8-month co-op, Jan 2027 – Aug 2027.** This replaces "Winter 2027 / W27" everywhere. It matches the résumé headline "Summer 2027" (Jan–Aug covers Winter + Summer). PHYS 468 stays "Planned · Winter 2027", taken during the first half of the term. | Yes: datasheet "Next", Path top item, contact status |
+| D5 | **Home base** | **Toronto, ON.** Waterloo stays as the university's location. | Yes: datasheet row renamed "Location" → "Home: Toronto, ON" |
+| D6 | **Track order** | Fab Line runs **reversed: software → silicon**, ending at the locked Quantum Fab. | n/a (game) |
+| D7 | **Phone number in public PDF** | Approved by Sneha. | n/a |
+
