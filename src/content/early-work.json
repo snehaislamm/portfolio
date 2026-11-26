@@ -1,0 +1,23 @@
+[
+  {
+    "id": "yunus-ai",
+    "title": "yunus-AI",
+    "description": "Flutter financial AI chatbot (OpenAI + Alpha Vantage), built during Avanade WE Accelerate",
+    "year": "2024",
+    "href": "https://github.com/zahra-ahmed1/yunus-AI"
+  },
+  {
+    "id": "selenium-python-bestbuy",
+    "title": "Selenium_Python_BestBuy",
+    "description": "Selenium scraper that filters 75–85″ TV listings by price and sale end date",
+    "year": "2024",
+    "href": "https://github.com/snehaislamm/Selenium_Python_BestBuy"
+  },
+  {
+    "id": "ultimate-tic-tac-toe",
+    "title": "Ultimate tic-tac-toe",
+    "description": "Team Pygame game",
+    "year": "2023",
+    "href": "https://github.com/varshini811/tic-tac-toe_game"
+  }
+]

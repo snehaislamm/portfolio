@@ -1,0 +1,51 @@
+[
+  {
+    "id": "ne-343",
+    "code": "NE 343",
+    "title": "Microfabrication & Thin Films",
+    "status": "completed",
+    "group": "devices",
+    "topics": ["Photolithography", "Nanopatterning", "Junction formation", "Thermal oxidation (Deal–Grove)", "CMOS process flow", "Thin-film transistors", "PECVD / PVD"]
+  },
+  {
+    "id": "ne-344",
+    "code": "NE 344",
+    "title": "Nanoelectronics specialization core",
+    "status": "completed",
+    "group": "devices",
+    "topics": ["Nanoelectronics specialization"]
+  },
+  {
+    "id": "ne-332",
+    "code": "NE 332",
+    "title": "Quantum Mechanics",
+    "status": "completed",
+    "crossListed": "CHEM 356",
+    "group": "physics",
+    "topics": ["Schrödinger equation", "Tunneling & scattering", "Angular momentum", "Spherical harmonics", "Spin & Pauli matrices", "Variational principle"]
+  },
+  {
+    "id": "ne-333",
+    "code": "NE 333",
+    "title": "Polymer Science",
+    "status": "completed",
+    "group": "materials",
+    "topics": ["Step & chain polymerization", "ATRP / ROMP", "Copolymer composition", "GPC · MALDI-TOF · AFM", "Tg/Tm · DSC", "Flory–Huggins", "Biodegradation"]
+  },
+  {
+    "id": "ne-318",
+    "code": "NE 318",
+    "title": "Continuum Mechanics & Transport",
+    "status": "completed",
+    "group": "materials",
+    "topics": ["Shell momentum balances", "Laminar & two-fluid flow", "Unsteady flow", "Conductive heat transfer", "Tensor transformations"]
+  },
+  {
+    "id": "mse-261",
+    "code": "MSE 261",
+    "title": "Engineering Economics",
+    "status": "completed",
+    "group": "systems",
+    "topics": ["PW / AW / IRR / ERR", "Replacement analysis", "Taxes & CCA", "Inflation", "B/C ratio", "Decision trees", "CPM crashing"]
+  }
+]

@@ -155,6 +155,53 @@ class FactAuditTest(unittest.TestCase):
         problems = self.problems(content={"src/content/u.json": {"metrics": [{"value": 73}]}})
         self.assertFails(problems, "[number] '73' … $.metrics[0].value")
 
+    def test_machine_key_numbers_exempt(self) -> None:
+        # 2025, 09, 7, 811 and 73 are not in the corpus; under machine keys they are identifiers, not claims.
+        quest = {
+            "id": "ai/item-73",
+            "station": "ai",
+            "slug": "item-73",
+            "kind": "work",
+            "status": "done",
+            "dates": {"sort": "2025-09", "display": "2026 term"},
+            "links": [{"label": "repo", "href": "https://github.com/user811/repo-7"}],
+            "url": "https://example.com/73",
+        }
+        content = {
+            "src/content/quests.json": [quest],
+            "src/content/achievements.json": [{"id": "a-73", "title": "Served 1,200 users", "unlock": "ai/item-73"}],
+        }
+        self.assertEqual(self.problems(content=content), [])
+        self.assertEqual(set(fact_audit.NUMBER_EXEMPT_KEYS), {
+            "source", "sort", "slug", "station", "kind", "status", "id", "unlock", "href", "url",
+            "quest", "quests", "reuse", "email",
+        })
+
+    def test_machine_key_exemption_is_exact(self) -> None:
+        # The same digits under a display key, a label or a key merely containing "id" are still checked.
+        for content in (
+            {"dates": {"sort": "2026-01", "display": "Sep 2025"}},
+            {"links": [{"label": "user811", "href": "https://github.com/snehaislamm"}]},
+            {"valid": "73"},
+            {"hrefs": ["73"]},
+        ):
+            with self.subTest(content=content):
+                self.assertFails(self.problems(content={"src/content/u.json": content}), "[number]")
+
+    def test_machine_key_values_still_checked_for_bans(self) -> None:
+        cases = (
+            ({"id": "engineering-ambassador"}, "[ambassador]"),
+            ({"slug": "phys-468"}, "[course-code]"),
+            ({"href": "https://github.com/zzqa-xxlast/repo"}, "[teammate-name]"),
+            ({"slug": "capstone", "status": "tested"}, "[capstone-claim]"),
+            ({"slug": "capstone", "dates": {"sort": "built"}}, "[capstone-claim]"),
+        )
+        for value, rule in cases:
+            with self.subTest(value=value):
+                problems = self.problems(content={"src/content/u.json": [value]})
+                self.assertFails(problems, rule)
+                self.assertNoName(problems)
+
     # --- visible text ----------------------------------------------------------
     def test_self_closing_alt_and_aria_label_scanned(self) -> None:
         self.assertFails(self.problems(nxt=page('<img alt="88 dies"/>')), "[number] '88'")
