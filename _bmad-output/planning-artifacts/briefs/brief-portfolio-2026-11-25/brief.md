@@ -1,6 +1,6 @@
 ---
 title: "Product Brief: The Fab Line — Sneha Islam's game portfolio"
-status: draft
+status: final
 created: 2026-11-25
 updated: 2026-11-25
 sources:
@@ -9,6 +9,8 @@ sources:
 ---
 
 # Product Brief: The Fab Line
+
+**Stack:** React + TypeScript (static, pre-rendered) · Python build-time tooling · Vercel. No backend.
 
 ## Summary
 Sneha's portfolio becomes a short, scroll-driven game. **Sneha, the "Nano-Engineer", travels her own production line in reverse, *from software back to silicon*.** The line starts at the AI systems she shipped, passes through embedded and compiler work, and reaches the cleanroom where she fabricates devices. It ends at a locked door marked *Dream: quantum computer hardware*.
@@ -53,11 +55,12 @@ Student portfolios are walls of text that recruiters skim in seconds. The curren
 - **Works on a phone:** 400 px width, touch and keyboard, no horizontal scroll.
 - **Lighthouse ≥90** for Performance and Accessibility (mobile profile) `[ASSUMPTION: mobile]`. Loads in under 2 s on a normal connection.
 - `prefers-reduced-motion` and **Recruiter Mode** both give the full content, with nothing missing.
-- **Fact audit:** every number and line on screen maps to `docs/content-inventory.md`. The capstone is never shown as built, and teammates are not named.
+- **Fact audit:** every number and line on screen maps to `docs/content-inventory.md`, enforced by the Python fact-audit script in CI. The capstone is never shown as built, and teammates are not named.
 
 ## Scope
 **In (v1):**
-- one static page on Vercel, semantic HTML, a vanilla-JS game layer
+- one static page on Vercel, built with **React + TypeScript** and **pre-rendered to semantic HTML**, so the text exists before any JavaScript runs. The game is a React layer on top. The exact framework (e.g. Astro with React components, or Vite with a pre-render step) goes to the architecture step.
+- **Python build-time tools (no server):** a fact-audit script that fails the build if any on-screen number or line isn't in `docs/content-inventory.md`, and the image pipeline for the character assets
 - title screen, character card, 4 stations, speedrun, Shipping Dock
 - HUD with Résumé PDF, Recruiter Mode, GitHub, LinkedIn and email, a mini-map, the XP bar and the Quest Log
 - the 6 reused SVGs plus simple new diagrams for stations that have none
@@ -69,7 +72,7 @@ Student portfolios are walls of text that recruiters skim in seconds. The curren
 | Risk | Mitigation |
 |---|---|
 | **The gimmick hides the content** | The game is a layer over real HTML. The top signals appear in the first 20 s, and Recruiter Mode is one click away. |
-| **Slow load** | No framework. Images are WebP, and the scene image is lazy-loaded. First-load budget ≤600 KB `[ASSUMPTION]`, checked with Lighthouse before each deploy. |
+| **Slow load** | Pre-rendered HTML first, then React (~45 KB compressed) adds the game. Images are WebP, and the scene image is lazy-loaded. First-load budget ≤600 KB `[ASSUMPTION]`, checked with Lighthouse before each deploy. |
 | **Motion sickness** | Scroll-linked, short animations with no parallax-heavy movement. A motion toggle is in the HUD, and reduced motion is respected. |
 | **Recruiter won't play** | Recruiter Mode gives a plain one-page view, and the Résumé PDF is on every screen. |
 | **Facts drift or get inflated** | The inventory is the single source of truth. Qualifiers stay attached: "simulated", "projected", "estimate", "design proposal". |

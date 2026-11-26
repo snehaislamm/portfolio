@@ -500,3 +500,4 @@ Total ≈ 364 KB. **Not done yet:**
 | D6 | **Track order** | Fab Line runs **reversed: software → silicon**, ending at the locked Quantum Fab. | n/a (game) |
 | D7 | **Phone number in public PDF** | Approved by Sneha. | n/a |
 | D8 | **Planned courses** | **Removed** (PHYS 468, SYDE 572, ECE 457B/C, MTE 544 · STAT 341). They add no skill evidence. Don't show them in the game. | Yes: coursework grid and Path item |
+| D9 | **Tech stack** | **React + TypeScript** UI, pre-rendered to static HTML. **Python as build-time tooling only** (fact audit, image pipeline). No backend. Deployed on Vercel. | n/a (game) |
