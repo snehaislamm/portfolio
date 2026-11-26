@@ -51,6 +51,12 @@ jobs:
       - name: Legacy parity and analytics in dist
         run: python tools/check_dist.py
 
+      # Teammate names come from the BANNED_NAMES repository secret; with none set, CI fails (exit 2).
+      - name: Fact audit
+        run: python tools/fact_audit.py
+        env:
+          FACT_AUDIT_BANNED_NAMES: ${{ secrets.BANNED_NAMES }}
+
       # Internal links and the résumé PDF only. The local server runs on 127.0.0.1,
       # so every other http(s) URL (external sites) is skipped.
       - name: Internal links (linkinator)

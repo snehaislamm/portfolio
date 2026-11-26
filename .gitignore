@@ -5,3 +5,4 @@ dist/
 .astro/
 .lighthouseci/
 __pycache__/
+tools/banned_names.local.txt
