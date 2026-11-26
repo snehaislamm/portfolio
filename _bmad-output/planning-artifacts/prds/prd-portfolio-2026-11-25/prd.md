@@ -63,7 +63,7 @@ General gamers looking for a challenge; anyone expecting accounts, saves or comp
 - **Inspect:** the action that reveals the next Inspect Layer of a Level Card.
 - **Inspect Layer:** one of four depth levels: **L0** diagram + line → **L1** metrics → **L2** bullets → **L3** links.
 - **Character Line:** a first-person sentence of ≤12 words that restates a sourced fact. Exactly one per Station.
-- **Caption:** one of the 1–2 short sentences on a Level Card (≤20 words each), condensed from that card's source bullets without adding facts.
+- **Caption:** one of the 1–2 short sentences on a Level Card, condensed from that card's source bullets without adding facts. The card's short title plus its Captions total **≤25 words** (UX word budget).
 - **Quest:** one real item of work. There are **17**: 4 work terms, 5 course projects and 8 repos. Each has a status: **Completed**, **Active** or **Next**.
 - **Quest Log:** the timeline of Quests and Path items with their status.
 - **Achievement:** a toast unlocked by viewing a specific real fact. There are 5 in total.
@@ -376,7 +376,7 @@ All copy and metrics live in one structured content file that Game Mode and Recr
 - A 3D engine, WebGL scenes, physics or a canvas-based renderer.
 - A backend, serverless functions, contact forms, a CMS or a database.
 - Paid analytics, cookies, third-party trackers or session recording. Only free, cookie-less Vercel Web Analytics is used (D12).
-- New character art, walking or animated sprites, or redrawing the D1 illustration.
+- New character art **beyond** the 4-state sprite that Sneha supplies (idle, walk, thinking, celebrate; D13). No redrawing of the D1 illustration.
 - Any stat, level or score that is not a real count from the inventory.
 - Any content beyond the inventory: no new projects, quotes, testimonials or numbers.
 - A separate mobile app or PWA install.
