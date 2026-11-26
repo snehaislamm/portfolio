@@ -1,0 +1,69 @@
+# The quality gate (Story 1.2). Branch protection on main requires the `ci` check.
+name: ci
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 26.x
+          cache: npm
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: 3.x
+
+      - name: Install (npm ci)
+        run: npm ci
+
+      - name: Types and diagnostics (astro check)
+        run: npm run check
+
+      - name: Unit tests (vitest run)
+        run: npm test
+
+      - name: Build (astro build)
+        run: npm run build
+
+      - name: Python tool tests
+        run: python -m unittest discover -s tools -p "test_*.py"
+
+      - name: Legacy visible text matches
+        run: python tools/compare_legacy_text.py legacy/index.html dist/index.html
+
+      - name: Legacy parity and analytics in dist
+        run: python tools/check_dist.py
+
+      # Internal links and the résumé PDF only. The local server runs on 127.0.0.1,
+      # so every other http(s) URL (external sites) is skipped.
+      - name: Internal links (linkinator)
+        run: npx linkinator . next/index.html --server-root dist --recurse --skip '^https?://(?!127\.0\.0\.1[:/])'
+
+      - name: Lighthouse budgets (lhci autorun)
+        run: npx lhci autorun
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/
+          if-no-files-found: ignore
+          retention-days: 14
