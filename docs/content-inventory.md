@@ -231,12 +231,8 @@
 | NE 333 | Polymer Science | COMPLETED | Step & chain polymerization, ATRP / ROMP, Copolymer composition, GPC · MALDI-TOF · AFM, Tg/Tm · DSC, Flory–Huggins, Biodegradation | amber |
 | NE 318 | Continuum Mechanics & Transport | COMPLETED | Shell momentum balances, Laminar & two-fluid flow, Unsteady flow, Conductive heat transfer, Tensor transformations | amber |
 | MSE 261 | Engineering Economics | COMPLETED | PW / AW / IRR / ERR, Replacement analysis, Taxes & CCA, Inflation, B/C ratio, Decision trees, CPM crashing | red |
-| PHYS 468 | Implementation of Quantum Information Processing | **PLANNED · WINTER 2027** | Qubit platforms, Quantum hardware | violet |
-| SYDE 572 | Pattern Recognition | PLANNED (no term given) | Classification, Statistical learning | red |
-| ECE 457B/C | Computational Intelligence · Reinforcement Learning | PLANNED (no term given) | Neural networks, Fuzzy systems, Reinforcement learning | red |
-| MTE 544 · STAT 341 | Autonomous Mobile Robots · Computational Statistics | PLANNED (no term given) | Localization & mapping, Statistical computing | red |
 
-Totals: **6 completed**, **4 planned entries** (covering 6 course codes).
+Totals: **6 completed**. *(4 planned-course entries — PHYS 468, SYDE 572, ECE 457B/C, MTE 544 · STAT 341 — were removed from the site on 2026-11-25 at Sneha's request, D8. Do not use them.)*
 
 ## 9. Skills (§06, L981–991)
 
@@ -264,7 +260,7 @@ Legend: cyan ring = Academic · violet ring = Work term · amber ring = Next. Th
 
 | When | Entry | Detail | Type |
 |---|---|---|---|
-| WINTER 2027 · NEXT | Co-op work term | Taking **PHYS 468** (quantum information processing) alongside the work term. | Next |
+| JAN – AUG 2027 · NEXT | 8-month co-op work term | Open to software engineering, applied AI, embedded systems and nanoelectronics / quantum hardware roles. | Next |
 | NOV 2026 | Open-source build sprint | Shipped fabricfit, tilec, zonecore, modcell, muse, facesolve, vaclab and coa-forge to GitHub. | Academic (cyan) |
 | FALL 2026 · NOW | 3B · Capstone design proposal & Engineering Ambassador | Presented capstone design (**Nov 24**): wearable microneedle patch; Sneha owns electronics and readout. Representing NE to prospective students. | Academic |
 | FEB – MAY 2026 | Communitech · Software Developer Co-op | Shipped an agentic AI ecosystem-monitoring and newsletter platform **to production on Azure**. | Work |
@@ -433,7 +429,7 @@ Ranking criteria: (a) shipped to real users or production, (b) hard metric attac
 **Must-show logistics** (not ranked signals, but every recruiter looks for these):
 - Available for a **Winter 2027 co-op**. The résumé says she is pursuing **8-month** co-ops.
 - Location: Waterloo, ON.
-- 3B standing, with an expected path into quantum hardware (PHYS 468, W27).
+- 3B standing, with a long-term goal of quantum computing hardware.
 
 **Numbers that need qualifiers if reused:**
 - "projected 40%" (Avanade chatbot)
@@ -449,7 +445,7 @@ These are things the redesign will probably need that the current site **does no
 2. ~~**Résumé PDF:**~~ *Answered: see D2.* the résumé exists only as HTML. Is there a PDF for "Skip to Résumé" / download?
 3. **Dates for PRJ-003 / 004 / 005:** none are shown. The Path suggests 3A (2025) for MSE 261 and NE 333; NE 318 is undated.
 4. **NE 344:** its only chip is "Nanoelectronics specialization". Are there real topics to list?
-5. **Planned course terms:** SYDE 572, ECE 457B/C, MTE 544 · STAT 341 have no term.
+5. ~~**Planned course terms**~~ *Moot: planned courses removed (D8).*
 6. **Résumé vs site differences** (§11): Summer vs Winter 2027, Toronto vs Waterloo, and whether the phone number should be public on the site.
 7. **Repo stats:** GitHub stars, commits and contributors are not on the site, so they can't be used as game stats unless Sneha adds them.
 8. **Skill levels:** none exist. Any XP or level per skill would have to map to counts already on the site (e.g. number of roles or repos using a skill), not to invented scores.
@@ -499,8 +495,8 @@ Total ≈ 364 KB. **Not done yet:**
 
 | # | Topic | Decision | Site updated? |
 |---|---|---|---|
-| D4 | **Availability** | **8-month co-op, Jan 2027 – Aug 2027.** This replaces "Winter 2027 / W27" everywhere. It matches the résumé headline "Summer 2027" (Jan–Aug covers Winter + Summer). PHYS 468 stays "Planned · Winter 2027", taken during the first half of the term. | Yes: datasheet "Next", Path top item, contact status |
+| D4 | **Availability** | **8-month co-op, Jan 2027 – Aug 2027.** This replaces "Winter 2027 / W27" everywhere. It matches the résumé headline "Summer 2027" (Jan–Aug covers Winter + Summer). | Yes: datasheet "Next", Path top item, contact status |
 | D5 | **Home base** | **Toronto, ON.** Waterloo stays as the university's location. | Yes: datasheet row renamed "Location" → "Home: Toronto, ON" |
 | D6 | **Track order** | Fab Line runs **reversed: software → silicon**, ending at the locked Quantum Fab. | n/a (game) |
 | D7 | **Phone number in public PDF** | Approved by Sneha. | n/a |
-
+| D8 | **Planned courses** | **Removed** (PHYS 468, SYDE 572, ECE 457B/C, MTE 544 · STAT 341). They add no skill evidence. Don't show them in the game. | Yes: coursework grid and Path item |

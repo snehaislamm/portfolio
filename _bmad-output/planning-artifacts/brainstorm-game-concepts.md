@@ -40,7 +40,7 @@ Sneha's own tagline, **"from silicon to software"**, becomes a literal productio
                           vaclab           zonecore             tilec               The Plug Co           Quest Log summary
                           capstone (WIP)   modcell                                  Avanade · muse
                                                                                     facesolve · coa-forge
-                                                                         ↘ 🔒 QUANTUM FAB (locked: PHYS 468 · W2027)
+                                                                         ↘ 🔒 QUANTUM FAB (locked: dream, quantum computer hardware)
 ```
 
 The title screen uses the warm illustration (`sneha-scene.webp`). Stepping through the cleanroom door changes the scene to the site's dark blueprint palette. That also solves the style clash noted in inventory §19.
@@ -182,7 +182,7 @@ Tabs, cards and one skill-tree view. **Risk:** it reads as a themed dashboard ra
 | 30–38 s | **Compiler & EDA** | FPGA grid routing animation · "I routed 2,218 blocks on a 54×54 FPGA." · tiles **15.7× matmul · 89.5 MHz** | Scroll |
 | 38–48 s | **Cleanroom** | MIS cross-section + C–V curve · "I deposited 102.6 nm of SiNₓ, then measured it two ways." · **Active Main Quest:** capstone pod diagram, amber "Design proposal ✓ → Build 2027 → Test 2028" | Scroll |
 | 48–55 s | **Speedrun banner** | "8 repos shipped · Nov 2026" with 8 repo badges · toast 🏆 *8 repos, one sprint* | Scroll |
-| 55–60 s | **Shipping Dock** | Quest Log (17 ✓ · 1 active) · 🔒 Quantum Fab: "Next: PHYS 468, quantum hardware" · big **Résumé (PDF)** + contact | Click **Résumé** |
+| 55–60 s | **Shipping Dock** | Quest Log (17 ✓ · 1 active) · 🔒 Quantum Fab: "Dream: quantum computer hardware" · big **Résumé (PDF)** + contact | Click **Résumé** |
 
 **Note on order:** the fab-line metaphor runs silicon → software. A strict 60-second ranking, though, puts the AI work first (inventory §16, rank 1). Two options:
 - **(a)** Keep the true fab order and rely on the title chips and character card to front-load the AI signal.
