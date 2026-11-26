@@ -3,6 +3,7 @@
 **Purpose:** a record of everything on the current site, written before the game redesign. This is a content inventory, not a code review, and it contains no redesign proposals.
 **Source:** `index.html` (1,192 lines), REV 2026.11-D, read in full on 2026-11-25.
 **Rule for downstream agents:** every fact below is quoted or closely transcribed from the page, and `L###` gives the line in `index.html`. Anything not listed here is not on the site, so do not invent it. Open questions for Sneha are in §16.
+**Note (Story 1.1):** `index.html` has moved to `legacy/index.html`, byte-for-byte, so every `L###` reference still points at the same line in `legacy/index.html`.
 
 ---
 
@@ -452,7 +453,7 @@ These are things the redesign will probably need that the current site **does no
 7. **Repo stats:** GitHub stars, commits and contributors are not on the site, so they can't be used as game stats unless Sneha adds them.
 8. **Skill levels:** none exist. Any XP or level per skill would have to map to counts already on the site (e.g. number of roles or repos using a skill), not to invented scores.
 9. ~~**Capstone teammates:**~~ *Answered: see D3.* the site named her three teammates. Does Sneha want teammates shown in the game, and is she comfortable naming them there?
-10. **Vercel config:** there is no `vercel.json` or build config in the repo today. The site deploys as a single static `index.html`.
+10. **Vercel config:** `vercel.json` now exists (Story 1.1): framework Astro, build command `npm run build`, output directory `dist/`.
 
 ## 18. Decisions from Sneha (2026-11-25)
 
