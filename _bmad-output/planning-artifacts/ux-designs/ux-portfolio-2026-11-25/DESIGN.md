@@ -1,7 +1,7 @@
 ---
 name: The Fab Line
 description: Visual identity for Sneha Islam's game portfolio, in the "Block Biome" direction. Blocky, earthy and game-like, with each Station drawn as its own landscape (biome).
-status: draft
+status: final
 updated: 2026-11-25
 direction: "B · Block Biome (chosen by Sneha from .working/directions-1.html; replaces the old navy/cyan site palette)"
 sources:

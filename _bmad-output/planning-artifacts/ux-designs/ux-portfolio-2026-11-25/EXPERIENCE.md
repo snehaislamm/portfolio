@@ -1,6 +1,6 @@
 ---
 name: The Fab Line
-status: draft
+status: final
 updated: 2026-11-25
 sources:
   - _bmad-output/planning-artifacts/prds/prd-portfolio-2026-11-25/prd.md (FR-1…FR-31, NFR-1…NFR-12; Glossary terms used verbatim)
