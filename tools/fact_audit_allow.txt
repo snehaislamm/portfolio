@@ -1,0 +1,12 @@
+# Fact-audit allow-list (tools/fact_audit.py).
+#
+# UI-chrome strings that contain digits but are not facts (e.g. a version label).
+# Format: one entry per line, the exact string as shown on the page, then at least one space,
+# "#", a space and the reason:
+#
+#     v2.0  # UI version label in the footer
+#
+# Listed strings are blanked before numbers are checked (only at numeric-token boundaries).
+# They never override a ban (teammate names, course codes, Ambassador, capstone claims).
+# A line without a "# reason" comment fails the audit with exit 2.
+# Lines starting with "#" are comments. The current site needs no entries.
