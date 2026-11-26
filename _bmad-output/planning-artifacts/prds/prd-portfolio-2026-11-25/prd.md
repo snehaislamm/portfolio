@@ -88,7 +88,7 @@ General gamers looking for a challenge; anyone expecting accounts, saves or comp
 | 8 | Shipping Dock | Quest Log · Résumé · Contact | Path §07, Résumé §08 (inv §11), Contact §09 (inv §12) |
 | 9 | Quantum Fab (locked) | — | About §01 ¶4 + Interests "Quantum hardware" (inv §3–4) |
 
-Side Quest placement is by topic (econ → AI, tensor → Compiler, recycling → Cleanroom), and earlier & collaborative work (yunus-AI, Selenium scraper, tic-tac-toe; inv §7) appears in Recruiter Mode only and is not a Quest. *(Confirmed by Sneha.)* The Engineering Ambassador role is **not** in the portfolio (D10).
+Side Quest placement is by topic (econ → AI, tensor → Compiler, recycling → Cleanroom), and earlier & collaborative work (yunus-AI, Selenium scraper, tic-tac-toe; inv §7) appears in Recruiter Mode only and is not a Quest. *(Confirmed by Sneha.)* The Engineering Ambassador role is **not** in the game; it appears only inside the résumé sheet and PDF (D10).
 
 ## 5. Features
 
@@ -310,7 +310,7 @@ The visitor can turn animation off.
 #### FR-25: Plain one-page view
 The visitor can switch to Recruiter Mode at any time.
 **Acceptance:**
-- **Content:** shows **all** content: every Level Card at full L2 depth, the early & collaborative work, coursework, skills, the Path and the full HTML résumé sheet. It follows the current site's section order and layout (`index.html` §01–§09).
+- **Content:** shows **all** content: every Level Card at full L2 depth, the early & collaborative work, coursework, skills, the Path and the full HTML résumé sheet (which includes its Leadership section, D10). It follows the current site's section order and layout (`index.html` §01–§09).
 - **Game layer off:** no Track, toasts, XP or animation.
 
 #### FR-26: Mode persistence and switching
@@ -366,7 +366,7 @@ All copy and metrics live in one structured content file that Game Mode and Recr
 | NFR-7 | **Reduced motion** | `prefers-reduced-motion` or the Motion toggle removes all non-essential animation, with no content lost. |
 | NFR-8 | **Accessibility** | WCAG 2.1 **AA** (text contrast ≥4.5:1, UI ≥3:1). Lighthouse **Accessibility ≥90**. Diagrams have `role="img"` and `aria-label` or adjacent text. |
 | NFR-9 | **Real text, SEO and previews** | All content is in the pre-rendered DOM. `<title>` reads "Sneha Islam — Nanotechnology Engineering · Software & AI" (inv §1). Includes a meta description and Open Graph / Twitter tags. The OG image is a crop of the D1 art with no baked-in text *[ASSUMPTION]*. |
-| NFR-10 | **Privacy** | No cookies, analytics or trackers in v1. `localStorage` is used only for the mode and motion preferences. |
+| NFR-10 | **Privacy and analytics** | No cookies and no third-party trackers. The only analytics is **Vercel Web Analytics** (cookie-less page views, same-origin script, free Hobby plan; D12). It must not delay first paint, so it is loaded with `defer`. `localStorage` is used only for the mode and motion preferences. |
 | NFR-11 | **Browsers** | Latest two versions of Chrome, Edge, Firefox and Safari, plus iOS Safari 16+ *[ASSUMPTION]*. |
 | NFR-12 | **Resilience** | A JS error in the game layer must not hide content; the pre-rendered Recruiter content stays usable (FR-27). |
 
@@ -375,7 +375,7 @@ All copy and metrics live in one structured content file that Game Mode and Recr
 - Multiplayer, leaderboards, accounts, login or saved games.
 - A 3D engine, WebGL scenes, physics or a canvas-based renderer.
 - A backend, serverless functions, contact forms, a CMS or a database.
-- Analytics or tracking. Optional in v1.1, free tier only (D12).
+- Paid analytics, cookies, third-party trackers or session recording. Only free, cookie-less Vercel Web Analytics is used (D12).
 - New character art, walking or animated sprites, or redrawing the D1 illustration.
 - Any stat, level or score that is not a real count from the inventory.
 - Any content beyond the inventory: no new projects, quotes, testimonials or numbers.
@@ -383,6 +383,8 @@ All copy and metrics live in one structured content file that Game Mode and Recr
 - Multiple languages.
 
 ## 8. Success metrics
+**Post-launch signal (D12):** Vercel Web Analytics page views, used to see whether visitors arrive and on which devices. It is not a release gate.
+
 **Primary (release gate)**
 - **SM-1: Résumé reached in ≤2 clicks** from every screen, in both modes. The design target is 1. Validates FR-23 and FR-20.
 - **SM-2: Any Level Card's key metric visible in ≤3 clicks** from the Title Screen (Mini-map → Station → card). Validates FR-8, FR-9 and FR-13.
@@ -402,10 +404,10 @@ All copy and metrics live in one structured content file that Game Mode and Recr
 
 ## 9. Open questions
 All four draft questions were resolved by Sneha on 2026-11-25:
-- **Q1:** the Engineering Ambassador role is removed from the portfolio (D10), so there are 17 Quests (16 Completed / 1 Active).
+- **Q1:** the Engineering Ambassador role is not in the game (D10), so there are 17 Quests (16 Completed / 1 Active). It remains in the résumé.
 - **Q2:** the résumé-only skills join the Skill Tree (D11).
 - **Q3:** Side Quest placement and Recruiter-Mode-only early work are confirmed.
-- **Q4:** no analytics in v1; optional in v1.1, free tier only (D12).
+- **Q4:** free, cookie-less Vercel Web Analytics is included in v1 (D12). *(Updated after finalization at Sneha's request.)*
 
 No open questions remain.
 

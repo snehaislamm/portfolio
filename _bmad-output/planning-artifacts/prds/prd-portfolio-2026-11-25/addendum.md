@@ -11,6 +11,7 @@ This addendum holds detail for the downstream UX, architecture and stories steps
   - `fact_audit.py`: extracts numbers and Character Lines from the built HTML and the content file, checks them against the inventory and the banned-term list (FR-30), and exits non-zero on failure. It runs in GitHub Actions before the Vercel deploy.
   - `images.py`: the D1 image pipeline (crops, WebP export, avatar ring, OG image crop).
 - **Hosting:** Vercel, static output, deployed from `main`.
+- **Analytics (D12):** Vercel Web Analytics. In a React/Astro build, use the official `@vercel/analytics` package, or keep the same-origin `/_vercel/insights/script.js` snippet. Enable it in the Vercel dashboard and stay on the free Hobby plan.
 
 ## B. Draft Character Lines (FR-11; for the UX copy pass)
 Every line is ≤12 words, in the first person, and restates a sourced fact.
