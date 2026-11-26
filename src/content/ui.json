@@ -32,6 +32,10 @@
     "sideQuest": "Side Quest",
     "earlierWork": "Earlier work",
     "achievement": "Achievement",
-    "allQuestsSeen": "Every quest seen. Résumé's in the HUD."
+    "allQuestsSeen": "Every quest seen. Résumé's in the HUD.",
+    "statusLocked": "Locked",
+    "workInProgress": "The Fab Line: work in progress.",
+    "buildingBlocks": "Building blocks",
+    "gameTitle": "The Fab Line"
   }
 }

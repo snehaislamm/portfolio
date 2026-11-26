@@ -1,0 +1,136 @@
+/*
+ * Block Biome design tokens: mirrors the DESIGN.md frontmatter
+ * (_bmad-output/planning-artifacts/ux-designs/ux-portfolio-2026-11-25/DESIGN.md).
+ *
+ * AD-8: this is the ONLY file under src/ allowed to contain hex colour literals.
+ * Everything else uses var(--token) or currentColor (enforced by src/styles/tokens.test.ts).
+ * Contrast rule: dirt and stone are fills/borders only, never text colours.
+ */
+:root {
+  /* --- colors: surfaces --- */
+  --color-coal: #1a1a17;
+  --color-inset: #222220;
+  --color-panel: #2b2a25;
+  --color-edge: #000000;
+
+  /* --- colors: text (all >= 4.5:1 on panel, inset and coal) --- */
+  --color-text: #f3f0e6;
+  --color-muted: #c7c1ad;
+  --color-dim: #a39d8a;
+
+  /* --- colors: earth & block --- */
+  --color-grass: #7fb045;
+  --color-grass-dark: #4f7a26;
+  --color-grass-light: #a9d46c;
+  --color-dirt: #b07a45;
+  --color-dirt-dark: #6e4824;
+  --color-stone: #8a8a84;
+  --color-stone-dark: #5f5f5a;
+  --color-stone-light: #b5b5ae;
+
+  /* --- colors: accents --- */
+  --color-gold: #f2c94c;
+  --color-gold-dark: #b8922a;
+  --color-gold-light: #fff3b0;
+  --color-sky: #6fc0e8;
+  --color-lava: #ef8d4b;
+  --color-amethyst: #b79cf0;
+  --color-snow: #e6eef2;
+  --color-on-accent: #1a1a17;
+
+  /* --- colors: component one-offs --- */
+  --color-minimap-unvisited: #3d3b34;
+
+  /* --- colors: semantic roles --- */
+  --color-primary: var(--color-gold);
+  --color-station-ai: var(--color-sky);
+  --color-station-power: var(--color-lava);
+  --color-station-compiler: var(--color-amethyst);
+  --color-station-cleanroom: var(--color-snow);
+  --color-status-done: var(--color-grass);
+  --color-status-active: var(--color-gold);
+  --color-status-next: var(--color-sky);
+  --color-locked: var(--color-stone);
+
+  /* --- rounded --- */
+  --rounded-none: 0px;
+  --rounded-default: 0px;
+
+  /* --- spacing --- */
+  --space-px: 4px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 80px;
+  --space-border: 4px;
+  --space-border-sm: 3px;
+  --space-bevel: 3px;
+  --space-drop: 6px;
+  --space-gutter-mobile: 16px;
+  --space-gutter-desktop: 28px;
+  --space-content-max: 1120px;
+  --space-hud-height: 60px;
+  --space-touch-min: 44px;
+
+  /* --- typography: families (non-latin glyphs fall back to system fonts) --- */
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --font-sans: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* --- typography: roles --- */
+  --type-display-family: var(--font-mono);
+  --type-display-size: clamp(2.2rem, 6vw, 3.8rem);
+  --type-display-weight: 800;
+  --type-display-line-height: 1.05;
+  --type-display-letter-spacing: 0.02em;
+  --type-display-transform: uppercase;
+  --type-display-shadow: 4px 4px 0 var(--color-edge);
+
+  --type-station-title-family: var(--font-mono);
+  --type-station-title-size: clamp(1.5rem, 4vw, 2.1rem);
+  --type-station-title-weight: 800;
+  --type-station-title-line-height: 1.1;
+  --type-station-title-letter-spacing: 0.04em;
+  --type-station-title-transform: uppercase;
+  --type-station-title-shadow: 3px 3px 0 var(--color-edge);
+
+  --type-card-title-family: var(--font-sans);
+  --type-card-title-size: 1.2rem;
+  --type-card-title-weight: 700;
+  --type-card-title-line-height: 1.25;
+
+  --type-body-family: var(--font-sans);
+  --type-body-size: 1rem;
+  --type-body-weight: 400;
+  --type-body-line-height: 1.55;
+
+  --type-dialog-family: var(--font-sans);
+  --type-dialog-size: 1.05rem;
+  --type-dialog-weight: 600;
+  --type-dialog-line-height: 1.4;
+
+  --type-metric-family: var(--font-mono);
+  --type-metric-size: 1.45rem;
+  --type-metric-weight: 800;
+  --type-metric-line-height: 1.1;
+
+  --type-label-family: var(--font-mono);
+  --type-label-size: 0.72rem;
+  --type-label-weight: 600;
+  --type-label-letter-spacing: 0.06em;
+
+  --type-button-family: var(--font-mono);
+  --type-button-size: 0.8rem;
+  --type-button-weight: 800;
+  --type-button-letter-spacing: 0.04em;
+  --type-button-transform: uppercase;
+
+  /* --- focus ring --- */
+  --focus-width: 3px;
+  --focus-color: var(--color-gold);
+  --focus-outline: var(--focus-width) solid var(--focus-color);
+  --focus-offset: 3px;
+}

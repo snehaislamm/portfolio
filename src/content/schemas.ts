@@ -205,9 +205,13 @@ export const uiSchema = z.strictObject({
   statusCompleted: text,
   statusActive: text,
   statusNext: text,
+  statusLocked: text,
   mainQuest: text,
   sideQuest: text,
   earlierWork: text,
   achievement: text,
   allQuestsSeen: text,
+  gameTitle: text,
+  workInProgress: text,
+  buildingBlocks: text,
 });

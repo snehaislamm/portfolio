@@ -1,0 +1,29 @@
+/*
+ * Page base for The Fab Line (/next only; never imported by Base.astro, so / is untouched).
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-coal);
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--color-coal);
+  color: var(--color-text);
+  font-family: var(--type-body-family);
+  font-size: var(--type-body-size);
+  font-weight: var(--type-body-weight);
+  line-height: var(--type-body-line-height);
+}
+
+/* Global focus ring (UX-DR21): 3 px solid gold, 3 px offset, everywhere. */
+:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
+}

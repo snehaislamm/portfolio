@@ -1,10 +1,90 @@
 ---
 /**
  * `/next`: hidden home of The Fab Line until the Story 3.11 cutover.
+ * Story 2.1: shows the Block Biome building blocks. Every string comes from content (AD-2).
  */
-import Base from '../layouts/Base.astro';
+import { getEntry } from 'astro:content';
+import Game from '../layouts/Game.astro';
+import Button from '../components/ui/Button.astro';
+import Pill from '../components/ui/Pill.astro';
+import Chip from '../components/ui/Chip.astro';
+
+const ui = (await getEntry('ui', 'ui'))!.data;
+const profile = (await getEntry('profile', 'profile'))!.data;
+const quest = (await getEntry('quests', 'ai/communitech'))!.data;
 ---
-<Base title="The Fab Line">
+<Game title={ui.gameTitle}>
   <meta slot="head" name="robots" content="noindex">
-  <p>The Fab Line: work in progress.</p>
-</Base>
+  <main class="wip">
+    <p>{ui.workInProgress}</p>
+
+    <section class="blocks" aria-labelledby="blocks-title">
+      <h2 id="blocks-title" class="blocks__title">{ui.buildingBlocks}</h2>
+
+      <div class="blocks__row">
+        <Button variant="grass">{ui.start}</Button>
+        <Button variant="gold" href={profile.contact.resume}>{ui.resume}</Button>
+        <Button variant="stone">{ui.copyLink}</Button>
+      </div>
+
+      <div class="blocks__row">
+        <Pill status="done">{ui.statusCompleted}</Pill>
+        <Pill status="active">{ui.statusActive}</Pill>
+        <Pill status="next">{ui.statusNext}</Pill>
+        <Pill status="locked">{ui.statusLocked}</Pill>
+      </div>
+
+      <ul class="blocks__row blocks__chips" aria-label={quest.org}>
+        {quest.chips.map((chip) => <li><Chip>{chip}</Chip></li>)}
+      </ul>
+    </section>
+  </main>
+</Game>
+
+<style>
+  .wip {
+    max-width: var(--space-content-max);
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-gutter-mobile);
+  }
+
+  @media (min-width: 600px) {
+    .wip {
+      padding-inline: var(--space-gutter-desktop);
+    }
+  }
+
+  .blocks {
+    margin-top: var(--space-6);
+    padding: var(--space-5);
+    border: var(--space-border) solid var(--color-edge);
+    background: var(--color-panel);
+    box-shadow: var(--space-drop) var(--space-drop) 0 var(--color-edge);
+  }
+
+  .blocks__title {
+    margin: 0 0 var(--space-5);
+    font-family: var(--type-station-title-family);
+    font-size: var(--type-station-title-size);
+    font-weight: var(--type-station-title-weight);
+    line-height: var(--type-station-title-line-height);
+    letter-spacing: var(--type-station-title-letter-spacing);
+    text-transform: var(--type-station-title-transform);
+    text-shadow: var(--type-station-title-shadow);
+  }
+
+  .blocks__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    margin: 0 0 var(--space-5);
+  }
+
+  .blocks__chips {
+    padding: 0;
+    margin-bottom: 0;
+    list-style: none;
+    gap: var(--space-2);
+  }
+</style>

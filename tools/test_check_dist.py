@@ -105,6 +105,40 @@ class CheckDistTest(unittest.TestCase):
         problems = self.problems(built(), built(head='<script defer src="/_vercel/insights/script.js"></script>'))
         self.assertFails(problems, "next/index.html: hand-written analytics leftover '_vercel/insights'")
 
+    # --- rule 3: /next styles ---------------------------------------------------
+    NEXT_LINK = '<link rel="stylesheet" href="/_astro/next.abc.css">'
+    GOOD_CSS = ":root{--color-coal:#1a1a17}@font-face{src:url(/_astro/mono.x1.woff2) format('woff2')}"
+
+    def next_problems(self, head: str = NEXT_LINK, css: dict[str, str | None] | None = None) -> list[str]:
+        nxt = built(head=head, body="<p>wip</p>")
+        return check_dist.check(LEGACY, {"index.html": built(), "next/index.html": nxt},
+                                {"/_astro/next.abc.css": self.GOOD_CSS} if css is None else css)
+
+    def test_next_styles_pass(self) -> None:
+        self.assertEqual(self.next_problems(), [])
+
+    def test_next_google_fonts_link_fails(self) -> None:
+        gf = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=X">'
+        self.assertFails(self.next_problems(head=self.NEXT_LINK + gf), "next/index.html: references fonts.googleapis.com")
+
+    def test_next_gstatic_in_css_fails(self) -> None:
+        css = {"/_astro/next.abc.css": self.GOOD_CSS + "@font-face{src:url(https://fonts.gstatic.com/x.woff2)}"}
+        self.assertFails(self.next_problems(css=css), "/_astro/next.abc.css references fonts.gstatic.com")
+
+    def test_next_no_stylesheet_fails(self) -> None:
+        self.assertFails(self.next_problems(head="", css={}), "links no /_astro/*.css stylesheet")
+
+    def test_next_missing_css_file_fails(self) -> None:
+        self.assertFails(self.next_problems(css={"/_astro/next.abc.css": None}), "not found in dist")
+
+    def test_next_no_woff2_fails(self) -> None:
+        css = {"/_astro/next.abc.css": ":root{--color-coal:#1a1a17}"}
+        self.assertFails(self.next_problems(css=css), "no self-hosted /_astro/*.woff2 font")
+
+    def test_next_no_tokens_fails(self) -> None:
+        css = {"/_astro/next.abc.css": "@font-face{src:url(/_astro/mono.x1.woff2)}"}
+        self.assertFails(self.next_problems(css=css), "does not define --color-coal")
+
     def test_main_reports_missing_dist(self) -> None:
         legacy = Path(__file__).resolve().parents[1] / "legacy" / "index.html"
         self.assertTrue(legacy.is_file())
