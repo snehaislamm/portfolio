@@ -11,6 +11,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "test": "vitest run",
     "astro": "astro"
   },
   "dependencies": {
@@ -22,8 +23,11 @@
   },
   "devDependencies": {
     "@astrojs/check": "~0.9.12",
+    "@lhci/cli": "~0.16.1",
     "@types/react": "~19.3.3",
     "@types/react-dom": "~19.3.0",
-    "typescript": "6.0.3"
+    "linkinator": "~8.1.0",
+    "typescript": "6.0.3",
+    "vitest": "~5.1.2"
   }
 }

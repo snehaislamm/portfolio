@@ -3,3 +3,5 @@ _bmad/
 node_modules/
 dist/
 .astro/
+.lighthouseci/
+__pycache__/
