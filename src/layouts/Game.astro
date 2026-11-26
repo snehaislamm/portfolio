@@ -1,0 +1,21 @@
+---
+/**
+ * The Fab Line layout (/next): wraps Base and loads the Block Biome styles.
+ * Tokens, fonts and base styles are imported here and never from Base.astro, so `/` (legacy) gains no
+ * <link> or <style> (Story 1.2 parity check).
+ */
+import Base from './Base.astro';
+import '../styles/tokens.css';
+import '../styles/fonts.css';
+import '../styles/base.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+<Base title={title}>
+  <slot name="head" slot="head" />
+  <slot />
+</Base>

@@ -1,0 +1,77 @@
+---
+/**
+ * Bevelled block button (UX-DR3): gold (primary), stone or grass.
+ * 3 px black border, 3 px bevel (light top-left, dark bottom-right), 0 radius, min 44×44 px.
+ * :active swaps to the pressed bevel and moves down 2 px.
+ * Renders <a> when `href` is given, otherwise <button>. The label comes from the slot (content strings only).
+ */
+import type { HTMLAttributes } from 'astro/types';
+
+type Variant = 'gold' | 'stone' | 'grass';
+
+type Props = { variant?: Variant } & (
+  | ({ href: string } & Omit<HTMLAttributes<'a'>, 'href'>)
+  | ({ href?: undefined } & HTMLAttributes<'button'>)
+);
+
+const { variant = 'stone', class: className, ...rest } = Astro.props;
+const classes = ['btn', `btn--${variant}`, className];
+---
+{
+  'href' in rest && rest.href !== undefined ? (
+    <a class:list={classes} {...(rest as HTMLAttributes<'a'>)}><slot /></a>
+  ) : (
+    <button type="button" class:list={classes} {...(rest as HTMLAttributes<'button'>)}><slot /></button>
+  )
+}
+
+<style>
+  .btn {
+    --btn-bg: var(--color-stone);
+    --btn-dark: var(--color-stone-dark);
+    --btn-light: var(--color-stone-light);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-width: var(--space-touch-min);
+    min-height: var(--space-touch-min);
+    padding: var(--space-2) var(--space-4);
+    margin: 0;
+    border: var(--space-border-sm) solid var(--color-edge);
+    border-radius: var(--rounded-none);
+    background: var(--btn-bg);
+    color: var(--color-on-accent);
+    box-shadow:
+      inset calc(-1 * var(--space-bevel)) calc(-1 * var(--space-bevel)) 0 var(--btn-dark),
+      inset var(--space-bevel) var(--space-bevel) 0 var(--btn-light);
+    font-family: var(--type-button-family);
+    font-size: var(--type-button-size);
+    font-weight: var(--type-button-weight);
+    letter-spacing: var(--type-button-letter-spacing);
+    text-transform: var(--type-button-transform);
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn--gold {
+    --btn-bg: var(--color-gold);
+    --btn-dark: var(--color-gold-dark);
+    --btn-light: var(--color-gold-light);
+  }
+
+  .btn--grass {
+    --btn-bg: var(--color-grass);
+    --btn-dark: var(--color-grass-dark);
+    --btn-light: var(--color-grass-light);
+  }
+
+  .btn:active {
+    box-shadow: inset var(--space-bevel) var(--space-bevel) 0 var(--btn-dark);
+    transform: translateY(2px);
+  }
+</style>

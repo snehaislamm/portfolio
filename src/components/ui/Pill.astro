@@ -1,0 +1,85 @@
+---
+/**
+ * Square status pill (UX-DR8): 2 px black edge, label typography, 0 radius.
+ * Always carries a word (from ui.json via the slot); colour is never the only signal.
+ * The leading glyph (✓ ● → / padlock) is decorative and hidden from assistive tech.
+ */
+type Status = 'done' | 'active' | 'next' | 'locked';
+
+interface Props {
+  status: Status;
+}
+
+const { status } = Astro.props;
+---
+<span class:list={['pill', `pill--${status}`]}><span class="pill__icon" aria-hidden="true"></span><slot /></span>
+
+<style>
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-2);
+    border: 2px solid var(--color-edge);
+    border-radius: var(--rounded-none);
+    background: var(--pill-bg, var(--color-locked));
+    color: var(--color-on-accent);
+    font-family: var(--type-label-family);
+    font-size: var(--type-label-size);
+    font-weight: var(--type-label-weight);
+    letter-spacing: var(--type-label-letter-spacing);
+    text-transform: uppercase;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .pill--done {
+    --pill-bg: var(--color-status-done);
+  }
+  .pill--active {
+    --pill-bg: var(--color-status-active);
+  }
+  .pill--next {
+    --pill-bg: var(--color-status-next);
+  }
+  .pill--locked {
+    --pill-bg: var(--color-locked);
+  }
+
+  .pill--done .pill__icon::before {
+    content: '\2713';
+  }
+  .pill--active .pill__icon::before {
+    content: '\25CF';
+  }
+  .pill--next .pill__icon::before {
+    content: '\2192';
+  }
+
+  /* Locked: a tiny block padlock drawn from squares (no emoji). */
+  .pill--locked .pill__icon {
+    position: relative;
+    width: 8px;
+    height: 10px;
+  }
+  .pill--locked .pill__icon::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 8px;
+    height: 6px;
+    background: currentColor;
+  }
+  .pill--locked .pill__icon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 4px;
+    border: 2px solid currentColor;
+    border-bottom: 0;
+    box-sizing: content-box;
+  }
+</style>
