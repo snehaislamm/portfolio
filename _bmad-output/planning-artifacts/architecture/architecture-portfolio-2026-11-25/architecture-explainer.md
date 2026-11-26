@@ -75,14 +75,18 @@ portfolio/
    - GitHub → Settings → Branches → add a rule for `main`: *Require status checks to pass* (select `ci`) and *Require a pull request before merging*.
    - Vercel → Project → Settings → Build & Deployment: Framework Preset **Astro**. It's usually auto-detected once `package.json` exists.
 
-## 5. Migration milestones (the live site never breaks)
+## 5. Release plan (the live site never breaks)
 
-| Milestone | What ships | The site looks like |
+*Superseded the earlier M1–M5 milestones after the epics roundtable. The pixel-identical port was dropped as rework, and the build became a vertical slice. The epics in `epics.md` are the source of truth.*
+
+The old site stays live, **untouched**, while the game is built on a hidden `/next` page (`noindex`). The game replaces it in one **cutover**.
+
+| Epic | What ships | Live site (`/`) |
 |---|---|---|
-| **M1 · Same site, new engine** | Astro project at the repo root; today's `index.html` ported into Astro components + content JSON (plain page, current look); `legacy/index.html` saved; CI gate + fact audit + analytics component; branch protection on | **Identical to today** |
-| **M2 · Block Biome look** | `tokens.css` from DESIGN.md; whole page restyled; Glance Card (Title Screen); character assets via `images.py`; OG image | New colours and blocks, no game yet |
-| **M3 · Game skeleton** | HUD, Mini-map, TrackController, router + deep links, XP, Quest Log | Playable track, cards static |
-| **M4 · Stations** | Level Cards with diagrams (one Station per PR: AI → Power → Compiler → Cleanroom), Inspect drawer, Skill Tree | Full content as a game |
-| **M5 · Delight** | Achievements + toasts, sprite (when your art arrives), motion polish, Speedrun, Dock, Quantum Fab | The finished Fab Line |
-
-Each milestone becomes an epic in the next step (epics & stories).
+| **1 · Foundation** | Astro scaffold serving the legacy page as-is; CI gate; Python fact audit (with `source` tags); all content in schema-validated JSON | Unchanged (legacy) |
+| **2 · First screen & HUD** | On `/next`: Block Biome tokens, Glance Card (+ 5-second test), Character Card, motion setting, HUD, link previews | Unchanged |
+| **3 · AI in Production slice → launch** | All 4 Stations with every card's real content, Inspect, deep links; AI in Production fully finished; Dock, Speedrun, Quantum Fab; **3.11 Cutover** with release gates on the deployed Preview | **The Fab Line goes live** (6 diagram spots show placeholder icons; 3 Stations on plain backgrounds) |
+| **4–6 · Station slices** | Mesa / Crystal Cave / Snowfield Lab biomes + the remaining 6 diagrams | Placeholders disappear |
+| **7 · Navigation, Skill Tree & Quest Log** | Mini-map, keyboard travel, skills as proof, Quest Log + XP | Richer navigation |
+| **8 · Delight** | Achievements, sprite (with Sneha's pixel art when it's ready), the world coming alive, easter eggs | More fun |
+| **9 · Polish** | Phone, accessibility, release performance, browser matrix | Verified release |
