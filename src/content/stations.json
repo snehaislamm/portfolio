@@ -1,0 +1,58 @@
+[
+  {
+    "id": "character",
+    "type": "screen",
+    "title": "Character Card"
+  },
+  {
+    "id": "ai",
+    "type": "station",
+    "title": "AI in Production",
+    "biome": "Sky Plains",
+    "quests": ["ai/communitech", "ai/plug-co", "ai/avanade", "ai/muse", "ai/facesolve", "ai/coa-forge", "ai/econ-toolkit"],
+    "characterLine": { "text": "I shipped an AI system watching 1,200+ companies.", "source": "inv §5.1" }
+  },
+  {
+    "id": "power",
+    "type": "station",
+    "title": "Power & Control",
+    "biome": "Mesa",
+    "quests": ["power/battery-wc", "power/zonecore", "power/modcell"],
+    "characterLine": { "text": "My fault injection cut BMS testing time by 35%.", "source": "inv §5.3" }
+  },
+  {
+    "id": "compiler",
+    "type": "station",
+    "title": "Compiler & EDA",
+    "biome": "Crystal Cave",
+    "quests": ["compiler/fabricfit", "compiler/tilec", "compiler/tensor-solver"],
+    "characterLine": { "text": "I routed 2,218 blocks on a 54×54 FPGA.", "source": "inv §7 fabricfit" }
+  },
+  {
+    "id": "cleanroom",
+    "type": "station",
+    "title": "Cleanroom",
+    "biome": "Snowfield Lab",
+    "quests": ["cleanroom/mis-capacitor", "cleanroom/vaclab", "cleanroom/capstone", "cleanroom/recycling"],
+    "characterLine": { "text": "I deposited 102.6 nm of SiNₓ, then measured it two ways.", "source": "inv §6.1" }
+  },
+  {
+    "id": "speedrun",
+    "type": "screen",
+    "title": "Speedrun Banner",
+    "label": "8 repos shipped · Nov 2026",
+    "characterLine": { "text": "Eight repos, one November.", "source": "inv §10" }
+  },
+  {
+    "id": "dock",
+    "type": "screen",
+    "title": "Shipping Dock"
+  },
+  {
+    "id": "quantum",
+    "type": "screen",
+    "title": "Quantum Fab",
+    "label": "Dream: quantum computer hardware",
+    "characterLine": { "text": "Not unlocked yet. That's the long-term goal.", "source": "inv §3 ¶4" }
+  }
+]

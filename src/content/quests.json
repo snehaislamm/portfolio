@@ -1,0 +1,517 @@
+[
+  {
+    "id": "ai/communitech",
+    "station": "ai",
+    "slug": "communitech",
+    "kind": "work",
+    "status": "done",
+    "side": false,
+    "title": "Software Developer Co-op — AI Adoption Program",
+    "shortTitle": "Agentic newsletter, shipped",
+    "org": "Communitech",
+    "dates": { "sort": "2026-02", "display": "Feb 2026 – May 2026" },
+    "bullets": [
+      "Built and shipped an agentic AI system (React/TypeScript, FastAPI, PostgreSQL) that scrapes, deduplicates and summarizes 50+ ecosystem sources daily with the Gemini API — replacing manual cross-team monitoring across 1,200+ companies.",
+      "Engineered a weekly automated pipeline (Playwright scraping, async concurrency control, SendGrid delivery) plus a natural-language Q&A chatbot over the newsletter archive.",
+      "Designed and deployed a personalization engine that re-ranks and re-summarizes content per user from their bio, focus areas and keywords; containerized with Docker on Azure, behind Google OAuth.",
+      "Added portfolio tracking (CSV/Excel upload → AI-flagged mentions), PDF export and a per-user scheduler.",
+      "With a teammate, root-caused 5 of 6 sources silently returning 0 articles and added a strict validator."
+    ],
+    "metrics": [
+      { "value": "50+", "label": "sources daily" },
+      { "value": "1,200+", "label": "companies covered" },
+      { "value": "5/6", "label": "silent sources root-caused", "qualifier": "with a teammate" }
+    ],
+    "captions": [
+      { "text": "Scrapes, dedups and summarizes the ecosystem with Gemini; React/TS UI, Docker on Azure.", "source": "inv §5.1" }
+    ],
+    "chips": ["React", "TypeScript", "FastAPI", "PostgreSQL", "Gemini API", "Playwright", "BeautifulSoup4", "SendGrid", "OAuth2 / JWT", "Docker", "Azure"],
+    "links": [],
+    "diagram": {
+      "title": "Newsletter pipeline diagram",
+      "alt": "50+ sources are scraped, extracted and deduplicated, summarized by Gemini, personalized per user, archived in PostgreSQL and emailed weekly via SendGrid.",
+      "reuse": ["SVG-3", "SVG-4"]
+    },
+    "easterEggs": [
+      { "text": "The newsletter goes out Mondays, 7 AM ET.", "source": "inv §5.1" }
+    ]
+  },
+  {
+    "id": "ai/plug-co",
+    "station": "ai",
+    "slug": "plug-co",
+    "kind": "work",
+    "status": "done",
+    "side": false,
+    "title": "Data Analysis & AI Development Intern",
+    "shortTitle": "AI media backend",
+    "org": "The Plug Co",
+    "dates": { "sort": "2025-09", "display": "Sep 2025 – Jan 2026" },
+    "bullets": [
+      "Built a full-stack backend (FastAPI, PostgreSQL, AWS) retrieving photos, audio and video in under 300 ms, integrating speech-to-text, image recognition and semantic matching at 85%+ accuracy.",
+      "Developed a vector search pipeline (Pinecone/FAISS) with SQL schemas supporting 10k+ timeline events, plus Swift (iOS) and Unity (VR) MVP frontends.",
+      "Implemented privacy-by-design (RBAC, AES-256, GDPR Art. 17) and delivered an investor-ready AI prototype in 12 weeks, running Jira sprints that sped delivery by 25%."
+    ],
+    "metrics": [
+      { "value": "<300 ms", "label": "retrieval" },
+      { "value": "85%+", "label": "semantic matching" },
+      { "value": "12 weeks", "label": "to investor prototype" }
+    ],
+    "captions": [
+      { "text": "FastAPI + PostgreSQL + AWS backend; Pinecone/FAISS search; iOS and VR MVPs.", "source": "inv §5.2" }
+    ],
+    "chips": ["FastAPI", "AWS", "Pinecone", "FAISS", "Swift", "Unity", "Jira"],
+    "links": [],
+    "diagram": {
+      "title": "Media retrieval diagram",
+      "alt": "A query runs through vector search and returns photos, audio and video in under 300 ms."
+    }
+  },
+  {
+    "id": "ai/avanade",
+    "station": "ai",
+    "slug": "avanade",
+    "kind": "work",
+    "status": "done",
+    "side": false,
+    "title": "Software Developer",
+    "shortTitle": "Azure AI workflows",
+    "org": "Avanade · Microsoft Azure & AI (WE Accelerate)",
+    "dates": { "sort": "2024-05", "display": "May 2024 – Aug 2024" },
+    "bullets": [
+      "Earned AZ-900 / AI-900 and worked with Avanade consultants on 3 AI projects, including a chatbot prototype projected to cut client response time by 40%.",
+      "Designed AI-driven Azure workflows (+25% data-processing efficiency) and co-built a cross-platform financial AI chatbot (Flutter/Dart, Alpha Vantage + OpenAI APIs).",
+      "Delivered 10+ client-style presentations; team placed top 3 for innovation."
+    ],
+    "metrics": [
+      { "value": "3", "label": "AI projects" },
+      { "value": "+25%", "label": "data-processing efficiency" },
+      { "value": "10+", "label": "client-style presentations" }
+    ],
+    "captions": [
+      { "text": "Financial AI chatbot in Flutter; team placed top 3 for innovation.", "source": "inv §5.4" }
+    ],
+    "chips": ["Azure", "Flutter / Dart", "OpenAI API", "Alpha Vantage", "Agile consulting"],
+    "links": [{ "label": "yunus-AI", "href": "https://github.com/zahra-ahmed1/yunus-AI" }],
+    "diagram": {
+      "title": "Financial chatbot diagram",
+      "alt": "A user asks the financial AI chatbot, which calls the Alpha Vantage and OpenAI APIs."
+    }
+  },
+  {
+    "id": "ai/muse",
+    "station": "ai",
+    "slug": "muse",
+    "kind": "repo",
+    "status": "done",
+    "side": false,
+    "title": "Visual discovery engine with an online A/B harness",
+    "shortTitle": "Recommender + A/B",
+    "org": "Personal project",
+    "dates": { "sort": "2026-11", "display": "Nov 2026" },
+    "bullets": [
+      "A home-feed recommender with a Go serving stack, Python ML pipeline and React client.",
+      "Corrected position bias with inverse-propensity weighting and showed a naive offline metric would have rejected the better model.",
+      "All data is simulated."
+    ],
+    "metrics": [
+      { "value": "+14.1%", "label": "saves in a 4,000-user A/B", "qualifier": "simulated" },
+      { "value": "10.7 ms", "label": "p99 at 359 QPS" },
+      { "value": "0.90 vs 0.52", "label": "Kendall τ, IPS vs naive" }
+    ],
+    "captions": [
+      { "text": "Go serving, Python ML; corrected position bias. All data simulated.", "source": "inv §7 muse" }
+    ],
+    "chips": ["Go", "Recommender systems", "Causal eval", "React / TS"],
+    "links": [{ "label": "muse", "href": "https://github.com/snehaislamm/muse" }],
+    "diagram": {
+      "title": "Recommender A/B diagram",
+      "alt": "The home feed passes through inverse-propensity weighting to correct position bias, then a simulated A/B split compares the models."
+    }
+  },
+  {
+    "id": "ai/facesolve",
+    "station": "ai",
+    "slug": "facesolve",
+    "kind": "repo",
+    "status": "done",
+    "side": false,
+    "title": "Neural blendshape solver for facial capture",
+    "shortTitle": "Blendshape solver",
+    "org": "Personal project",
+    "dates": { "sort": "2026-11", "display": "Nov 2026" },
+    "bullets": [
+      "Noisy landmark capture in, clean blendshape animation out as UsdSkel for Maya and Houdini.",
+      "Kabsch stabilization and outlier rejection, then an MLP with hand-derived, gradient-checked backprop, plus a PyTorch/ONNX port."
+    ],
+    "metrics": [
+      { "value": "0.29 mm", "label": "mean vertex error (0.40 least squares)" },
+      { "value": "~70×", "label": "faster than the least-squares solve" },
+      { "value": "18.8→1.26", "label": "landmark RMSE (mm) after cleaning" }
+    ],
+    "captions": [
+      { "text": "Hand-derived, gradient-checked backprop; exports to Maya and Houdini.", "source": "inv §7 facesolve" }
+    ],
+    "chips": ["NumPy", "PyTorch · ONNX", "USD", "Docker · CI"],
+    "links": [{ "label": "facesolve", "href": "https://github.com/snehaislamm/facesolve" }],
+    "diagram": {
+      "title": "Blendshape solver diagram",
+      "alt": "Noisy landmarks are cleaned, solved by an MLP and exported as UsdSkel blendshape animation."
+    }
+  },
+  {
+    "id": "ai/coa-forge",
+    "station": "ai",
+    "slug": "coa-forge",
+    "kind": "repo",
+    "status": "done",
+    "side": false,
+    "title": "Course-of-action generation & Monte Carlo war-gaming",
+    "shortTitle": "Monte Carlo war-gaming",
+    "org": "Personal project",
+    "dates": { "sort": "2026-11", "display": "Nov 2026" },
+    "bullets": [
+      "Generates candidate plans over a fictional scenario with threat-aware A* routing and NSGA-II search, pre-screened by a random-forest surrogate.",
+      "War-games them stochastically, then writes a decision brief of three Pareto-optimal options with confidence intervals."
+    ],
+    "metrics": [
+      { "value": "~2,000", "label": "COAs war-gamed in ~20 s", "qualifier": "fictional scenario" },
+      { "value": "R² 0.97", "label": "surrogate hold-out, mission success" },
+      { "value": "+3.9%", "label": "best mission score vs plain NSGA-II" }
+    ],
+    "captions": [
+      { "text": "NSGA-II search on a fictional scenario; outputs a decision brief.", "source": "inv §7 coa-forge" }
+    ],
+    "chips": ["Multi-objective optimization", "scikit-learn", "Simulation", "Docker · CI"],
+    "links": [{ "label": "coa-forge", "href": "https://github.com/snehaislamm/coa-forge" }],
+    "diagram": {
+      "title": "War-gaming pipeline diagram",
+      "alt": "Candidate plans pass a random-forest surrogate filter, are war-gamed in simulation, and three Pareto-optimal options come out."
+    }
+  },
+  {
+    "id": "ai/econ-toolkit",
+    "station": "ai",
+    "slug": "econ-toolkit",
+    "kind": "course",
+    "status": "done",
+    "side": true,
+    "title": "Engineering Economics Analysis Toolkit",
+    "shortTitle": "Econ toolkit",
+    "org": "MSE 261 · Engineering Economics",
+    "dates": { "sort": "2026-05", "display": "Spring 2026" },
+    "bullets": [
+      "Python scripts and Excel models for capital-investment decisions, built to solve and check problem sets end to end.",
+      "PW / AW / FW, IRR, incremental IRR and ERR comparisons.",
+      "Replacement analysis, after-tax CCA, inflation, B/C ratios.",
+      "Sensitivity analysis, decision trees and CPM project crashing."
+    ],
+    "metrics": [],
+    "captions": [
+      { "text": "Python and Excel models: IRR, CCA, decision trees, CPM crashing.", "source": "inv §6.3" }
+    ],
+    "chips": ["Python", "Excel", "Financial modelling"],
+    "links": []
+  },
+  {
+    "id": "power/battery-wc",
+    "station": "power",
+    "slug": "battery-wc",
+    "kind": "work",
+    "status": "done",
+    "side": false,
+    "title": "Undergraduate Research Assistant",
+    "shortTitle": "EV battery diagnostics",
+    "org": "Battery Workforce Challenge · University of Waterloo",
+    "dates": { "sort": "2025-01", "display": "Jan 2025 – Apr 2025" },
+    "bullets": [
+      "Developed state-of-charge estimation (±2% accuracy) and fault-detection routines in MATLAB and Python, plus embedded C diagnostic logging for overvoltage, HVIL and isolation-resistance faults.",
+      "Built automated test scripts and fault-injection simulations that cut regression testing time by 35% across BMS validation workflows.",
+      "Implemented CAN bus communication carrying 120+ DBC-defined signals between BPCM and EVCU to simulate field conditions."
+    ],
+    "metrics": [
+      { "value": "±2%", "label": "SoC estimation" },
+      { "value": "−35%", "label": "regression-testing time" },
+      { "value": "120+", "label": "CAN signals" }
+    ],
+    "captions": [
+      { "text": "Embedded C fault detection: overvoltage, HVIL, isolation resistance.", "source": "inv §5.3" }
+    ],
+    "chips": ["Embedded C", "MATLAB", "Python", "CAN / DBC", "BMS", "Fault injection"],
+    "links": [],
+    "diagram": {
+      "title": "CAN link diagram",
+      "alt": "The BPCM and EVCU exchange 120+ DBC-defined CAN signals, with fault flags for overvoltage, HVIL and isolation resistance."
+    }
+  },
+  {
+    "id": "power/zonecore",
+    "station": "power",
+    "slug": "zonecore",
+    "kind": "repo",
+    "status": "done",
+    "side": false,
+    "title": "Vehicle controls stack for a quad-motor EV",
+    "shortTitle": "Quad-motor EV controls",
+    "org": "Personal project",
+    "dates": { "sort": "2026-11", "display": "Nov 2026" },
+    "bullets": [
+      "Embedded C for BMS (2-state EKF SOC), DC fast charging, thermal, propulsion, traction control, torque vectoring and functional safety.",
+      "Verified by a Python software-in-the-loop bench over E2E-protected CAN."
+    ],
+    "metrics": [
+      { "value": "46/46", "label": "ASIL-tagged requirements traced to tests" },
+      { "value": "32", "label": "closed-loop SIL scenarios, 9 fault-injection" },
+      { "value": "~3.1k", "label": "lines C99, no heap" }
+    ],
+    "captions": [
+      { "text": "BMS with EKF SOC, traction control, torque vectoring, functional safety.", "source": "inv §7 zonecore" }
+    ],
+    "chips": ["Embedded C", "CAN / DBC", "ISO 26262 style", "SIL testing"],
+    "links": [{ "label": "zonecore", "href": "https://github.com/snehaislamm/zonecore" }],
+    "diagram": {
+      "title": "Vehicle controls diagram",
+      "alt": "The controllers talk over E2E-protected CAN to a Python software-in-the-loop bench."
+    }
+  },
+  {
+    "id": "power/modcell",
+    "station": "power",
+    "slug": "modcell",
+    "kind": "repo",
+    "status": "done",
+    "side": false,
+    "title": "Controls package for a robotic module-assembly cell",
+    "shortTitle": "Robotic assembly cell",
+    "org": "Personal project",
+    "dates": { "sort": "2026-11", "display": "Nov 2026" },
+    "bullets": [
+      "Rockwell-format ladder logic running on a custom 10 ms scan engine against a plant model.",
+      "Conveyor, clamps, vision inspection, fastening robot, MES reporting, an ISA-101 HMI and an ISO 13849 safeguarding concept."
+    ],
+    "metrics": [
+      { "value": "97", "label": "rungs across 12 routines" },
+      { "value": "~520/h", "label": "parts throughput incl. indexing" },
+      { "value": "10 ms", "label": "E-stop to safe state" }
+    ],
+    "captions": [
+      { "text": "Rockwell-style ladder logic against a plant model, ISA-101 HMI.", "source": "inv §7 modcell" }
+    ],
+    "chips": ["PLC / ladder", "Machine vision", "HMI", "Functional safety"],
+    "links": [{ "label": "modcell", "href": "https://github.com/snehaislamm/modcell" }],
+    "diagram": {
+      "title": "Assembly cell diagram",
+      "alt": "Parts move from the conveyor to the clamps, vision inspection and the fastening robot, on a 10 ms scan."
+    },
+    "easterEggs": [
+      { "text": "E-stop to safe state in 10 ms: one scan.", "source": "inv §7 modcell" }
+    ]
+  },
+  {
+    "id": "compiler/fabricfit",
+    "station": "compiler",
+    "slug": "fabricfit",
+    "kind": "repo",
+    "status": "done",
+    "side": false,
+    "title": "FPGA place-and-route tool",
+    "shortTitle": "FPGA place & route",
+    "org": "Personal project",
+    "dates": { "sort": "2026-11", "display": "Nov 2026" },
+    "bullets": [
+      "Models an island-style FPGA with IO, HSSI transceiver and NoC hard blocks as a routing-resource graph.",
+      "Simulated-annealing placement, PathFinder negotiated-congestion routing with A*, minimum channel-width search and static timing, rendered to SVG."
+    ],
+    "metrics": [
+      { "value": "2,218", "label": "blocks routed on a 54×54 device" },
+      { "value": "−65%", "label": "placement cost vs random" },
+      { "value": "89.5 MHz", "label": "Fmax, 200-block design" }
+    ],
+    "captions": [
+      { "text": "Simulated annealing plus PathFinder routing, static timing, SVG output. C++17.", "source": "inv §7 fabricfit" }
+    ],
+    "chips": ["C++17", "CMake", "Graph algorithms", "STA"],
+    "links": [{ "label": "fabricfit", "href": "https://github.com/snehaislamm/fabricfit" }],
+    "diagram": {
+      "title": "FPGA routing diagram",
+      "alt": "A routing grid of the FPGA, shaded by congestion, after PathFinder negotiated-congestion routing."
+    }
+  },
+  {
+    "id": "compiler/tilec",
+    "station": "compiler",
+    "slug": "tilec",
+    "kind": "repo",
+    "status": "done",
+    "side": false,
+    "title": "Tile-based ML kernel compiler → LLVM IR",
+    "shortTitle": "ML kernel compiler",
+    "org": "Personal project",
+    "dates": { "sort": "2026-11", "display": "Nov 2026" },
+    "bullets": [
+      "Compiles a Triton-style DSL (matmul, softmax, LayerNorm, attention, GELU) through an SSA tile IR with CSE/DCE and kernel fusion, then lowers to cache-blocked LLVM IR.",
+      "Tested with FileCheck IR tests, NumPy end-to-end checks and a differential fuzzer."
+    ],
+    "metrics": [
+      { "value": "15.7×", "label": "tiled matmul vs naive (38.8 GFLOP/s)" },
+      { "value": "1.81×", "label": "LayerNorm speed-up from fusion" },
+      { "value": "2,000", "label": "fuzzed programs pass" }
+    ],
+    "captions": [
+      { "text": "Triton-style DSL to cache-blocked LLVM IR; differential fuzzer. C++17.", "source": "inv §7 tilec" }
+    ],
+    "chips": ["C++17", "LLVM IR", "Compilers", "ASan / UBSan"],
+    "links": [{ "label": "tilec", "href": "https://github.com/snehaislamm/tilec" }],
+    "diagram": {
+      "title": "Kernel compiler diagram",
+      "alt": "A Triton-style DSL is lowered to an SSA tile IR, fused, then emitted as cache-blocked LLVM IR."
+    }
+  },
+  {
+    "id": "compiler/tensor-solver",
+    "station": "compiler",
+    "slug": "tensor-solver",
+    "kind": "course",
+    "status": "done",
+    "side": true,
+    "title": "Tensor Transformation Solver",
+    "shortTitle": "Tensor solver",
+    "org": "NE 318 · Continuum Mechanics",
+    "dates": { "sort": "2026-05", "display": "Spring 2026" },
+    "bullets": [
+      "A Python script for tensor coordinate transformations, used to check hand derivations and cross-checked against fully worked analytical solutions."
+    ],
+    "metrics": [],
+    "captions": [
+      { "text": "Python tensor transformations, cross-checked against worked analytical solutions.", "source": "inv §6.3" }
+    ],
+    "chips": ["Python", "NumPy", "Linear algebra"],
+    "links": []
+  },
+  {
+    "id": "cleanroom/mis-capacitor",
+    "station": "cleanroom",
+    "slug": "mis-capacitor",
+    "kind": "course",
+    "status": "done",
+    "side": false,
+    "title": "MIS Capacitor Fabrication & C–V Characterization",
+    "shortTitle": "MIS capacitor, fab to C–V",
+    "org": "NE 343 · Microfabrication",
+    "dates": { "sort": "2026-05", "display": "Spring 2026" },
+    "bullets": [
+      "Fabricated and characterized an Al / SiNₓ / p-Si metal–insulator–semiconductor capacitor, then wrote a ~15-page technical report on its processing and electrical behaviour.",
+      "Deposited the SiNₓ dielectric by PECVD and the Al gate by PVD on a p-type silicon wafer.",
+      "Measured film thickness with ellipsometry (102.6 nm) and stylus profilometry; traced the disagreement to a step-edge artefact and justified ellipsometry as the reliable value.",
+      "Analysed C–V curves, interpreting minimum capacitance and threshold-voltage shift in terms of fixed and interface charge."
+    ],
+    "metrics": [
+      { "value": "102.6 nm", "label": "SiNₓ thickness (ellipsometry)" },
+      { "value": "2", "label": "thickness methods compared" },
+      { "value": "~15-page", "label": "technical report" }
+    ],
+    "captions": [
+      { "text": "PECVD dielectric, PVD gate; traced a step-edge artefact.", "source": "inv §6.1" }
+    ],
+    "chips": ["PECVD", "PVD", "Ellipsometry", "Profilometry", "C–V analysis", "Technical writing"],
+    "links": [],
+    "diagram": {
+      "title": "MIS capacitor cross-section",
+      "alt": "An Al gate (PVD) on a 102.6 nm SiNₓ layer (PECVD) on a p-Si substrate, with the depletion region below.",
+      "reuse": ["SVG-2", "SVG-5"]
+    }
+  },
+  {
+    "id": "cleanroom/vaclab",
+    "station": "cleanroom",
+    "slug": "vaclab",
+    "kind": "repo",
+    "status": "done",
+    "side": false,
+    "title": "Thin-film lab toolkit: vacuum, leaks, DoE & metrology",
+    "shortTitle": "Thin-film lab toolkit",
+    "org": "Personal project",
+    "dates": { "sort": "2026-11", "display": "Nov 2026" },
+    "bullets": [
+      "Pump-down certification, rate-of-rise and helium-spray leak finding, a 2³ sputtering DoE, spectral reflectometry and ion-beam wafer heating.",
+      "Seeded with the 102.6 nm SiNₓ I measured in my NE 343 MIS-capacitor lab."
+    ],
+    "metrics": [
+      { "value": "1.73→0.24 nm", "label": "worst-case thickness error after index calibration" },
+      { "value": "<1%", "label": "leak-rate error vs 16% linear fit" },
+      { "value": "28", "label": "tests · CI" }
+    ],
+    "captions": [
+      { "text": "Vacuum, leaks, DoE and reflectometry, seeded with my 102.6 nm film.", "source": "inv §7 vaclab" }
+    ],
+    "chips": ["Vacuum physics", "DoE / t-tests", "Reflectometry", "NumPy · SciPy"],
+    "links": [{ "label": "vaclab", "href": "https://github.com/snehaislamm/vaclab" }],
+    "diagram": {
+      "title": "Vacuum toolkit diagram",
+      "alt": "A pump-down curve and a leak-rate fit from the rate-of-rise test."
+    }
+  },
+  {
+    "id": "cleanroom/capstone",
+    "station": "cleanroom",
+    "slug": "capstone",
+    "kind": "course",
+    "status": "active",
+    "side": false,
+    "title": "Wearable Patch for Doxorubicin Monitoring in Breast Cancer Patients",
+    "shortTitle": "Doxorubicin patch · Main Quest",
+    "org": "NE Capstone Design · Group 11 · 4-person team",
+    "dates": { "sort": "2026-09", "display": "Fall 2026" },
+    "bullets": [
+      "A minimally invasive patch that uses hydrogel microneedles and an electrochemical sensor to track a chemotherapy patient's actual doxorubicin exposure, so clinicians can spot patients at higher risk of heart damage. Design proposal presented Nov 24, 2026; build and testing run Sep 2027 – Apr 2028.",
+      "Problem: the dose is set by body size, but patients clear the drug at different rates, and blood work and heart imaging catch cardiotoxicity only after it happens.",
+      "Design: swellable PEG hydrogel microneedles draw interstitial fluid up to a screen-printed carbon electrode, keeping sampling and sensing separate. Chosen over hollow-needle microfluidics and cleanroom-made carbon microneedles.",
+      "Sensing: doxorubicin is redox-active, so square-wave voltammetry reads it with no labels; peak current scales with concentration and is converted through a calibration line.",
+      "My role: electronics and readout: detection method, portable potentiostat, system architecture, power and electronics budgets.",
+      "Disposable cartridge + reusable pod: only the sterile cartridge (microneedles, electrode, adhesive) touches skin. The sealed, wipeable pod is loaned by the clinic to one patient for the whole course and covered by a single-use polyurethane film, with no open ports. Chosen over a fully disposable design (like Dexcom G7 / FreeStyle Libre 3) for hygiene, accessibility and cost.",
+      "Signal chain: AD5940 single-chip potentiostat (50 pA – 3 mA) → nRF52840 MCU that schedules a scan every 10 min, applies batch calibration and sends concentration over Bluetooth LE; NFC tap-to-pair, LED + vibration alerts for patients without a smartphone, on-chip flash when no phone is nearby.",
+      "Power budget: sleeps between ~20 s scans; estimated Iavg ≈ 0.24 mA from datasheet values. C = Iavg·t / η = (0.24 mA)(24 h) / 0.7 ≈ 8.2 mAh, so the 40 mAh LiPo has ~5× margin and still exceeds 2 days at double the current.",
+      "nA-level signals: short traces, guard ring on the working-electrode trace, analog routing away from the antenna, no radio during scans, firmware baseline subtraction and temperature correction; to be validated against a lab potentiostat on identical samples.",
+      "Budget call: skipped the ~$611 AD5940 evaluation kit (~40% of the budget) in favour of a custom board from Analog Devices' reference design plus a borrowed lab potentiostat; electronics come to ~$250 per unit set."
+    ],
+    "metrics": [
+      { "value": "≈8.2 mAh", "label": "needed for the 24 h target", "qualifier": "estimate" },
+      { "value": "≈$55 vs $160", "label": "per patient (~4 cycles)", "qualifier": "estimate" },
+      { "value": "≈$1,400 of $1,500", "label": "budget, incl. contingency", "qualifier": "estimate" }
+    ],
+    "captions": [
+      { "text": "Design proposal ✓. My part: electronics and readout. Build Sep 2027.", "source": "inv §6.2" }
+    ],
+    "chips": ["Electrochemical sensing", "Square-wave voltammetry", "AD5940 AFE", "nRF52840 · BLE · NFC", "Low-power design", "Low-current PCB layout", "Hydrogel microneedles", "Medical devices"],
+    "links": [],
+    "diagram": {
+      "title": "Capstone cartridge and pod design diagram",
+      "alt": "Design diagram: a single-use cartridge (microneedles, electrode) feeds a reusable pod (AD5940, nRF52840, 40 mAh LiPo) that scans every 10 min and sends readings over BLE to the patient app, a secure server and the doctor portal.",
+      "reuse": ["SVG-6"]
+    },
+    "easterEggs": [
+      { "text": "Skipped the ~$611 AD5940 evaluation kit (~40% of the budget) for a custom board from Analog Devices' reference design.", "source": "inv §6.2" }
+    ]
+  },
+  {
+    "id": "cleanroom/recycling",
+    "station": "cleanroom",
+    "slug": "recycling",
+    "kind": "course",
+    "status": "done",
+    "side": true,
+    "title": "Recycling Multilayer Plastic Packaging",
+    "shortTitle": "Recycling study",
+    "org": "NE 333 · Polymer Science · Group project",
+    "dates": { "sort": "2026-05", "display": "Spring 2026" },
+    "bullets": [
+      "Group study of why multilayer packaging is so hard to recycle. I owned the Challenges section — material incompatibility and separation barriers — and presented it to the class."
+    ],
+    "metrics": [],
+    "captions": [
+      { "text": "Owned and presented the Challenges section on multilayer packaging.", "source": "inv §6.3" }
+    ],
+    "chips": ["Polymer blends", "Sustainability", "Presentation"],
+    "links": []
+  }
+]

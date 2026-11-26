@@ -1,0 +1,38 @@
+[
+  {
+    "id": "languages",
+    "title": "Languages",
+    "items": ["Python", "TypeScript", "C99 (embedded)", "C++17", "Go", "Swift", "Java", "MATLAB", "SQL", "Dart"],
+    "resumeItems": ["JavaScript"]
+  },
+  {
+    "id": "software-web",
+    "title": "Software & Web",
+    "items": ["FastAPI", "React", "PostgreSQL", "Supabase", "Playwright", "BeautifulSoup4", "Flutter", "REST APIs", "CMake", "LLVM IR"],
+    "resumeItems": ["HTML/CSS", "Tailwind", "Vite", "Node.js", "GraphQL", "Figma"]
+  },
+  {
+    "id": "ai-ml",
+    "title": "AI / ML",
+    "items": ["Gemini API", "OpenAI API", "LLM summarization", "Agentic pipelines", "Pinecone", "FAISS", "PyTorch · ONNX", "scikit-learn", "NSGA-II", "Recommender systems", "Speech-to-text", "Image recognition"],
+    "resumeItems": []
+  },
+  {
+    "id": "cloud-devops",
+    "title": "Cloud & DevOps",
+    "items": ["Azure", "AWS", "Docker", "GitHub Actions CI", "Vercel", "Git", "Jira", "Confluence", "Claude Code"],
+    "resumeItems": ["GCP", "Linux"]
+  },
+  {
+    "id": "hardware-embedded",
+    "title": "Hardware & Embedded",
+    "items": ["CAN bus / DBC", "BMS validation", "Fault injection", "SIL testing", "PLC ladder logic", "FPGA place & route", "LTspice", "COMSOL", "SolidWorks"],
+    "resumeItems": []
+  },
+  {
+    "id": "fab-characterization",
+    "title": "Fab & Characterization",
+    "items": ["PECVD", "PVD", "Photolithography", "Thermal oxidation", "Ellipsometry", "Profilometry", "Reflectometry", "C–V measurement", "Vacuum & leak testing"],
+    "resumeItems": []
+  }
+]

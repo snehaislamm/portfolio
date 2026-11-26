@@ -1,0 +1,66 @@
+{
+  "profile": {
+    "name": "Sneha Islam",
+    "class": "Nano-Engineer",
+    "school": "University of Waterloo",
+    "tagline": "from silicon to software.",
+    "pageTitle": "Sneha Islam — Nanotechnology Engineering · Software & AI",
+    "portraitAlt": "Illustration of Sneha Islam: long wavy brown hair, round glasses, smiling.",
+    "availability": {
+      "short": "8-month co-op · Jan–Aug 2027",
+      "line": "Available · 8-month co-op · Jan–Aug 2027",
+      "source": "inv §18 D4"
+    },
+    "proofTiles": [
+      { "value": "1,200+", "label": "companies covered", "quest": "ai/communitech", "source": "inv §5.1" },
+      { "value": "±2%", "label": "state-of-charge accuracy", "quest": "power/battery-wc", "source": "inv §5.3" },
+      { "value": "102.6 nm", "label": "SiNₓ film (ellipsometry)", "quest": "cleanroom/mis-capacitor", "source": "inv §6.1" }
+    ],
+    "character": {
+      "institution": "University of Waterloo",
+      "degree": "BASc Nanotechnology Engineering",
+      "specialization": "Nanoelectronics",
+      "standing": "3B (Fall 2026)",
+      "home": "Toronto, ON",
+      "nextQuest": "8-month co-op · Jan–Aug 2027",
+      "equipment": ["AZ-900", "AI-900"]
+    },
+    "certifications": [
+      { "code": "AZ-900", "name": "Microsoft Azure Fundamentals", "earned": "Earned through Avanade WE Accelerate, 2024" },
+      { "code": "AI-900", "name": "Microsoft Azure AI Fundamentals", "earned": "Earned through Avanade WE Accelerate, 2024" }
+    ],
+    "interests": [
+      {
+        "id": "quantum-hardware",
+        "title": "Quantum hardware",
+        "line": "The devices and materials that turn quantum mechanics into working qubits.",
+        "icon": "atom"
+      },
+      {
+        "id": "nanoelectronics",
+        "title": "Nanoelectronics",
+        "line": "Thin-film devices, CMOS process flows, and how fabrication shapes device behaviour.",
+        "icon": "film-stack"
+      },
+      {
+        "id": "applied-ai",
+        "title": "Applied AI",
+        "line": "LLM pipelines, retrieval and agents that replace real manual work in production.",
+        "icon": "node-graph"
+      },
+      {
+        "id": "fintech",
+        "title": "Fintech",
+        "line": "Quantitative modelling, from cash-flow analysis to AI investing tools.",
+        "icon": "line-chart"
+      }
+    ],
+    "contact": {
+      "pitch": "I'm open to co-op roles in software engineering, applied AI, embedded systems and nanoelectronics / quantum hardware. Email is the best way to reach me.",
+      "email": "s32islam@uwaterloo.ca",
+      "linkedin": "https://www.linkedin.com/in/SnehaIslam",
+      "github": "https://github.com/snehaislamm",
+      "resume": "/Sneha_Islam_Resume.pdf"
+    }
+  }
+}

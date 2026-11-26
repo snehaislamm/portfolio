@@ -1,0 +1,71 @@
+[
+  {
+    "id": "co-op-2027",
+    "type": "next",
+    "dates": { "sort": "2027-01", "display": "Jan – Aug 2027 · Next" },
+    "title": "8-month co-op work term",
+    "detail": "Open to software engineering, applied AI, embedded systems and nanoelectronics / quantum hardware roles."
+  },
+  {
+    "id": "open-source-sprint",
+    "type": "academic",
+    "dates": { "sort": "2026-11", "display": "Nov 2026" },
+    "title": "Open-source build sprint",
+    "detail": "Shipped fabricfit, tilec, zonecore, modcell, muse, facesolve, vaclab and coa-forge to GitHub."
+  },
+  {
+    "id": "3b-capstone",
+    "type": "academic",
+    "dates": { "sort": "2026-09", "display": "Fall 2026 · Now" },
+    "title": "3B · Capstone design proposal",
+    "detail": "Presented our capstone design (Nov 24): a wearable microneedle patch for doxorubicin monitoring, where I own the electronics and readout.",
+    "quest": "cleanroom/capstone"
+  },
+  {
+    "id": "3a-devices-materials",
+    "type": "academic",
+    "dates": { "sort": "2026-05", "display": "Spring 2026" },
+    "title": "3A · Devices & materials",
+    "detail": "Quantum mechanics, microfabrication, polymer science, engineering economics; fabricated an MIS capacitor.",
+    "quest": "cleanroom/mis-capacitor"
+  },
+  {
+    "id": "communitech",
+    "type": "work",
+    "dates": { "sort": "2026-02", "display": "Feb – May 2026" },
+    "title": "Communitech · Software Developer Co-op",
+    "detail": "Shipped an agentic AI ecosystem-monitoring and newsletter platform to production on Azure.",
+    "quest": "ai/communitech"
+  },
+  {
+    "id": "plug-co",
+    "type": "work",
+    "dates": { "sort": "2025-09", "display": "Sep 2025 – Jan 2026" },
+    "title": "The Plug Co · Data Analysis & AI Development Intern",
+    "detail": "AI-integrated backend, vector search and an investor-ready prototype in 12 weeks.",
+    "quest": "ai/plug-co"
+  },
+  {
+    "id": "battery-wc",
+    "type": "work",
+    "dates": { "sort": "2025-01", "display": "Jan – Apr 2025" },
+    "title": "Battery Workforce Challenge · Research Assistant",
+    "detail": "SoC estimation, embedded fault diagnostics and CAN communication for an EV battery pack.",
+    "quest": "power/battery-wc"
+  },
+  {
+    "id": "avanade",
+    "type": "work",
+    "dates": { "sort": "2024-05", "display": "May – Aug 2024" },
+    "title": "Avanade WE Accelerate · Software Developer",
+    "detail": "Azure AI workflows, a financial AI chatbot, AZ-900 and AI-900.",
+    "quest": "ai/avanade"
+  },
+  {
+    "id": "started-basc",
+    "type": "academic",
+    "dates": { "sort": "2023-09", "display": "Sep 2023" },
+    "title": "Started BASc Nanotechnology Engineering · University of Waterloo",
+    "detail": "Specialization in nanoelectronics."
+  }
+]

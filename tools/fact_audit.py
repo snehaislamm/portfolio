@@ -8,6 +8,8 @@ src/content/*.json that exists (none yet = pass), and checks:
   number          every numeric token (\\d+(?:[.,]\\d+)*) occurs in the corpus
                   (docs/content-inventory.md raw text + the visible text of legacy/index.html),
                   after the allow-list strings (tools/fact_audit_allow.txt) are blanked
+                  (JSON values under machine keys such as source, sort, slug, id, href and url are
+                  identifiers, not claims: skipped here, but still checked for every ban)
   teammate-name   no configured teammate name, anywhere (names are never printed)
   course-code     no planned course code (PHYS 468, SYDE 572, ECE 457, MTE 544, STAT 341), anywhere
   ambassador      no "Engineering Ambassador" on /next or in content JSON (legacy / is exempt)
@@ -62,6 +64,10 @@ COURSE = re.compile(
 AMBASSADOR = re.compile(r"\bengineering[\s_-]*ambassadors?\b", re.IGNORECASE)
 CAPSTONE_WORDS = re.compile(r"\b(?:built|tested|working[\s_-]*devices?)\b", re.IGNORECASE)
 SOURCE_KEYS = ("captions", "characterLine", "characterLines", "proofTiles", "easterEggs")
+# Values under these keys are citations or machine identifiers (dates.sort "2025-09", ids, slugs, URLs),
+# not claims: they are skipped for numbers but still checked for every ban.
+NUMBER_EXEMPT_KEYS = frozenset({"source", "sort", "slug", "station", "kind", "status", "id", "unlock", "href", "url",
+                                "quest", "quests", "reuse", "email"})
 CAPSTONE_SLUG = "capstone"
 # The entry ends at the first whitespace-#-whitespace, so a "#" inside the reason is fine.
 ALLOW_LINE = re.compile(r"^(.+?)\s+#\s+(\S.*)$")
@@ -233,7 +239,7 @@ class Unit:
     file: str
     text: str
     path: str = ""  # JSON path (already masked) for content strings
-    numbers: bool = True  # False for "source" values
+    numbers: bool = True  # False for values under NUMBER_EXEMPT_KEYS
     ambassador: bool = True
     capstone: bool = False
 
@@ -291,7 +297,7 @@ def json_units(file: str, data: Any, names: re.Pattern[str] | None) -> Iterator[
         else:
             text = scalar_text(value)
             if text is not None:
-                yield Unit(file, text, path, numbers=key != "source", capstone=capstone)
+                yield Unit(file, text, path, numbers=key not in NUMBER_EXEMPT_KEYS, capstone=capstone)
 
     yield from walk(data, "$", None, False)
 
