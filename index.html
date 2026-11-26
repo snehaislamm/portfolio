@@ -222,6 +222,8 @@ section{padding:80px 0;border-top:1px solid var(--line)}
 .sheet li{margin-bottom:3px}
 .sheet .cvsk b{font-family:var(--sans);font-weight:600;color:#0b1220}
 .sheet .cvsk p{margin-bottom:3px}
+.sheet .er.org i{color:#333}
+.sheet .er b .stack{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-style:normal;color:#444;white-space:normal}
 .cv-note{font-family:var(--mono);font-size:.68rem;color:var(--dim);text-align:center;margin-top:14px}
 
 /* coursework */
@@ -245,7 +247,6 @@ details.cw[open] .chev{transform:rotate(90deg);color:var(--cyan)}
 .k-phy{background:rgba(159,122,234,.15);color:var(--violet)}
 .k-mat{background:rgba(246,173,85,.13);color:var(--amber)}
 .k-sys{background:rgba(252,129,129,.12);color:var(--red)}
-.planned{opacity:.78;border-style:dashed}
 
 /* skills */
 .skills{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -303,6 +304,10 @@ footer{border-top:1px solid var(--line);padding:40px 0 50px}
 .rv.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.flow,.pulse{animation:none}}
 </style>
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
@@ -474,8 +479,8 @@ footer{border-top:1px solid var(--line);padding:40px 0 50px}
         <div class="row"><div class="k">Standing</div><div class="v">3B (Fall 2026)</div></div>
         <div class="row"><div class="k">Experience</div><div class="v">SWE · AI · Embedded · Research</div></div>
         <div class="row"><div class="k">Certs</div><div class="v">Azure AZ-900 · AI-900</div></div>
-        <div class="row"><div class="k">Next</div><div class="v">Co-op term · Winter 2027</div></div>
-        <div class="row"><div class="k">Location</div><div class="v">Waterloo, ON</div></div>
+        <div class="row"><div class="k">Next</div><div class="v">8-month co-op · Jan–Aug 2027</div></div>
+        <div class="row"><div class="k">Home</div><div class="v">Toronto, ON</div></div>
       </div>
     </div>
 
@@ -614,19 +619,6 @@ footer{border-top:1px solid var(--line);padding:40px 0 50px}
           <div class="chips"><span class="chip">Azure</span><span class="chip">Flutter / Dart</span><span class="chip">OpenAI API</span><span class="chip">Alpha Vantage</span><span class="chip">Agile consulting</span></div>
         </article>
 
-        <article class="job rv">
-          <div class="top"><span>FALL 2026 – PRESENT · WATERLOO, ON</span><span class="kind kd-sw">LEADERSHIP</span></div>
-          <div class="body">
-            <h3>Engineering Ambassador</h3>
-            <div class="org">University of Waterloo Engineering</div>
-            <ul>
-              <li>Selected to represent <b>Nanotechnology Engineering</b> to prospective students through campus tours, shadow days and Ask a Warrior chats.</li>
-              <li>Support large recruitment events such as <b>Fall Open House</b> (200–300 volunteers).</li>
-              <li>Completed formal training in <b>public speaking, mentorship</b> and recruitment communication.</li>
-            </ul>
-          </div>
-          <div class="chips"><span class="chip">Public speaking</span><span class="chip">Mentorship</span><span class="chip">Outreach</span></div>
-        </article>
       </div>
 
     </div>
@@ -677,7 +669,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 50px}
         <div class="body">
           <div>
             <h3>Wearable Patch for Doxorubicin Monitoring in Breast Cancer Patients</h3>
-            <div class="course">NE Capstone Design · Z. Hodd, S. Islam, O. Kandiah, E. So</div>
+            <div class="course">NE Capstone Design · 4-person team</div>
             <p>A minimally invasive patch that uses <b class="hl">hydrogel microneedles</b> and an <b class="hl">electrochemical sensor</b> to track a chemotherapy patient's actual doxorubicin exposure, so clinicians can spot patients at higher risk of heart damage. Design proposal presented Nov 24, 2026; build and testing run Sep 2027 – Apr 2028.</p>
             <ul>
               <li><b>Problem:</b> the dose is set by body size, but patients clear the drug at different rates, and blood work and heart imaging catch <b>cardiotoxicity</b> only after it happens.</li>
@@ -965,14 +957,6 @@ footer{border-top:1px solid var(--line);padding:40px 0 50px}
         <div class="inner"><div class="chips"><span class="chip">Shell momentum balances</span><span class="chip">Laminar &amp; two-fluid flow</span><span class="chip">Unsteady flow</span><span class="chip">Conductive heat transfer</span><span class="chip">Tensor transformations</span></div></div></details>
       <details class="cw rv"><summary><span class="code k-sys">MSE 261</span><span class="ttl">Engineering Economics<small>COMPLETED</small></span><span class="chev">›</span></summary>
         <div class="inner"><div class="chips"><span class="chip">PW / AW / IRR / ERR</span><span class="chip">Replacement analysis</span><span class="chip">Taxes &amp; CCA</span><span class="chip">Inflation</span><span class="chip">B/C ratio</span><span class="chip">Decision trees</span><span class="chip">CPM crashing</span></div></div></details>
-      <details class="cw planned rv"><summary><span class="code k-phy">PHYS 468</span><span class="ttl">Implementation of Quantum Information Processing<small>PLANNED · WINTER 2027</small></span><span class="chev">›</span></summary>
-        <div class="inner"><div class="chips"><span class="chip">Qubit platforms</span><span class="chip">Quantum hardware</span></div></div></details>
-      <details class="cw planned rv"><summary><span class="code k-sys">SYDE 572</span><span class="ttl">Pattern Recognition<small>PLANNED</small></span><span class="chev">›</span></summary>
-        <div class="inner"><div class="chips"><span class="chip">Classification</span><span class="chip">Statistical learning</span></div></div></details>
-      <details class="cw planned rv"><summary><span class="code k-sys">ECE 457B/C</span><span class="ttl">Computational Intelligence · Reinforcement Learning<small>PLANNED</small></span><span class="chev">›</span></summary>
-        <div class="inner"><div class="chips"><span class="chip">Neural networks</span><span class="chip">Fuzzy systems</span><span class="chip">Reinforcement learning</span></div></div></details>
-      <details class="cw planned rv"><summary><span class="code k-sys">MTE 544 · STAT 341</span><span class="ttl">Autonomous Mobile Robots · Computational Statistics<small>PLANNED</small></span><span class="chev">›</span></summary>
-        <div class="inner"><div class="chips"><span class="chip">Localization &amp; mapping</span><span class="chip">Statistical computing</span></div></div></details>
     </div>
   </div>
 </section>
@@ -1006,9 +990,9 @@ footer{border-top:1px solid var(--line);padding:40px 0 50px}
       <span><i class="ring" style="border-color:var(--amber)"></i>Next</span>
     </div>
     <div class="tl">
-      <div class="tl-item next rv"><div class="when">WINTER 2027 · NEXT</div><h4>Co-op work term</h4><p>Taking PHYS 468 (quantum information processing) alongside the work term.</p></div>
+      <div class="tl-item next rv"><div class="when">JAN – AUG 2027 · NEXT</div><h4>8-month co-op work term</h4><p>Open to software engineering, applied AI, embedded systems and nanoelectronics / quantum hardware roles.</p></div>
       <div class="tl-item rv"><div class="when">NOV 2026</div><h4>Open-source build sprint</h4><p>Shipped fabricfit, tilec, zonecore, modcell, muse, facesolve, vaclab and coa-forge to GitHub.</p></div>
-      <div class="tl-item rv"><div class="when">FALL 2026 · NOW</div><h4>3B · Capstone design proposal &amp; Engineering Ambassador</h4><p>Presented our capstone design (Nov 24): a wearable microneedle patch for doxorubicin monitoring, where I own the electronics and readout. Also representing NE to prospective students.</p></div>
+      <div class="tl-item rv"><div class="when">FALL 2026 · NOW</div><h4>3B · Capstone design proposal</h4><p>Presented our capstone design (Nov 24): a wearable microneedle patch for doxorubicin monitoring, where I own the electronics and readout.</p></div>
       <div class="tl-item work rv"><div class="when">FEB – MAY 2026</div><h4>Communitech · Software Developer Co-op</h4><p>Shipped an agentic AI ecosystem-monitoring and newsletter platform to production on Azure.</p></div>
       <div class="tl-item work rv"><div class="when">SEP 2025 – JAN 2026</div><h4>The Plug Co · Data Analysis &amp; AI Development Intern</h4><p>AI-integrated backend, vector search and an investor-ready prototype in 12 weeks.</p></div>
       <div class="tl-item rv"><div class="when">2025</div><h4>3A · Devices &amp; materials</h4><p>Quantum mechanics, microfabrication, polymer science, engineering economics; fabricated an MIS capacitor.</p></div>
@@ -1022,74 +1006,82 @@ footer{border-top:1px solid var(--line);padding:40px 0 50px}
 <!-- RESUME -->
 <section id="resume">
   <div class="wrap">
-    <div class="sec-h rv"><span class="num">§08</span><h2>Résumé</h2><span class="rule"></span><span class="note">// general · engineering co-op</span></div>
-    <div class="cv-bar rv"><span>REV · NOV 2026 · 1 PAGE</span><span class="acts"><button class="copy" id="cvcopy">COPY AS TEXT</button></span></div>
+    <div class="sec-h rv"><span class="num">§08</span><h2>Résumé</h2><span class="rule"></span><span class="note">// displays software · summer 2027</span></div>
+    <div class="cv-bar rv"><span>REV · NOV 2026 · 1 PAGE</span><span class="acts"><a class="copy" href="Sneha_Islam_Resume.pdf" target="_blank" rel="noopener">PDF ↗</a><button class="copy" id="cvcopy">COPY AS TEXT</button></span></div>
     <div class="cv-frame rv">
       <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
       <div class="sheet" id="cvsheet">
         <h3>Sneha Islam</h3>
-        <p class="sub">University of Waterloo Engineering student with experience in Software Development, Embedded Systems and Data Analysis, pursuing 8-month co-op opportunities in engineering roles</p>
-        <p class="ct">Waterloo, ON · <a href="https://www.linkedin.com/in/SnehaIslam" target="_blank" rel="noopener">linkedin.com/in/SnehaIslam</a> · <a href="https://github.com/snehaislamm" target="_blank" rel="noopener">github.com/snehaislamm</a> · s32islam@uwaterloo.ca</p>
-
-        <h5>Profile Summary</h5>
-        <div class="cvsk">
-          <p><b>Software:</b> Python, TypeScript, Swift, C (Embedded), MATLAB, Java, FastAPI, React, Playwright, BeautifulSoup4</p>
-          <p><b>AI/ML:</b> Google Gemini API, LLM-based summarization, speech-to-text, image recognition, semantic/vector search (Pinecone, FAISS)</p>
-          <p><b>Tools &amp; platforms:</b> LTspice, SolidWorks, Supabase, Excel, SQL, Power BI, Git, Claude Code, Azure, AWS, COMSOL, PostgreSQL, Docker, Jira, Confluence, Flutter, Vercel</p>
-        </div>
+        <p class="sub">Displays Software Engineer Intern, Summer 2027 | JavaScript/TypeScript, React, HTML/CSS, Figma | Safety-Critical Testing</p>
+        <p class="ct">Toronto, ON · +1 647 457 2005 · s32islam@uwaterloo.ca · <a href="https://www.linkedin.com/in/SnehaIslam" target="_blank" rel="noopener">linkedin.com/in/SnehaIslam</a></p>
 
         <h5>Education</h5>
         <div class="ent">
-          <div class="er"><b>University of Waterloo, ON</b><span>Sep 2023 – present</span></div>
-          <div class="org">Candidate for Bachelor of Applied Science, Nanotechnology Engineering + Specialization in Nano-Electronics</div>
+          <div class="er"><b>University of Waterloo</b><span>Sep 2023 – Present</span></div>
+          <div class="er org"><i>Candidate for Bachelor of Applied Science, Nanotechnology Engineering + Specialization in Nano-Electronics</i><span>Waterloo, ON</span></div>
         </div>
 
-        <h5>Selected Experience</h5>
+        <h5>Experience</h5>
         <div class="ent">
-          <div class="er"><b>Software Developer Co-op (AI-Adoption Program)</b><span>Feb 2026 – May 2026</span></div>
-          <div class="org">Communitech Corporation, Waterloo, ON</div>
+          <div class="er"><b>Software Developer Co-Op (AI-Adoption Program)</b><span>Feb 2026 – May 2026</span></div>
+          <div class="er org"><i>Communitech Corporation</i><span>Waterloo, ON</span></div>
           <ul>
-            <li>Built and shipped an agentic AI system (React/TypeScript, FastAPI, PostgreSQL) that scrapes, deduplicates and summarizes 50+ ecosystem sources daily using the Gemini API, replacing manual cross-team monitoring and covering 1,200+ companies.</li>
-            <li>Engineered a weekly automated pipeline (Playwright scraping, async concurrency control, SendGrid delivery) alongside a natural-language Q&amp;A chatbot for querying newsletter archives.</li>
-            <li>Designed and deployed a full-stack personalization engine that re-ranks and re-summarizes content per user based on bio, focus areas and keywords, containerized via Docker on Azure.</li>
+            <li>Designed Figma design-system components with usage guidelines and built the React/TypeScript and Tailwind CSS user interface (settings, archive, Q&amp;A chat) of an agentic AI web app.</li>
+            <li>Engineered user-centered personalization: per-user re-ranking from bio, focus areas and keywords, selectable summary formats and styles, and in-app answer ratings to capture user feedback.</li>
+            <li>Shipped the data-driven back end (FastAPI, PostgreSQL, Gemini API) that scrapes, deduplicates and summarizes 50+ sources daily across 1,200+ companies, replacing manual cross-team monitoring.</li>
+            <li>Monitored the production pipeline and, with a teammate, root-caused 5 of 6 sources silently returning 0 articles, adding a strict validator; ran code reviews and deployed with Docker on Azure.</li>
           </ul>
         </div>
         <div class="ent">
           <div class="er"><b>Data Analysis and AI Development Intern</b><span>Sep 2025 – Jan 2026</span></div>
-          <div class="org">The Plug Co, Toronto, ON</div>
+          <div class="er org"><i>The Plug Co</i><span>Toronto, ON</span></div>
           <ul>
-            <li>Built a full-stack backend (FastAPI, PostgreSQL, AWS) retrieving photos, audio and video in under 300 ms, integrating AI models for speech-to-text, image recognition and semantic text matching at 85%+ accuracy.</li>
-            <li>Developed a vector search pipeline (Pinecone/FAISS) for similarity-based content retrieval, with SQL schemas supporting 10k+ timeline events and Swift (iOS)/Unity (VR) frontend MVPs.</li>
-            <li>Implemented privacy-by-design architecture (RBAC, AES-256, GDPR Art. 17) and delivered a complete AI prototype to investors within 12 weeks, managing sprints in Jira to improve delivery speed by 25%.</li>
+            <li>Prototyped Swift (iOS) and Unity (VR) front-end MVPs on a FastAPI, PostgreSQL and AWS back end retrieving photos, audio and video in under 300ms.</li>
+            <li>Delivered a complete AI prototype to investors within 12 weeks, managing sprints in Jira to improve delivery speed by 25%, with privacy-by-design (RBAC, AES-256, GDPR Art. 17).</li>
           </ul>
         </div>
         <div class="ent">
           <div class="er"><b>Undergraduate Research Assistant</b><span>Jan 2025 – Apr 2025</span></div>
-          <div class="org">Battery Workforce Challenge, University of Waterloo, Waterloo, ON</div>
+          <div class="er org"><i>Battery Workforce Challenge, University of Waterloo</i><span>Waterloo, ON</span></div>
           <ul>
-            <li>Developed State of Charge estimation algorithms (±2% accuracy) and fault detection routines in MATLAB and Python, plus embedded C diagnostic logging for overvoltage, HVIL and isolation resistance faults.</li>
-            <li>Built automated test scripts and fault-injection simulations that reduced regression testing time by 35%, improving debug coverage across BMS validation workflows.</li>
-            <li>Implemented CAN bus communication transmitting 120+ DBC-defined signals between BPCM and EVCU, simulating real-world field conditions for system validation.</li>
+            <li>Programmed safety-critical fault detection and DTC logging in embedded C for overvoltage (&gt;420 V), overcurrent (&gt;250 A), HVIL breaks and isolation resistance faults (&lt;500 kΩ).</li>
+            <li>Automated BMS regression tests and fault-injection simulations, cutting testing time by 35%, and validated 120+ DBC-defined CAN signals between BPCM and EVCU.</li>
           </ul>
         </div>
         <div class="ent">
           <div class="er"><b>Software Developer</b><span>May 2024 – Aug 2024</span></div>
-          <div class="org">Avanade Microsoft Azure &amp; AI (WE Accelerate), University of Waterloo, Waterloo, ON</div>
+          <div class="er org"><i>Avanade Microsoft Azure &amp; AI (WE Accelerate), University of Waterloo</i><span>Waterloo, ON</span></div>
           <ul>
-            <li>Earned Microsoft AZ-900/AI-900 certifications and collaborated with Avanade consultants on 3 AI projects, including a chatbot prototype projected to cut client response time by 40%.</li>
-            <li>Designed and deployed AI-driven Azure workflows, improving data processing efficiency by 25%, and co-developed a cross-platform financial AI chatbot (Flutter/Dart) integrating Alpha Vantage and OpenAI APIs for real-time investing guidance.</li>
-            <li>Delivered 10+ client-style presentations using agile consulting practices, applying C++/Swift for performance-critical functionality, and earning top-3 team recognition for innovation.</li>
+            <li>Co-developed a cross-platform financial AI chatbot (Flutter/Dart) integrating Alpha Vantage and OpenAI APIs for real-time investing guidance; delivered 10+ client-style presentations.</li>
+          </ul>
+        </div>
+
+        <h5>Projects</h5>
+        <div class="ent">
+          <div class="er"><b>zonecore — Safety-Critical Real-Time Controls Stack <span class="stack">| <i>C99, Python, CAN</i></span></b></div>
+          <ul>
+            <li>Developed an EV vehicle-controls stack in embedded C99 (~3.1k LOC, no heap), verified on a closed-loop Python SIL bench.</li>
+            <li>Validated reliability with 47 unit tests, 32 SIL tests (9 fault-injection cases) and 46/46 safety requirements traced in CI, applying functional safety methods (HARA, alive supervision).</li>
           </ul>
         </div>
 
         <h5>Leadership</h5>
         <div class="ent">
           <div class="er"><b>Engineering Ambassador</b><span>Fall 2026 – Present</span></div>
-          <div class="org">University of Waterloo, Waterloo, ON</div>
+          <div class="er org"><i>University of Waterloo</i><span>Waterloo, ON</span></div>
           <ul>
-            <li>Selected as a Waterloo Engineering Ambassador, representing Nanotechnology Engineering to prospective students through campus tours, shadow days and Ask a Warrior chats.</li>
-            <li>Supported large-scale recruitment events (e.g., Fall Open House, 200–300 volunteers) and completed formal ambassador training in public speaking, mentorship and recruitment communication.</li>
+            <li>Represent Nanotechnology Engineering to prospective students through campus tours, shadow days and Q&amp;A chats, after formal training in public speaking and mentorship.</li>
           </ul>
+        </div>
+
+        <h5>Skills</h5>
+        <div class="cvsk">
+          <p><b>Web &amp; UI:</b> JavaScript, TypeScript, React, HTML, CSS (Tailwind), Vite, Node.js, GraphQL</p>
+          <p><b>Design:</b> Figma, design systems, user-centered design, prototyping</p>
+          <p><b>Back End &amp; Data:</b> Python, FastAPI, PostgreSQL, SQL, Gemini API, OpenAI API</p>
+          <p><b>Testing &amp; Safety:</b> JS/TS unit and integration tests, Playwright, fault-injection testing, SIL testing, CAN</p>
+          <p><b>Other Languages:</b> C (Embedded), C++, Swift, Dart (Flutter), MATLAB</p>
+          <p><b>Tools:</b> Git, Docker, Azure, AWS, GCP, Linux, Jira, Confluence, Claude Code</p>
         </div>
       </div>
       <div class="cv-note">Tailored versions available on request.</div>
@@ -1106,7 +1098,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 50px}
         <p>I'm open to co-op roles in <b class="hl">software engineering, applied AI, embedded systems</b> and <b class="hl">nanoelectronics / quantum hardware</b>. Email is the best way to reach me.</p>
         <div class="schem" style="padding:14px">
           <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
-          <div class="hdr" style="margin:0"><span>STATUS</span><b>● AVAILABLE · W27 CO-OP</b></div>
+          <div class="hdr" style="margin:0"><span>STATUS</span><b>● AVAILABLE · 8-MONTH CO-OP · JAN–AUG 2027</b></div>
         </div>
       </div>
       <div class="links rv">

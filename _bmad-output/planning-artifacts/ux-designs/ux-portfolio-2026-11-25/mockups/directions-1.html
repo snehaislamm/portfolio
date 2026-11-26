@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Fab Line — 4 visual directions</title>
+<style>
+/* Shared */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#0b0d0b;color:#eee;padding:24px 16px 60px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace}
+h1.page{font-size:1.5rem;max-width:1100px;margin:0 auto 6px}
+p.intro{max-width:1100px;margin:0 auto 28px;color:#aaa;line-height:1.5}
+.dir{max-width:1100px;margin:0 auto 56px}
+.dir>h2{font-size:1.25rem;margin-bottom:4px}
+.dir>.why{color:#bbb;max-width:820px;line-height:1.5;margin-bottom:12px;font-size:.95rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{display:flex;align-items:center;gap:8px;font-size:.75rem;padding:4px 8px 4px 4px;border:1px solid #333;border-radius:4px;background:#151515}
+.chip i{width:22px;height:22px;border-radius:3px;display:inline-block;border:1px solid #0004}
+.frame{position:relative;overflow:hidden;border-radius:10px;min-height:560px;border:1px solid #222}
+.hud{position:relative;z-index:3;display:flex;align-items:center;gap:14px;padding:10px 16px;flex-wrap:wrap}
+.hud .who{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.8rem;letter-spacing:.08em}
+.hud .who img{width:30px;height:30px;border-radius:50%;object-fit:cover}
+.mm{display:flex;align-items:center;gap:0;flex:1;min-width:180px}
+.mm b{width:12px;height:12px;border-radius:50%;flex:none}
+.mm s{flex:1;height:2px;min-width:10px}
+.hud .res{font-weight:800;padding:9px 14px;font-size:.8rem}
+.hud .ic{width:34px;height:34px;display:grid;place-items:center;font-size:.75rem;font-weight:700}
+.xp{position:relative;z-index:3;height:6px;margin:0 16px}
+.xp span{display:block;height:100%;width:12%}
+.stage{position:relative;z-index:2;padding:26px 22px 30px}
+.st-tag{font-size:.72rem;letter-spacing:.14em;font-weight:700}
+.st-title{font-size:2rem;font-weight:800;margin:4px 0 14px}
+.dlg{display:flex;gap:12px;align-items:center;max-width:560px;padding:10px 14px;margin-bottom:22px}
+.dlg img{width:56px;height:56px;object-fit:cover;flex:none}
+.dlg p{font-size:1.02rem;font-weight:600}
+.card{max-width:760px;display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:16px}
+@media(max-width:700px){.card{grid-template-columns:1fr}}
+.card .hd{grid-column:1/-1;display:flex;justify-content:space-between;font-size:.72rem;letter-spacing:.08em}
+.card h3{font-size:1.2rem;margin-bottom:10px}
+.met{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.met div{padding:8px}
+.met b{display:block;font-size:1.35rem}
+.met small{font-size:.68rem;line-height:1.2;display:block;margin-top:2px}
+.cap{font-size:.9rem;line-height:1.4;margin-bottom:10px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btns span{font-size:.75rem;font-weight:700;padding:7px 11px}
+.toast{position:absolute;z-index:4;right:18px;bottom:18px;padding:10px 14px;display:flex;gap:10px;align-items:center;max-width:280px}
+.toast b{display:block;font-size:.9rem}
+.toast small{font-size:.72rem}
+.sprite{position:absolute;z-index:3;left:18px;bottom:16px;width:46px;height:70px}
+.bg{position:absolute;inset:0;z-index:0}
+.bg svg{width:100%;height:100%;display:block}
+
+/* ===== A · PAINTED HIGHLANDS =====
+   bg #0e130f · panel #18221a · text #ece4d0 · muted #b5ad97
+   moss #8fb56a · forest #2f4a2a · bark #b08457 · accent (skirt yellow) #ecd77e · ink #14120a */
+.A .frame{background:#0e130f;color:#ece4d0}
+.A .hud{background:linear-gradient(#0e130fee,#0e130f00)}
+.A .hud .who{color:#ece4d0}
+.A .mm b{border:2px solid #b5ad97}.A .mm b.v{background:#8fb56a;border-color:#8fb56a}.A .mm b.c{border-color:#ecd77e;box-shadow:0 0 0 3px #ecd77e44}
+.A .mm s{background:#b5ad9755}
+.A .hud .res{background:#ecd77e;color:#14120a;border-radius:2px}
+.A .hud .ic{border:1px solid #b5ad9766;color:#ece4d0;border-radius:2px}
+.A .xp{background:#ffffff14}.A .xp span{background:#ecd77e}
+.A .st-tag{color:#8fb56a}
+.A .st-title{font-family:Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:.01em}
+.A .brush{display:block;width:240px;height:14px;margin:-8px 0 14px}
+.A .dlg{background:#0e130fcc;border-left:3px solid #ecd77e}
+.A .dlg img{border-radius:50%}
+.A .card{background:#18221ae6;border:1px solid #8fb56a33;backdrop-filter:blur(2px)}
+.A .card .hd{color:#b5ad97}.A .card .hd em{color:#8fb56a;font-style:normal}
+.A .met div{border-top:2px solid #b08457}.A .met b{color:#ecd77e}.A .met small{color:#b5ad97}
+.A .cap{color:#b5ad97}
+.A .btns span{border:1px solid #ece4d055}.A .btns span.p{background:#8fb56a;color:#14120a;border-color:#8fb56a}
+.A .toast{background:#14120ae6;border:1px solid #ecd77e}.A .toast small{color:#b5ad97}
+.A .diag rect{fill:#0e130f;stroke:#8fb56a}.A .diag text{fill:#ece4d0}.A .diag line{stroke:#ecd77e}
+
+/* ===== B · BLOCK BIOME =====
+   coal #1a1a17 · panel #2b2a25 · text #f3f0e6 · muted #c7c1ad
+   grass #7fb045 · grass-dark #4f7a26 · dirt #b07a45 (fills only) · dirt-dark #6e4824 · stone #8a8a84 · accent #f2c94c */
+.B .frame{background:#1a1a17;color:#f3f0e6;border-radius:0;border:4px solid #000}
+.B .hud{background:#2b2a25;border-bottom:4px solid #000}
+.B .hud .who{font-family:ui-monospace,Consolas,monospace;text-transform:uppercase}
+.B .hud .who img{border-radius:0;image-rendering:pixelated;border:2px solid #000}
+.B .mm b{border-radius:0;background:#3d3b34;border:2px solid #000}.B .mm b.v{background:#7fb045}.B .mm b.c{background:#f2c94c}
+.B .mm s{background:#000;height:4px}
+.B .hud .res{background:#f2c94c;color:#1a1a17;border:3px solid #000;box-shadow:inset -3px -3px 0 #b8922a,inset 3px 3px 0 #fff3b0;font-family:ui-monospace,Consolas,monospace;text-transform:uppercase}
+.B .hud .ic{background:#8a8a84;border:3px solid #000;box-shadow:inset -3px -3px 0 #5f5f5a,inset 3px 3px 0 #b5b5ae;color:#1a1a17}
+.B .xp{background:#000;height:10px;margin:0}.B .xp span{background:repeating-linear-gradient(90deg,#7fb045 0 10px,#6a9a36 10px 12px)}
+.B .st-tag{color:#7fb045;font-family:ui-monospace,Consolas,monospace}
+.B .st-title{font-family:ui-monospace,Consolas,monospace;text-transform:uppercase;letter-spacing:.04em;text-shadow:3px 3px 0 #000}
+.B .dlg{background:#2b2a25;border:4px solid #000;box-shadow:inset 0 -4px 0 #1f1e1a}
+.B .dlg img{border:3px solid #000;image-rendering:pixelated}
+.B .card{background:#2b2a25;border:4px solid #000;padding:0 16px 16px;box-shadow:6px 6px 0 #000}
+.B .card .hd{margin:0 -16px;padding:8px 16px;background:linear-gradient(#7fb045 0 70%,#4f7a26 70%);color:#1a1a17;font-family:ui-monospace,Consolas,monospace;font-weight:800;border-bottom:4px solid #000}
+.B .card .hd em{font-style:normal}
+.B .met div{background:#1a1a17;border:3px solid #000;box-shadow:inset 0 4px 0 #6e4824}
+.B .met b{color:#f2c94c;font-family:ui-monospace,Consolas,monospace}.B .met small{color:#c7c1ad}
+.B .cap{color:#c7c1ad}
+.B .btns span{background:#8a8a84;color:#1a1a17;border:3px solid #000;box-shadow:inset -3px -3px 0 #5f5f5a,inset 3px 3px 0 #b5b5ae;font-family:ui-monospace,Consolas,monospace;text-transform:uppercase}
+.B .btns span.p{background:#7fb045;box-shadow:inset -3px -3px 0 #4f7a26,inset 3px 3px 0 #a9d46c}
+.B .toast{background:#2b2a25;border:4px solid #000;box-shadow:inset 0 0 0 2px #f2c94c}
+.B .toast small{color:#c7c1ad}
+.B .diag rect{fill:#1a1a17;stroke:#7fb045;stroke-width:3}.B .diag text{fill:#f3f0e6}.B .diag line{stroke:#f2c94c;stroke-width:3}
+
+/* ===== C · PAINTED SKY, BLOCK GROUND =====
+   bg #101510 · panel #1d2619 · text #efe9d8 · muted #bdb59e
+   grass #86b552 · grass-dark #557a30 · dirt #a87849 (fills only) · accent #efd36e */
+.C .frame{background:#101510;color:#efe9d8}
+.C .hud{background:linear-gradient(#101510f0,#10151000)}
+.C .mm b{border:2px solid #bdb59e;border-radius:2px}.C .mm b.v{background:#86b552;border-color:#86b552}.C .mm b.c{border-color:#efd36e;background:#efd36e}
+.C .mm s{background:#bdb59e55}
+.C .hud .res{background:#efd36e;color:#14120a;border-radius:2px;box-shadow:0 3px 0 #a8913c}
+.C .hud .ic{border:1px solid #bdb59e66;color:#efe9d8;border-radius:2px}
+.C .xp{background:#ffffff14}.C .xp span{background:#86b552}
+.C .st-tag{color:#86b552}
+.C .st-title{font-family:Georgia,serif}
+.C .dlg{background:#101510d9;border-left:3px solid #efd36e}
+.C .dlg img{border-radius:4px}
+.C .card{background:#1d2619;border:3px solid #0a0d09;padding:0 16px 16px;box-shadow:0 6px 0 #0a0d09}
+.C .card .hd{margin:0 -16px;padding:7px 16px;background:linear-gradient(#86b552 0 75%,#557a30 75%);color:#14120a;font-weight:800}
+.C .card .hd em{font-style:normal}
+.C .met div{background:#101510;border-bottom:4px solid #a87849}.C .met b{color:#efd36e}.C .met small{color:#bdb59e}
+.C .cap{color:#bdb59e}
+.C .btns span{border:2px solid #0a0d09;background:#2a3524;box-shadow:0 3px 0 #0a0d09}.C .btns span.p{background:#86b552;color:#14120a}
+.C .toast{background:#14120ae6;border:2px solid #efd36e;border-radius:3px}.C .toast small{color:#bdb59e}
+.C .diag rect{fill:#101510;stroke:#86b552;stroke-width:2}.C .diag text{fill:#efe9d8}.C .diag line{stroke:#efd36e;stroke-width:2}
+</style></head><body>
+
+<h1 class="page">The Fab Line: 4 visual directions</h1>
+<p class="intro">The same screen (Station 01, AI in Production) in three looks. The palette comes from your outfit and illustration: moss and forest greens, bark brown, near-black, with the pale yellow of your skirt as the one accent. These are inspired by <b>qualities</b> (painterly cinematic landscapes, blocky earthy colours), not copied from any game's art, UI or characters. Fonts here are system stand-ins. Contrast was checked: all text ≥4.5:1, and brown is used for fills and borders only, never for text.</p>
+
+<!-- ============ A ============ -->
+<section class="dir A">
+  <h2>A · Painted Highlands</h2>
+  <p class="why">Cinematic and painterly: a wind-swept hillside painted behind the UI, ink-brush strokes, a minimal thin-line HUD, and one bold accent (your skirt yellow) that pulls the eye to numbers and the Résumé. It matches your Ghibli portrait best. Calm, confident, a little poetic.</p>
+  <div class="chips">
+    <span class="chip"><i style="background:#0e130f"></i>ink #0e130f</span><span class="chip"><i style="background:#18221a"></i>panel #18221a</span>
+    <span class="chip"><i style="background:#2f4a2a"></i>forest #2f4a2a</span><span class="chip"><i style="background:#8fb56a"></i>moss #8fb56a · 7.0:1</span>
+    <span class="chip"><i style="background:#b08457"></i>bark #b08457 · 4.9:1</span><span class="chip"><i style="background:#ecd77e"></i>accent #ecd77e · 11.4:1</span>
+    <span class="chip"><i style="background:#ece4d0"></i>text #ece4d0 · 12.9:1</span>
+  </div>
+  <div class="frame">
+    <div class="bg"><svg viewBox="0 0 1100 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="skyA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f2b1e"/><stop offset=".55" stop-color="#2c3a24"/><stop offset="1" stop-color="#0e130f"/></linearGradient>
+        <filter id="softA"><feGaussianBlur stdDeviation="6"/></filter>
+        <filter id="grainA"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .08 0"/></filter>
+      </defs>
+      <rect width="1100" height="560" fill="url(#skyA)"/>
+      <circle cx="860" cy="120" r="70" fill="#ecd77e" opacity=".18" filter="url(#softA)"/>
+      <path d="M0 330 C180 250 300 290 430 240 S720 180 880 230 S1060 260 1100 240 V560 H0Z" fill="#2f4a2a" opacity=".75" filter="url(#softA)"/>
+      <path d="M0 400 C220 340 380 380 560 340 S880 300 1100 350 V560 H0Z" fill="#1c2b1a" filter="url(#softA)"/>
+      <g stroke="#8fb56a" stroke-width="2" opacity=".35" fill="none">
+        <path d="M60 470 q10 -40 34 -60"/><path d="M90 480 q8 -36 30 -58"/><path d="M980 450 q14 -40 40 -56"/><path d="M1010 470 q10 -34 34 -52"/><path d="M700 500 q12 -30 36 -46"/>
+      </g>
+      <path d="M0 470 C240 440 520 470 1100 430 V560 H0Z" fill="#0e130f"/>
+      <rect width="1100" height="560" filter="url(#grainA)"/>
+    </svg></div>
+    <div class="hud mono">
+      <span class="who"><img src="../../../../../assets/character/sneha-avatar-256.webp" alt="">SNEHA ISLAM</span>
+      <span class="mm" aria-label="Track"><b class="v"></b><s></s><b class="v"></b><s></s><b class="c"></b><s></s><b></b><s></s><b></b><s></s><b></b><s></s><b></b></span>
+      <span class="res">Résumé</span><span class="ic">✉</span><span class="ic">in</span><span class="ic">gh</span><span class="ic">⋯</span>
+    </div>
+    <div class="xp"><span></span></div>
+    <div class="stage">
+      <div class="st-tag mono">STATION 01</div>
+      <div class="st-title">AI in Production</div>
+      <svg class="brush" viewBox="0 0 240 14" aria-hidden="true"><path d="M2 9 C60 2 140 4 238 7 C160 12 80 13 4 12Z" fill="#ecd77e" opacity=".85"/></svg>
+      <div class="dlg"><img src="../../../../../assets/character/sneha-portrait-256.webp" alt=""><p>"I shipped an AI system watching 1,200+ companies."</p></div>
+      <div class="card">
+        <div class="hd mono"><span>ai/communitech</span><em>✓ COMPLETED</em></div>
+        <svg class="diag" viewBox="0 0 300 150" aria-hidden="true" style="width:100%"><g font-size="10" font-family="ui-monospace,monospace" text-anchor="middle">
+          <rect x="6" y="20" width="80" height="34" rx="2"/><text x="46" y="41">50+ sources</text>
+          <rect x="110" y="20" width="80" height="34" rx="2"/><text x="150" y="41">dedup</text>
+          <rect x="214" y="20" width="80" height="34" rx="2"/><text x="254" y="41">Gemini</text>
+          <rect x="110" y="96" width="80" height="34" rx="2"/><text x="150" y="117">personalize</text>
+          <rect x="214" y="96" width="80" height="34" rx="2"/><text x="254" y="117">weekly email</text></g>
+          <g stroke-width="2"><line x1="86" y1="37" x2="110" y2="37"/><line x1="190" y1="37" x2="214" y2="37"/><line x1="254" y1="54" x2="254" y2="96"/><line x1="214" y1="113" x2="190" y2="113"/></g></svg>
+        <div>
+          <h3>Agentic newsletter, shipped</h3>
+          <div class="met mono"><div><b>50+</b><small>sources daily</small></div><div><b>1,200+</b><small>companies covered</small></div><div><b>5/6</b><small>silent sources root-caused</small></div></div>
+          <p class="cap">Scrapes, dedups and summarizes the ecosystem with Gemini; React/TS UI, Docker on Azure.</p>
+          <div class="btns mono"><span class="p">Inspect ▸</span><span>Copy link</span></div>
+        </div>
+      </div>
+    </div>
+    <svg class="sprite" viewBox="0 0 46 70" aria-hidden="true"><circle cx="23" cy="14" r="10" fill="#3b2418"/><rect x="13" y="22" width="20" height="22" fill="#14120a"/><rect x="11" y="22" width="5" height="26" fill="#ece4d0"/><rect x="30" y="22" width="5" height="26" fill="#ece4d0"/><rect x="14" y="44" width="18" height="22" fill="#ecd77e"/><circle cx="19" cy="15" r="3" fill="none" stroke="#14120a"/><circle cx="27" cy="15" r="3" fill="none" stroke="#14120a"/></svg>
+    <div class="toast"><span style="font-size:1.4rem">🏅</span><span><b>Shipped to production</b><small>Communitech, on Azure</small></span></div>
+  </div>
+</section>
+
+<!-- ============ B ============ -->
+<section class="dir B">
+  <h2>B · Block Biome</h2>
+  <p class="why">Blocky and earthy: grass-topped card headers, chunky bevelled buttons, square everything, a stepped horizon and a segmented XP bar. It's playful and instantly reads as "game", and pixel art for your sprite would fit naturally. The trade-off: it clashes with the soft Ghibli portrait, and it reads younger and less senior.</p>
+  <div class="chips">
+    <span class="chip"><i style="background:#1a1a17"></i>coal #1a1a17</span><span class="chip"><i style="background:#2b2a25"></i>panel #2b2a25</span>
+    <span class="chip"><i style="background:#7fb045"></i>grass #7fb045 · 5.6:1</span><span class="chip"><i style="background:#b07a45"></i>dirt #b07a45 · fills only</span>
+    <span class="chip"><i style="background:#8a8a84"></i>stone #8a8a84</span><span class="chip"><i style="background:#f2c94c"></i>accent #f2c94c · 9.1:1</span>
+    <span class="chip"><i style="background:#f3f0e6"></i>text #f3f0e6 · 12.6:1</span>
+  </div>
+  <div class="frame">
+    <div class="bg"><svg viewBox="0 0 1100 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true" shape-rendering="crispEdges">
+      <rect width="1100" height="560" fill="#1f2a22"/>
+      <g fill="#2a3a2c"><rect x="0" y="300" width="200" height="260"/><rect x="200" y="270" width="160" height="290"/><rect x="360" y="320" width="220" height="240"/><rect x="580" y="250" width="180" height="310"/><rect x="760" y="290" width="200" height="270"/><rect x="960" y="260" width="140" height="300"/></g>
+      <g fill="#4f7a26"><rect x="0" y="440" width="1100" height="20"/></g><g fill="#7fb045"><rect x="0" y="440" width="1100" height="10"/></g>
+      <g fill="#6e4824"><rect x="0" y="460" width="1100" height="100"/></g>
+      <g fill="#b07a45" opacity=".55"><rect x="40" y="480" width="20" height="20"/><rect x="180" y="510" width="20" height="20"/><rect x="420" y="490" width="20" height="20"/><rect x="700" y="520" width="20" height="20"/><rect x="930" y="485" width="20" height="20"/></g>
+    </svg></div>
+    <div class="hud">
+      <span class="who"><img src="../../../../../assets/character/sneha-avatar-256.webp" alt="">Sneha Islam</span>
+      <span class="mm" aria-label="Track"><b class="v"></b><s></s><b class="v"></b><s></s><b class="c"></b><s></s><b></b><s></s><b></b><s></s><b></b><s></s><b></b></span>
+      <span class="res">Résumé</span><span class="ic">✉</span><span class="ic">in</span><span class="ic">gh</span><span class="ic">⋯</span>
+    </div>
+    <div class="xp"><span></span></div>
+    <div class="stage">
+      <div class="st-tag">STATION 01</div>
+      <div class="st-title">AI in Production</div>
+      <div class="dlg"><img src="../../../../../assets/character/sneha-portrait-256.webp" alt=""><p>"I shipped an AI system watching 1,200+ companies."</p></div>
+      <div class="card">
+        <div class="hd"><span>ai/communitech</span><em>✓ COMPLETED</em></div>
+        <svg class="diag" viewBox="0 0 300 150" aria-hidden="true" style="width:100%" shape-rendering="crispEdges"><g font-size="10" font-family="ui-monospace,monospace" text-anchor="middle">
+          <rect x="6" y="20" width="80" height="34"/><text x="46" y="41">50+ sources</text>
+          <rect x="110" y="20" width="80" height="34"/><text x="150" y="41">dedup</text>
+          <rect x="214" y="20" width="80" height="34"/><text x="254" y="41">Gemini</text>
+          <rect x="110" y="96" width="80" height="34"/><text x="150" y="117">personalize</text>
+          <rect x="214" y="96" width="80" height="34"/><text x="254" y="117">weekly email</text></g>
+          <g><line x1="86" y1="37" x2="110" y2="37"/><line x1="190" y1="37" x2="214" y2="37"/><line x1="254" y1="54" x2="254" y2="96"/><line x1="214" y1="113" x2="190" y2="113"/></g></svg>
+        <div style="padding-top:12px">
+          <h3>Agentic newsletter, shipped</h3>
+          <div class="met"><div><b>50+</b><small>sources daily</small></div><div><b>1,200+</b><small>companies covered</small></div><div><b>5/6</b><small>silent sources root-caused</small></div></div>
+          <p class="cap">Scrapes, dedups and summarizes the ecosystem with Gemini; React/TS UI, Docker on Azure.</p>
+          <div class="btns"><span class="p">Inspect ▸</span><span>Copy link</span></div>
+        </div>
+      </div>
+    </div>
+    <svg class="sprite" viewBox="0 0 16 24" aria-hidden="true" shape-rendering="crispEdges" style="width:48px;height:72px"><rect x="4" y="0" width="8" height="2" fill="#3b2418"/><rect x="3" y="2" width="10" height="6" fill="#3b2418"/><rect x="5" y="3" width="6" height="5" fill="#c68b5c"/><rect x="5" y="4" width="2" height="1" fill="#14120a"/><rect x="9" y="4" width="2" height="1" fill="#14120a"/><rect x="4" y="8" width="8" height="7" fill="#14120a"/><rect x="2" y="8" width="2" height="9" fill="#f3f0e6"/><rect x="12" y="8" width="2" height="9" fill="#f3f0e6"/><rect x="4" y="15" width="8" height="7" fill="#f2c94c"/><rect x="5" y="22" width="2" height="2" fill="#14120a"/><rect x="9" y="22" width="2" height="2" fill="#14120a"/></svg>
+    <div class="toast"><span style="font-size:1.4rem">🏅</span><span><b>Shipped to production</b><small>Communitech, on Azure</small></span></div>
+  </div>
+</section>
+
+<!-- ============ C ============ -->
+<section class="dir C">
+  <h2>C · Painted Sky, Block Ground</h2>
+  <p class="why">A hybrid: the cinematic painted landscape from A behind everything, with chunky grass-and-dirt card frames and bevelled buttons from B in the foreground. The world feels cinematic, and the UI feels like a game. It keeps your portrait at home and still gets the earthy, blocky colour story.</p>
+  <div class="chips">
+    <span class="chip"><i style="background:#101510"></i>ink #101510</span><span class="chip"><i style="background:#1d2619"></i>panel #1d2619</span>
+    <span class="chip"><i style="background:#86b552"></i>grass #86b552 · 6.5:1</span><span class="chip"><i style="background:#a87849"></i>dirt #a87849 · fills only</span>
+    <span class="chip"><i style="background:#efd36e"></i>accent #efd36e · 10.6:1</span><span class="chip"><i style="background:#efe9d8"></i>text #efe9d8 · 12.9:1</span>
+  </div>
+  <div class="frame">
+    <div class="bg"><svg viewBox="0 0 1100 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="skyC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22301f"/><stop offset=".6" stop-color="#2d3c25"/><stop offset="1" stop-color="#101510"/></linearGradient>
+        <filter id="softC"><feGaussianBlur stdDeviation="7"/></filter>
+        <filter id="grainC"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .07 0"/></filter>
+      </defs>
+      <rect width="1100" height="560" fill="url(#skyC)"/>
+      <circle cx="200" cy="110" r="80" fill="#efd36e" opacity=".14" filter="url(#softC)"/>
+      <path d="M0 320 C200 250 320 300 480 250 S780 200 940 250 S1080 270 1100 260 V560 H0Z" fill="#33502c" opacity=".7" filter="url(#softC)"/>
+      <path d="M0 410 C260 360 460 400 640 360 S920 330 1100 370 V560 H0Z" fill="#1d2a1a" filter="url(#softC)"/>
+      <rect width="1100" height="560" filter="url(#grainC)"/>
+      <g shape-rendering="crispEdges"><rect x="0" y="470" width="1100" height="14" fill="#86b552"/><rect x="0" y="484" width="1100" height="8" fill="#557a30"/><rect x="0" y="492" width="1100" height="68" fill="#5b3f24"/>
+      <g fill="#a87849" opacity=".5"><rect x="60" y="505" width="18" height="18"/><rect x="300" y="520" width="18" height="18"/><rect x="640" y="508" width="18" height="18"/><rect x="900" y="524" width="18" height="18"/></g></g>
+    </svg></div>
+    <div class="hud mono">
+      <span class="who"><img src="../../../../../assets/character/sneha-avatar-256.webp" alt="">SNEHA ISLAM</span>
+      <span class="mm" aria-label="Track"><b class="v"></b><s></s><b class="v"></b><s></s><b class="c"></b><s></s><b></b><s></s><b></b><s></s><b></b><s></s><b></b></span>
+      <span class="res">Résumé</span><span class="ic">✉</span><span class="ic">in</span><span class="ic">gh</span><span class="ic">⋯</span>
+    </div>
+    <div class="xp"><span></span></div>
+    <div class="stage">
+      <div class="st-tag mono">STATION 01</div>
+      <div class="st-title">AI in Production</div>
+      <div class="dlg"><img src="../../../../../assets/character/sneha-portrait-256.webp" alt=""><p>"I shipped an AI system watching 1,200+ companies."</p></div>
+      <div class="card">
+        <div class="hd mono"><span>ai/communitech</span><em>✓ COMPLETED</em></div>
+        <svg class="diag" viewBox="0 0 300 150" aria-hidden="true" style="width:100%"><g font-size="10" font-family="ui-monospace,monospace" text-anchor="middle">
+          <rect x="6" y="20" width="80" height="34" rx="2"/><text x="46" y="41">50+ sources</text>
+          <rect x="110" y="20" width="80" height="34" rx="2"/><text x="150" y="41">dedup</text>
+          <rect x="214" y="20" width="80" height="34" rx="2"/><text x="254" y="41">Gemini</text>
+          <rect x="110" y="96" width="80" height="34" rx="2"/><text x="150" y="117">personalize</text>
+          <rect x="214" y="96" width="80" height="34" rx="2"/><text x="254" y="117">weekly email</text></g>
+          <g><line x1="86" y1="37" x2="110" y2="37"/><line x1="190" y1="37" x2="214" y2="37"/><line x1="254" y1="54" x2="254" y2="96"/><line x1="214" y1="113" x2="190" y2="113"/></g></svg>
+        <div style="padding-top:12px">
+          <h3>Agentic newsletter, shipped</h3>
+          <div class="met mono"><div><b>50+</b><small>sources daily</small></div><div><b>1,200+</b><small>companies covered</small></div><div><b>5/6</b><small>silent sources root-caused</small></div></div>
+          <p class="cap">Scrapes, dedups and summarizes the ecosystem with Gemini; React/TS UI, Docker on Azure.</p>
+          <div class="btns mono"><span class="p">Inspect ▸</span><span>Copy link</span></div>
+        </div>
+      </div>
+    </div>
+    <svg class="sprite" viewBox="0 0 46 70" aria-hidden="true"><circle cx="23" cy="14" r="10" fill="#3b2418"/><rect x="13" y="22" width="20" height="22" fill="#14120a"/><rect x="11" y="22" width="5" height="26" fill="#efe9d8"/><rect x="30" y="22" width="5" height="26" fill="#efe9d8"/><rect x="14" y="44" width="18" height="22" fill="#efd36e"/><circle cx="19" cy="15" r="3" fill="none" stroke="#14120a"/><circle cx="27" cy="15" r="3" fill="none" stroke="#14120a"/></svg>
+    <div class="toast"><span style="font-size:1.4rem">🏅</span><span><b>Shipped to production</b><small>Communitech, on Azure</small></span></div>
+  </div>
+</section>
+
+<!-- ============ D ============ -->
+<style>
+/* ===== D · DUSK OVER THE HILLS =====
+   night #0f1420 · panel #1a2133 · text #f1ece4 · muted #b9b6c8
+   sky-blue #8fb8e8 · dusk-pink #f2a7c3 (accent) · moss #93bd78 · gold #ecd77e (achievements) · ink #1a1020 */
+.D .frame{background:#0f1420;color:#f1ece4}
+.D .hud{background:linear-gradient(#0f1420ee,#0f142000)}
+.D .mm b{border:2px solid #b9b6c8}.D .mm b.v{background:#93bd78;border-color:#93bd78}.D .mm b.c{border-color:#f2a7c3;box-shadow:0 0 0 3px #f2a7c344}
+.D .mm s{background:#b9b6c855}
+.D .hud .res{background:#f2a7c3;color:#1a1020;border-radius:3px}
+.D .hud .ic{border:1px solid #b9b6c866;color:#f1ece4;border-radius:3px}
+.D .xp{background:#ffffff14}.D .xp span{background:linear-gradient(90deg,#8fb8e8,#f2a7c3)}
+.D .st-tag{color:#8fb8e8}
+.D .st-title{font-family:Georgia,serif}
+.D .brush{display:block;width:240px;height:14px;margin:-8px 0 14px}
+.D .dlg{background:#0f1420cc;border-left:3px solid #f2a7c3}
+.D .dlg img{border-radius:50%}
+.D .card{background:#1a2133e6;border:1px solid #8fb8e833}
+.D .card .hd{color:#b9b6c8}.D .card .hd em{color:#93bd78;font-style:normal}
+.D .met div{border-top:2px solid #8fb8e8}.D .met b{color:#f2a7c3}.D .met small{color:#b9b6c8}
+.D .cap{color:#b9b6c8}
+.D .btns span{border:1px solid #f1ece455;border-radius:3px}.D .btns span.p{background:#8fb8e8;color:#1a1020;border-color:#8fb8e8}
+.D .toast{background:#1a1020e6;border:1px solid #ecd77e;border-radius:4px}.D .toast small{color:#b9b6c8}
+.D .diag rect{fill:#0f1420;stroke:#8fb8e8}.D .diag text{fill:#f1ece4}.D .diag line{stroke:#f2a7c3;stroke-width:2}
+</style>
+<section class="dir D">
+  <h2>D · Dusk over the Hills</h2>
+  <p class="why">Painterly and cinematic like A, but at golden-to-blue hour: a sky that fades from deep blue to pink over moss-green hills. Pink is the accent (Résumé, numbers), blue carries the diagrams, green means "completed" and gold is saved for achievements. It's the most emotional and memorable of the four, and still sits well beside your watercolour portrait.</p>
+  <div class="chips">
+    <span class="chip"><i style="background:#0f1420"></i>night #0f1420</span><span class="chip"><i style="background:#1a2133"></i>panel #1a2133</span>
+    <span class="chip"><i style="background:#8fb8e8"></i>sky #8fb8e8 · 7.8:1</span><span class="chip"><i style="background:#f2a7c3"></i>pink #f2a7c3 · 8.5:1</span>
+    <span class="chip"><i style="background:#93bd78"></i>moss #93bd78 · 7.5:1</span><span class="chip"><i style="background:#ecd77e"></i>gold #ecd77e · 11.1:1</span>
+    <span class="chip"><i style="background:#f1ece4"></i>text #f1ece4 · 13.6:1</span>
+  </div>
+  <div class="frame">
+    <div class="bg"><svg viewBox="0 0 1100 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="skyD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2a4a"/><stop offset=".45" stop-color="#4a4a78"/><stop offset=".7" stop-color="#b07a9a"/><stop offset="1" stop-color="#0f1420"/></linearGradient>
+        <filter id="softD"><feGaussianBlur stdDeviation="6"/></filter>
+        <filter id="grainD"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .08 0"/></filter>
+      </defs>
+      <rect width="1100" height="560" fill="url(#skyD)"/>
+      <circle cx="820" cy="300" r="90" fill="#f2a7c3" opacity=".25" filter="url(#softD)"/>
+      <g fill="#f1ece4" opacity=".5"><circle cx="120" cy="60" r="1.5"/><circle cx="300" cy="40" r="1"/><circle cx="520" cy="80" r="1.2"/><circle cx="960" cy="50" r="1.4"/></g>
+      <path d="M0 330 C180 260 320 300 460 250 S760 200 900 250 S1060 270 1100 255 V560 H0Z" fill="#2c4a3a" opacity=".85" filter="url(#softD)"/>
+      <path d="M0 410 C240 350 420 390 600 350 S900 320 1100 360 V560 H0Z" fill="#1a2c24" filter="url(#softD)"/>
+      <g stroke="#93bd78" stroke-width="2" opacity=".35" fill="none"><path d="M60 470 q10 -40 34 -60"/><path d="M90 480 q8 -36 30 -58"/><path d="M990 455 q14 -40 40 -56"/></g>
+      <path d="M0 470 C240 440 520 470 1100 430 V560 H0Z" fill="#0f1420"/>
+      <rect width="1100" height="560" filter="url(#grainD)"/>
+    </svg></div>
+    <div class="hud mono">
+      <span class="who"><img src="../../../../../assets/character/sneha-avatar-256.webp" alt="">SNEHA ISLAM</span>
+      <span class="mm" aria-label="Track"><b class="v"></b><s></s><b class="v"></b><s></s><b class="c"></b><s></s><b></b><s></s><b></b><s></s><b></b><s></s><b></b></span>
+      <span class="res">Résumé</span><span class="ic">✉</span><span class="ic">in</span><span class="ic">gh</span><span class="ic">⋯</span>
+    </div>
+    <div class="xp"><span></span></div>
+    <div class="stage">
+      <div class="st-tag mono">STATION 01</div>
+      <div class="st-title">AI in Production</div>
+      <svg class="brush" viewBox="0 0 240 14" aria-hidden="true"><path d="M2 9 C60 2 140 4 238 7 C160 12 80 13 4 12Z" fill="#f2a7c3" opacity=".85"/></svg>
+      <div class="dlg"><img src="../../../../../assets/character/sneha-portrait-256.webp" alt=""><p>"I shipped an AI system watching 1,200+ companies."</p></div>
+      <div class="card">
+        <div class="hd mono"><span>ai/communitech</span><em>✓ COMPLETED</em></div>
+        <svg class="diag" viewBox="0 0 300 150" aria-hidden="true" style="width:100%"><g font-size="10" font-family="ui-monospace,monospace" text-anchor="middle">
+          <rect x="6" y="20" width="80" height="34" rx="3"/><text x="46" y="41">50+ sources</text>
+          <rect x="110" y="20" width="80" height="34" rx="3"/><text x="150" y="41">dedup</text>
+          <rect x="214" y="20" width="80" height="34" rx="3"/><text x="254" y="41">Gemini</text>
+          <rect x="110" y="96" width="80" height="34" rx="3"/><text x="150" y="117">personalize</text>
+          <rect x="214" y="96" width="80" height="34" rx="3"/><text x="254" y="117">weekly email</text></g>
+          <g><line x1="86" y1="37" x2="110" y2="37"/><line x1="190" y1="37" x2="214" y2="37"/><line x1="254" y1="54" x2="254" y2="96"/><line x1="214" y1="113" x2="190" y2="113"/></g></svg>
+        <div>
+          <h3>Agentic newsletter, shipped</h3>
+          <div class="met mono"><div><b>50+</b><small>sources daily</small></div><div><b>1,200+</b><small>companies covered</small></div><div><b>5/6</b><small>silent sources root-caused</small></div></div>
+          <p class="cap">Scrapes, dedups and summarizes the ecosystem with Gemini; React/TS UI, Docker on Azure.</p>
+          <div class="btns mono"><span class="p">Inspect ▸</span><span>Copy link</span></div>
+        </div>
+      </div>
+    </div>
+    <svg class="sprite" viewBox="0 0 46 70" aria-hidden="true"><circle cx="23" cy="14" r="10" fill="#3b2418"/><rect x="13" y="22" width="20" height="22" fill="#14120a"/><rect x="11" y="22" width="5" height="26" fill="#f1ece4"/><rect x="30" y="22" width="5" height="26" fill="#f1ece4"/><rect x="14" y="44" width="18" height="22" fill="#ecd77e"/><circle cx="19" cy="15" r="3" fill="none" stroke="#14120a"/><circle cx="27" cy="15" r="3" fill="none" stroke="#14120a"/></svg>
+    <div class="toast"><span style="font-size:1.4rem">🏅</span><span><b>Shipped to production</b><small>Communitech, on Azure</small></span></div>
+  </div>
+</section>
+</body></html>

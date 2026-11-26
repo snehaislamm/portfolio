@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Fab Line — Block Biome key screens</title>
+<style>
+/* Block Biome tokens (DESIGN.md)
+   coal #1a1a17 · inset #222220 · panel #2b2a25 · edge #000
+   text #f3f0e6 · muted #c7c1ad · dim #a39d8a
+   grass #7fb045/#4f7a26 · dirt #b07a45/#6e4824 · stone #8a8a84/#5f5f5a/#b5b5ae
+   gold #f2c94c/#b8922a/#fff3b0 · sky #6fc0e8 · lava #ef8d4b · amethyst #b79cf0 · snow #e6eef2 */
+:root{--coal:#1a1a17;--inset:#222220;--panel:#2b2a25;--edge:#000;--text:#f3f0e6;--muted:#c7c1ad;--dim:#a39d8a;
+--grass:#7fb045;--grass-d:#4f7a26;--dirt:#b07a45;--dirt-d:#6e4824;--stone:#8a8a84;--stone-d:#5f5f5a;--stone-l:#b5b5ae;
+--gold:#f2c94c;--gold-d:#b8922a;--gold-l:#fff3b0;--sky:#6fc0e8;--lava:#ef8d4b;--ame:#b79cf0;--snow:#e6eef2;
+--mono:"JetBrains Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;--sans:"Space Grotesk",system-ui,"Segoe UI",sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#101010;color:var(--text);font-family:var(--sans);padding:24px 16px 80px}
+.pg{max-width:1240px;margin:0 auto}
+.pg>h1{font-family:var(--mono);text-transform:uppercase;font-size:1.3rem;letter-spacing:.04em;text-shadow:3px 3px 0 #000}
+.pg>p{color:var(--muted);max-width:860px;margin:8px 0 26px;line-height:1.5}
+.row{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;margin-bottom:56px}
+.lbl{font-family:var(--mono);font-size:.75rem;color:var(--dim);letter-spacing:.08em;margin-bottom:8px;text-transform:uppercase}
+.desk{width:860px;max-width:100%}
+.phone{width:390px;max-width:100%}
+.screen{position:relative;overflow:hidden;border:4px solid var(--edge);background:var(--coal);min-height:600px}
+.phone .screen{min-height:780px;border-width:10px;border-radius:28px}
+/* backdrop */
+.bg{position:absolute;inset:0;z-index:0}.bg svg{width:100%;height:100%;display:block}
+.z{position:relative;z-index:2}
+/* HUD */
+.hud{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--panel);border-bottom:4px solid var(--edge);flex-wrap:nowrap}
+.who{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-weight:800;font-size:.72rem;letter-spacing:.06em;white-space:nowrap}
+.who img{width:30px;height:30px;object-fit:cover;border:3px solid var(--edge)}
+.mm{display:flex;align-items:center;flex:1;min-width:120px}
+.mm b{width:14px;height:14px;border:2px solid var(--edge);background:#3d3b34;flex:none}
+.mm b.v{background:var(--grass)}.mm b.c{background:var(--gold)}.mm b.l{background:var(--stone)}
+.mm s{flex:1;height:4px;background:var(--edge)}
+.btn{font-family:var(--mono);font-weight:800;font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;border:3px solid var(--edge);padding:8px 12px;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;min-width:44px;color:var(--coal);white-space:nowrap}
+.gold{background:var(--gold);box-shadow:inset -3px -3px 0 var(--gold-d),inset 3px 3px 0 var(--gold-l)}
+.stone{background:var(--stone);box-shadow:inset -3px -3px 0 var(--stone-d),inset 3px 3px 0 var(--stone-l)}
+.grassb{background:var(--grass);box-shadow:inset -3px -3px 0 var(--grass-d),inset 3px 3px 0 #a9d46c}
+.ic{padding:8px 0;width:44px}
+.xp{height:10px;background:var(--edge);position:relative}
+.xp span{position:absolute;inset:0 auto 0 0;background:repeating-linear-gradient(90deg,var(--grass) 0 10px,var(--grass-d) 10px 12px)}
+.xp em{position:absolute;right:8px;top:12px;font-family:var(--mono);font-size:.66rem;font-style:normal;color:var(--muted);background:var(--panel);border:2px solid var(--edge);padding:1px 6px}
+/* bottom HUD (phone) */
+.bhud{position:absolute;left:0;right:0;bottom:0;z-index:5;display:flex;gap:6px;padding:8px 8px 18px;background:var(--panel);border-top:4px solid var(--edge)}
+.bhud .gold{flex:1}
+/* text styles */
+.tag{font-family:var(--mono);font-weight:800;font-size:.72rem;letter-spacing:.12em}
+.disp{font-family:var(--mono);font-weight:800;text-transform:uppercase;letter-spacing:.02em;text-shadow:4px 4px 0 var(--edge);line-height:1.05}
+.stt{font-family:var(--mono);font-weight:800;text-transform:uppercase;letter-spacing:.04em;text-shadow:3px 3px 0 var(--edge);font-size:1.9rem;margin:2px 0 12px}
+.chip{font-family:var(--mono);font-weight:800;font-size:.75rem;padding:7px 10px;border:3px solid var(--edge);background:var(--stone);color:var(--coal);box-shadow:inset -3px -3px 0 var(--stone-d),inset 3px 3px 0 var(--stone-l)}
+.tchip{font-family:var(--mono);font-size:.66rem;padding:3px 6px;border:2px solid var(--edge);background:var(--inset);color:var(--muted)}
+/* dialogue */
+.dlg{display:flex;gap:10px;align-items:center;background:var(--panel);border:4px solid var(--edge);box-shadow:inset 0 -4px 0 #1f1e1a;padding:8px 12px;max-width:540px;margin-bottom:18px}
+.dlg img{width:56px;height:56px;object-fit:cover;border:3px solid var(--edge);flex:none}
+.dlg p{font-weight:600;font-size:1rem;line-height:1.35}
+/* card */
+.card{background:var(--panel);border:4px solid var(--edge);box-shadow:6px 6px 0 var(--edge);margin-bottom:18px}
+.card .hd{display:flex;justify-content:space-between;gap:8px;padding:6px 12px;background:linear-gradient(var(--grass) 0 70%,var(--grass-d) 70%);border-bottom:4px solid var(--edge);color:var(--coal);font-family:var(--mono);font-weight:800;font-size:.7rem;letter-spacing:.04em}
+.pill{border:2px solid var(--edge);padding:0 5px;background:var(--coal);color:var(--grass)}
+.card .bd{padding:12px}
+.card h3{font-size:1.12rem;font-weight:700;margin-bottom:8px}
+.well{background:var(--inset);border:3px solid var(--edge);padding:6px;margin-bottom:10px}
+.well svg{width:100%;display:block}
+.met{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
+.met div{background:var(--inset);border:3px solid var(--edge);box-shadow:inset 0 4px 0 var(--dirt-d);padding:9px 6px 6px}
+.met b{display:block;font-family:var(--mono);font-weight:800;color:var(--gold);font-size:1.25rem;line-height:1.1}
+.met small{display:block;font-size:.66rem;color:var(--muted);line-height:1.2;margin-top:3px}
+.cap{color:var(--muted);font-size:.88rem;line-height:1.4;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.feat .bd{display:grid;grid-template-columns:1.05fr 1fr;gap:14px}
+/* toast */
+.toast{position:absolute;z-index:6;right:16px;bottom:16px;display:flex;gap:10px;align-items:center;background:var(--panel);border:4px solid var(--edge);box-shadow:inset 0 0 0 2px var(--gold),6px 6px 0 var(--edge);padding:8px 12px;max-width:270px}
+.toast b{display:block;font-size:.88rem}.toast small{color:var(--muted);font-size:.7rem}
+/* drawer */
+.scrim{position:absolute;inset:0;z-index:7;background:rgba(0,0,0,.6)}
+.drawer{position:absolute;z-index:8;top:0;right:0;bottom:0;width:400px;max-width:100%;background:var(--panel);border-left:4px solid var(--edge);overflow:auto}
+.drawer .dh{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:linear-gradient(var(--lava) 0 70%,#b8602a 70%);border-bottom:4px solid var(--edge);color:var(--coal);font-family:var(--mono);font-weight:800;font-size:.75rem}
+.drawer .sec{padding:12px;border-bottom:3px solid var(--edge)}
+.drawer h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--dim);margin-bottom:8px}
+.lrow{display:grid;grid-template-columns:78px 1fr;gap:8px;align-items:baseline;margin-bottom:6px}
+.lrow b{font-family:var(--mono);color:var(--gold);font-size:1.05rem}
+.lrow span{color:var(--muted);font-size:.82rem}
+.drawer ul{list-style:none}.drawer li{font-size:.85rem;color:var(--muted);line-height:1.4;padding-left:14px;position:relative;margin-bottom:6px}
+.drawer li::before{content:"";position:absolute;left:0;top:.45em;width:6px;height:6px;background:var(--lava);border:1px solid var(--edge)}
+.words{font-size:.8rem;color:var(--muted);background:var(--inset);border:3px solid var(--edge);padding:8px;line-height:1.4}
+.sheet{position:absolute;z-index:8;left:0;right:0;bottom:0;height:82%;background:var(--panel);border-top:4px solid var(--edge);overflow:hidden}
+.phone .sheet{bottom:78px;height:76%}.phone .bhud{z-index:9}
+.grab{width:48px;height:6px;background:var(--stone);border:2px solid var(--edge);margin:8px auto}
+.note{font-family:var(--mono);font-size:.68rem;color:var(--dim);margin-top:8px;line-height:1.4}
+@media(max-width:900px){.grid2,.feat .bd{grid-template-columns:1fr}}
+</style></head><body><div class="pg">
+<h1>The Fab Line: Block Biome key screens</h1>
+<p>These are static mockups of the three key screens on desktop and phone, using real content from your site. The fonts are stand-ins if JetBrains Mono or Space Grotesk aren't installed on this computer. The pixel sprite is a rough placeholder until you draw yours. The spines (DESIGN.md / EXPERIENCE.md) win on conflict.</p>
+
+<!-- reusable SVG defs -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="sprite" viewBox="0 0 16 24" shape-rendering="crispEdges">
+      <rect x="4" y="0" width="8" height="2" fill="#3b2418"/><rect x="3" y="2" width="10" height="7" fill="#3b2418"/><rect x="2" y="5" width="2" height="7" fill="#3b2418"/><rect x="12" y="5" width="2" height="7" fill="#3b2418"/>
+      <rect x="5" y="3" width="6" height="6" fill="#c68b5c"/><rect x="5" y="5" width="2" height="2" fill="none" stroke="#000" stroke-width=".6"/><rect x="9" y="5" width="2" height="2" fill="none" stroke="#000" stroke-width=".6"/>
+      <rect x="4" y="9" width="8" height="7" fill="#14120a"/><rect x="3" y="9" width="2" height="9" fill="#e6eef2"/><rect x="11" y="9" width="2" height="9" fill="#e6eef2"/>
+      <rect x="4" y="16" width="8" height="6" fill="#f2c94c"/><rect x="5" y="22" width="2" height="2" fill="#000"/><rect x="9" y="22" width="2" height="2" fill="#000"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ================= 1. TITLE ================= -->
+<div class="row">
+ <div class="desk"><div class="lbl">1 · Title Screen · desktop</div>
+  <div class="screen">
+   <div class="bg"><svg viewBox="0 0 860 600" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges" aria-hidden="true">
+     <rect width="860" height="600" fill="#5aa3d0"/><rect y="0" width="860" height="120" fill="#4a8fbd"/>
+     <g fill="#e6eef2"><rect x="80" y="70" width="80" height="16"/><rect x="96" y="54" width="40" height="16"/><rect x="600" y="100" width="96" height="16"/><rect x="620" y="84" width="48" height="16"/></g>
+     <g fill="#3f6a2a"><rect x="0" y="380" width="160" height="220"/><rect x="160" y="350" width="120" height="250"/><rect x="280" y="400" width="200" height="200"/><rect x="480" y="360" width="140" height="240"/><rect x="620" y="390" width="240" height="210"/></g>
+     <rect y="470" width="860" height="12" fill="#7fb045"/><rect y="482" width="860" height="10" fill="#4f7a26"/><rect y="492" width="860" height="108" fill="#6e4824"/>
+     <g fill="#b07a45" opacity=".6"><rect x="40" y="510" width="20" height="20"/><rect x="250" y="540" width="20" height="20"/><rect x="520" y="515" width="20" height="20"/><rect x="760" y="550" width="20" height="20"/></g>
+   </svg></div>
+   <div class="z hud"><span class="who"><img src="../../../../../assets/character/sneha-avatar-256.webp" alt="">SNEHA ISLAM</span>
+     <span class="mm"><b class="c"></b><s></s><b></b><s></s><b></b><s></s><b></b><s></s><b></b><s></s><b></b><s></s><b></b><s></s><b class="l"></b></span>
+     <span class="btn gold">Résumé</span><span class="btn stone ic">✉</span><span class="btn stone ic">in</span><span class="btn stone ic">GH</span><span class="btn stone ic">⋯</span></div>
+   <div class="z" style="display:grid;grid-template-columns:1.1fr .9fr;gap:24px;padding:40px 32px;align-items:center">
+     <div>
+       <div class="tag" style="color:#1a1a17;background:var(--snow);display:inline-block;border:3px solid #000;padding:3px 8px">NANO-ENGINEER · UNIVERSITY OF WATERLOO</div>
+       <div class="disp" style="font-size:3.2rem;margin:16px 0 6px">Sneha<br>Islam</div>
+       <div style="font-size:1.3rem;font-weight:700;text-shadow:2px 2px 0 #000;margin-bottom:18px">from silicon to software.</div>
+       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px"><span class="chip">4 TERMS</span><span class="chip">8 REPOS</span><span class="chip">AZURE ×2</span></div>
+       <div style="display:flex;gap:10px;flex-wrap:wrap"><span class="btn grassb" style="font-size:.9rem;padding:12px 18px">▶ Start</span><span class="btn stone" style="font-size:.9rem;padding:12px 18px">Recruiter Mode</span></div>
+     </div>
+     <div style="text-align:center">
+       <div style="display:inline-block;border:6px solid #000;box-shadow:8px 8px 0 #000;background:#000"><img src="../../../../../assets/character/sneha-portrait-512.webp" alt="Illustration of Sneha Islam: long wavy brown hair, round glasses, smiling." style="width:280px;height:280px;object-fit:cover;display:block"></div>
+       <div style="width:310px;height:26px;margin:-2px auto 0;background:linear-gradient(var(--grass) 0 45%,var(--grass-d) 45% 60%,var(--dirt-d) 60%);border:4px solid #000"></div>
+     </div>
+   </div>
+   <svg class="z" style="position:absolute;left:40px;bottom:112px;width:48px;height:72px" aria-hidden="true"><use href="#sprite"/></svg>
+  </div>
+  <div class="note">Words: 13 visible (≤15). Résumé is 1 click. The portrait sits in a black block frame on a grass plinth.</div>
+ </div>
+
+ <div class="phone"><div class="lbl">1 · Title · phone 390</div>
+  <div class="screen">
+   <div class="bg"><svg viewBox="0 0 390 780" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges" aria-hidden="true">
+     <rect width="390" height="780" fill="#5aa3d0"/><g fill="#e6eef2"><rect x="30" y="60" width="64" height="14"/><rect x="44" y="46" width="32" height="14"/><rect x="270" y="90" width="72" height="14"/></g>
+     <g fill="#3f6a2a"><rect x="0" y="540" width="120" height="240"/><rect x="120" y="510" width="130" height="270"/><rect x="250" y="550" width="140" height="230"/></g>
+     <rect y="600" width="390" height="12" fill="#7fb045"/><rect y="612" width="390" height="10" fill="#4f7a26"/><rect y="622" width="390" height="158" fill="#6e4824"/>
+   </svg></div>
+   <div class="z" style="padding:26px 18px 0;text-align:center">
+     <div style="display:inline-block;border:5px solid #000;box-shadow:6px 6px 0 #000"><img src="../../../../../assets/character/sneha-portrait-512.webp" alt="" style="width:200px;height:200px;object-fit:cover;display:block"></div>
+     <div class="tag" style="margin-top:16px;color:#1a1a17;background:var(--snow);display:inline-block;border:3px solid #000;padding:3px 8px;font-size:.62rem">NANO-ENGINEER · UWATERLOO</div>
+     <div class="disp" style="font-size:2.3rem;margin:12px 0 4px">Sneha Islam</div>
+     <div style="font-size:1.1rem;font-weight:700;text-shadow:2px 2px 0 #000;margin-bottom:14px">from silicon to software.</div>
+     <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:16px"><span class="chip">4 TERMS</span><span class="chip">8 REPOS</span><span class="chip">AZURE ×2</span></div>
+     <div style="display:grid;gap:8px"><span class="btn grassb">▶ Start</span><span class="btn stone">Recruiter Mode</span></div>
+   </div>
+   <div class="bhud"><span class="btn gold">Résumé</span><span class="btn stone ic">✉</span><span class="btn stone ic">in</span><span class="btn stone ic">GH</span><span class="btn stone ic">⋯</span></div>
+  </div>
+ </div>
+</div>
+
+<!-- ================= 2. STATION ================= -->
+<div class="row">
+ <div class="desk"><div class="lbl">2 · Station 01 · Sky Plains (AI in Production) · desktop</div>
+  <div class="screen" style="min-height:760px">
+   <div class="bg"><svg viewBox="0 0 860 760" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges" aria-hidden="true">
+     <rect width="860" height="760" fill="#24425a"/><rect width="860" height="200" fill="#2e5a7a"/>
+     <g fill="#6fc0e8" opacity=".35"><rect x="60" y="60" width="96" height="16"/><rect x="80" y="44" width="48" height="16"/><rect x="560" y="90" width="112" height="16"/></g>
+     <g fill="#2c4a30"><rect x="0" y="560" width="200" height="200"/><rect x="200" y="530" width="160" height="230"/><rect x="360" y="580" width="260" height="180"/><rect x="620" y="540" width="240" height="220"/></g>
+     <rect y="680" width="860" height="12" fill="#7fb045"/><rect y="692" width="860" height="10" fill="#4f7a26"/><rect y="702" width="860" height="58" fill="#6e4824"/>
+   </svg></div>
+   <div class="z hud"><span class="who"><img src="../../../../../assets/character/sneha-avatar-256.webp" alt="">SNEHA ISLAM</span>
+     <span class="mm"><b class="v"></b><s></s><b class="v"></b><s></s><b class="c"></b><s></s><b></b><s></s><b></b><s></s><b></b><s></s><b></b><s></s><b class="l"></b></span>
+     <span class="btn gold">Résumé</span><span class="btn stone ic">✉</span><span class="btn stone ic">in</span><span class="btn stone ic">GH</span><span class="btn stone ic">⋯</span></div>
+   <div class="z xp"><span style="width:12%"></span><em>QUESTS 2/17</em></div>
+   <div class="z" style="padding:26px 24px 120px">
+     <div class="tag" style="color:var(--sky)">STATION 01 · SKY PLAINS</div>
+     <div class="stt">AI in Production</div>
+     <div class="dlg"><img src="../../../../../assets/character/sneha-portrait-256.webp" alt=""><p>"I shipped an AI system watching 1,200+ companies."</p></div>
+     <div class="card feat">
+       <div class="hd"><span>ai/communitech</span><span class="pill">✓ DONE</span></div>
+       <div class="bd">
+         <div class="well"><svg viewBox="0 0 300 160" aria-hidden="true"><g font-family="ui-monospace,monospace" font-size="10" text-anchor="middle" fill="#f3f0e6">
+           <g fill="#222220" stroke="#6fc0e8" stroke-width="3"><rect x="6" y="18" width="84" height="34"/><rect x="108" y="18" width="84" height="34"/><rect x="210" y="18" width="84" height="34"/><rect x="108" y="104" width="84" height="34"/><rect x="210" y="104" width="84" height="34"/></g>
+           <text x="48" y="39">50+ sources</text><text x="150" y="39">dedup</text><text x="252" y="39">Gemini</text><text x="150" y="125">personalize</text><text x="252" y="125">weekly email</text></g>
+           <g stroke="#f2c94c" stroke-width="3"><line x1="90" y1="35" x2="108" y2="35"/><line x1="192" y1="35" x2="210" y2="35"/><line x1="252" y1="52" x2="252" y2="104"/><line x1="210" y1="121" x2="192" y2="121"/></g></svg></div>
+         <div>
+           <h3>Agentic newsletter, shipped</h3>
+           <div class="met"><div><b>50+</b><small>sources daily</small></div><div><b>1,200+</b><small>companies covered</small></div><div><b>5/6</b><small>silent sources root-caused</small></div></div>
+           <p class="cap">Scrapes, dedups and summarizes the ecosystem with Gemini; React/TS UI, Docker on Azure.</p>
+           <div class="chips"><span class="tchip">React</span><span class="tchip">TypeScript</span><span class="tchip">FastAPI</span><span class="tchip">PostgreSQL</span><span class="tchip">Azure</span></div>
+           <div class="acts"><span class="btn grassb">Inspect ▸</span><span class="btn stone">Copy link</span></div>
+         </div>
+       </div>
+     </div>
+     <div class="grid2">
+       <div class="card"><div class="hd"><span>ai/plug-co</span><span class="pill">✓ DONE</span></div><div class="bd">
+         <h3>AI media backend</h3>
+         <div class="met"><div><b>&lt;300 ms</b><small>retrieval</small></div><div><b>85%+</b><small>semantic matching</small></div><div><b>12 wk</b><small>to investor prototype</small></div></div>
+         <p class="cap">FastAPI + PostgreSQL + AWS backend; Pinecone/FAISS search; iOS and VR MVPs.</p>
+         <div class="acts"><span class="btn grassb">Inspect ▸</span><span class="btn stone">Copy link</span></div></div></div>
+       <div class="card"><div class="hd"><span>ai/avanade</span><span class="pill">✓ DONE</span></div><div class="bd">
+         <h3>Azure AI workflows</h3>
+         <div class="met"><div><b>3</b><small>AI projects</small></div><div><b>+25%</b><small>data-processing efficiency</small></div><div><b>10+</b><small>client presentations</small></div></div>
+         <p class="cap">Financial AI chatbot in Flutter; team placed top 3 for innovation.</p>
+         <div class="acts"><span class="btn grassb">Inspect ▸</span><span class="btn stone">yunus-AI ↗</span></div></div></div>
+     </div>
+   </div>
+   <svg class="z" style="position:absolute;left:30px;bottom:78px;width:64px;height:96px" aria-hidden="true"><use href="#sprite"/></svg>
+   <div class="toast"><svg width="26" height="26" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="0" width="4" height="5" fill="#f2c94c"/><rect x="1" y="1" width="6" height="3" fill="#f2c94c"/><rect x="3" y="5" width="2" height="2" fill="#b8922a"/><rect x="2" y="7" width="4" height="1" fill="#b8922a"/></svg><span><b>Shipped to production</b><small>Communitech, on Azure</small></span></div>
+  </div>
+  <div class="note">Station header 9 words (≤20). Each card stays at or under 25 words. The toast and the sprite's "celebrate" fire on the first view of Communitech.</div>
+ </div>
+
+ <div class="phone"><div class="lbl">2 · Station · phone 390</div>
+  <div class="screen">
+   <div class="bg"><svg viewBox="0 0 390 780" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges" aria-hidden="true">
+     <rect width="390" height="780" fill="#24425a"/><rect width="390" height="160" fill="#2e5a7a"/><g fill="#6fc0e8" opacity=".35"><rect x="30" y="50" width="64" height="14"/><rect x="250" y="80" width="80" height="14"/></g>
+   </svg></div>
+   <div class="z xp"><span style="width:12%"></span></div>
+   <div class="z" style="padding:16px 14px 100px">
+     <div class="tag" style="color:var(--sky)">STATION 01 · SKY PLAINS</div>
+     <div class="stt" style="font-size:1.45rem">AI in Production</div>
+     <div class="dlg"><img src="../../../../../assets/character/sneha-portrait-256.webp" alt="" style="width:46px;height:46px"><p style="font-size:.92rem">"I shipped an AI system watching 1,200+ companies."</p></div>
+     <div class="card"><div class="hd"><span>ai/communitech</span><span class="pill">✓ DONE</span></div><div class="bd">
+       <div class="well"><svg viewBox="0 0 300 160" aria-hidden="true"><g font-family="ui-monospace,monospace" font-size="11" text-anchor="middle" fill="#f3f0e6">
+         <g fill="#222220" stroke="#6fc0e8" stroke-width="3"><rect x="6" y="18" width="84" height="34"/><rect x="108" y="18" width="84" height="34"/><rect x="210" y="18" width="84" height="34"/><rect x="108" y="104" width="84" height="34"/><rect x="210" y="104" width="84" height="34"/></g>
+         <text x="48" y="39">50+ sources</text><text x="150" y="39">dedup</text><text x="252" y="39">Gemini</text><text x="150" y="125">personalize</text><text x="252" y="125">weekly email</text></g>
+         <g stroke="#f2c94c" stroke-width="3"><line x1="90" y1="35" x2="108" y2="35"/><line x1="192" y1="35" x2="210" y2="35"/><line x1="252" y1="52" x2="252" y2="104"/><line x1="210" y1="121" x2="192" y2="121"/></g></svg></div>
+       <h3>Agentic newsletter, shipped</h3>
+       <div class="met"><div><b>50+</b><small>sources daily</small></div><div><b>1,200+</b><small>companies</small></div><div><b>5/6</b><small>silent sources fixed</small></div></div>
+       <p class="cap">Scrapes, dedups and summarizes the ecosystem with Gemini; React/TS UI, Docker on Azure.</p>
+       <div class="acts"><span class="btn grassb">Inspect ▸</span><span class="btn stone ic">🔗</span></div></div></div>
+   </div>
+   <svg class="z" style="position:absolute;left:10px;bottom:84px;width:64px;height:96px" aria-hidden="true"><use href="#sprite"/></svg>
+   <div class="bhud"><span class="btn gold">Résumé</span><span class="btn stone ic">✉</span><span class="btn stone ic">in</span><span class="btn stone ic">GH</span><span class="btn stone ic">⋯</span></div>
+  </div>
+ </div>
+</div>
+
+<!-- ================= 3. INSPECT ================= -->
+<div class="row">
+ <div class="desk"><div class="lbl">3 · Inspect drawer · Mesa (Power &amp; Control) · zonecore · desktop</div>
+  <div class="screen" style="min-height:700px">
+   <div class="bg"><svg viewBox="0 0 860 700" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges" aria-hidden="true">
+     <rect width="860" height="700" fill="#5a3326"/><rect width="860" height="180" fill="#7a4430"/>
+     <g fill="#9a5a34"><rect x="0" y="420" width="180" height="280"/><rect x="40" y="380" width="100" height="40"/><rect x="520" y="400" width="220" height="300"/><rect x="560" y="350" width="140" height="50"/></g>
+     <g fill="#ef8d4b" opacity=".55"><rect x="0" y="440" width="180" height="10"/><rect x="520" y="430" width="220" height="10"/></g>
+     <rect y="620" width="860" height="80" fill="#6e4824"/>
+   </svg></div>
+   <div class="z hud"><span class="who"><img src="../../../../../assets/character/sneha-avatar-256.webp" alt="">SNEHA ISLAM</span>
+     <span class="mm"><b class="v"></b><s></s><b class="v"></b><s></s><b class="v"></b><s></s><b class="c"></b><s></s><b></b><s></s><b></b><s></s><b></b><s></s><b class="l"></b></span>
+     <span class="btn gold">Résumé</span><span class="btn stone ic">✉</span><span class="btn stone ic">in</span><span class="btn stone ic">GH</span><span class="btn stone ic">⋯</span></div>
+   <div class="z xp"><span style="width:41%"></span><em>QUESTS 7/17</em></div>
+   <div class="z" style="padding:24px">
+     <div class="tag" style="color:var(--lava)">STATION 02 · MESA</div>
+     <div class="stt">Power &amp; Control</div>
+     <div class="card" style="max-width:400px"><div class="hd" style="background:linear-gradient(var(--grass) 0 70%,var(--grass-d) 70%)"><span>power/zonecore</span><span class="pill">✓ DONE</span></div><div class="bd">
+       <h3>Quad-motor EV controls</h3>
+       <div class="met"><div><b>46/46</b><small>reqs traced</small></div><div><b>32</b><small>SIL scenarios</small></div><div><b>~3.1k</b><small>lines C99</small></div></div>
+       <div class="acts"><span class="btn grassb" style="outline:3px solid var(--gold);outline-offset:3px">Inspect ▸</span><span class="btn stone">Repo ↗</span></div></div></div>
+   </div>
+   <svg class="z" style="position:absolute;left:30px;bottom:30px;width:64px;height:96px" aria-hidden="true"><use href="#sprite"/></svg>
+   <div class="scrim"></div>
+   <aside class="drawer" aria-label="zonecore details">
+     <div class="dh"><span>power/zonecore</span><span class="btn stone ic" style="min-height:36px;padding:4px 0">✕</span></div>
+     <div class="sec"><h4>L1 · METRICS</h4>
+       <div class="lrow"><b>46/46</b><span>ASIL-tagged requirements traced to tests</span></div>
+       <div class="lrow"><b>32</b><span>closed-loop SIL scenarios, 9 fault-injection</span></div>
+       <div class="lrow"><b>~3.1k</b><span>lines C99, no heap, clang-tidy clean</span></div></div>
+     <div class="sec"><h4>L2 · DETAILS</h4>
+       <ul><li>Embedded C for BMS (2-state EKF SOC), DC fast charging, thermal, propulsion, traction control, torque vectoring and functional safety.</li>
+       <li>Verified by a Python software-in-the-loop bench over E2E-protected CAN.</li></ul>
+       <div class="words"><b style="color:var(--text)">Diagram in words:</b> vehicle control modules talk over E2E-protected CAN; a Python software-in-the-loop bench drives 32 closed-loop scenarios, 9 of them fault-injection.</div>
+       <div class="chips" style="margin-top:10px"><span class="tchip">Embedded C</span><span class="tchip">CAN / DBC</span><span class="tchip">ISO 26262 style</span><span class="tchip">SIL testing</span></div></div>
+     <div class="sec" style="border-bottom:none"><h4>L3 · LINKS</h4>
+       <div class="acts"><span class="btn gold">Repo on GitHub ↗</span><span class="btn stone">Copy #power/zonecore</span></div></div>
+   </aside>
+  </div>
+  <div class="note">Focus is trapped in the drawer; Esc closes it and returns focus to "Inspect ▸" (shown with a gold focus ring). The sprite switches to "thinking" while it's open. The hash becomes #power/zonecore.</div>
+ </div>
+
+ <div class="phone"><div class="lbl">3 · Inspect bottom sheet · phone 390</div>
+  <div class="screen">
+   <div class="bg"><svg viewBox="0 0 390 780" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges" aria-hidden="true"><rect width="390" height="780" fill="#5a3326"/><rect width="390" height="160" fill="#7a4430"/></svg></div>
+   <div class="z" style="padding:16px 14px">
+     <div class="tag" style="color:var(--lava)">STATION 02 · MESA</div>
+     <div class="stt" style="font-size:1.45rem">Power &amp; Control</div>
+   </div>
+   <div class="scrim"></div>
+   <div class="sheet"><div class="grab"></div>
+     <div class="dh" style="display:flex;justify-content:space-between;align-items:center;padding:6px 12px;background:linear-gradient(var(--lava) 0 70%,#b8602a 70%);border-top:4px solid #000;border-bottom:4px solid #000;color:var(--coal);font-family:var(--mono);font-weight:800;font-size:.72rem"><span>power/zonecore</span><span class="btn stone ic" style="min-height:36px;padding:4px 0">✕</span></div>
+     <div style="padding:12px">
+       <h4 style="font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--dim);margin-bottom:8px">L1 · METRICS</h4>
+       <div class="lrow"><b>46/46</b><span>ASIL-tagged requirements traced to tests</span></div>
+       <div class="lrow"><b>32</b><span>closed-loop SIL scenarios, 9 fault-injection</span></div>
+       <div class="lrow"><b>~3.1k</b><span>lines C99, no heap, clang-tidy clean</span></div>
+       <div class="acts" style="margin:12px 0"><span class="btn stone" style="flex:1">Show more ▾</span></div>
+       <div class="acts"><span class="btn gold" style="flex:1">Repo on GitHub ↗</span></div>
+     </div>
+   </div>
+   <div class="bhud"><span class="btn gold">Résumé</span><span class="btn stone ic">✉</span><span class="btn stone ic">in</span><span class="btn stone ic">GH</span><span class="btn stone ic">⋯</span></div>
+  </div>
+  <div class="note">The sheet covers 82% of the screen; drag it down or tap ✕ to close. The Résumé stays reachable in the bottom HUD.</div>
+ </div>
+</div>
+</div></body></html>
