@@ -1,6 +1,6 @@
 ---
-status: draft
-stepsCompleted: [1, 2, 3]
+status: final
+stepsCompleted: [1, 2, 3, 4]
 inputDocuments:
   - _bmad-output/planning-artifacts/prds/prd-portfolio-2026-11-25/prd.md
   - _bmad-output/planning-artifacts/prds/prd-portfolio-2026-11-25/addendum.md
@@ -325,7 +325,7 @@ So that I can trust what I read.
 
 **Given** `tools/fact_audit.py` (Python ≥3.12, standard library only)
 **When** it runs after the build
-**Then** it checks `src/content/*.json` and the visible text of the built `/next` page. It extracts every numeric token from the **visible text** (text nodes, `alt`, `aria-label`, `<title>`, `<desc>`; not `<script>`, `<style>` or other attributes) and checks each one appears in `docs/content-inventory.md` or `legacy/index.html`
+**Then** it checks every `src/content/*.json` file that exists (none yet is a pass; Story 1.4 adds them) and the visible text of the built `/` and `/next` pages. It extracts every numeric token from the **visible text** (text nodes, `alt`, `aria-label`, `<title>`, `<desc>`; not `<script>`, `<style>` or other attributes) and checks each one appears in `docs/content-inventory.md` or `legacy/index.html`
 **And** it fails on the banned list: teammate names; "built", "tested" or "working device" in the capstone entry; planned course codes (PHYS 468, SYDE 572, ECE 457, MTE 544, STAT 341); "Engineering Ambassador" anywhere on the new page (it stays only in the PDF, D10)
 **And** on failure it exits non-zero and prints each offending string with its file and context
 **And** `tools/fact_audit_allow.txt` holds approved non-fact strings, each with a `#` comment
@@ -482,7 +482,7 @@ So that I never have to scroll back or hunt for them.
 - left: the square-framed avatar + "SNEHA ISLAM"
 - right: **Résumé** (the only gold button), then Email, LinkedIn and GitHub stone icon buttons, then **⋯ More**, holding **Motion on/off** (UX-DR4)
 
-**And** the HUD is hidden while the Glance Card is in view, since that screen has its own Résumé button. This needs viewport observation, so this story creates the **first, minimal `islands/TrackController.tsx`** (the only viewport observer, AD-5), which only tracks `glanceInView`; Story 3.7 extends it (party decision)
+**And** the HUD is hidden while the Glance Card is in view, since that screen has its own Résumé button. This needs viewport observation, so this story creates the **first, minimal `islands/TrackController.tsx`** (the only viewport observer, AD-5), which only tracks `glanceInView`; Story 3.5 extends it (party decision)
 **And** Résumé opens `/Sneha_Islam_Resume.pdf` in a new tab in **1 click**; LinkedIn and GitHub open in a new tab; Email copies the address and announces "Copied" in a polite live region, with a selectable-text fallback if the clipboard is denied (FR23, UX-DR25)
 **And** Motion calls `setMotion` and behaves like `prefers-reduced-motion` (FR24)
 
@@ -560,7 +560,7 @@ So that I absorb the work without reading paragraphs.
 **Given** `quests.json` extended with `shortTitle`, `captions[1..2]` and `diagram {component, title, alt}`, seeded from EXPERIENCE §5 (UX-DR27)
 **When** a Level Card renders
 **Then** L0 follows the fixed order: grass-cap header (path `ai/communitech` + status pill) → short title → diagram well → up to **3 metric tiles** → Captions → tech chips → footer (FR9, UX-DR5)
-**And** metrics are verbatim display strings from the inventory, never padded to 3, with the qualifier inside the label ("+14.1% saves · simulated", "≈8.2 mAh · estimate")
+**And** metrics are verbatim display strings from the inventory, never padded to 3, with the qualifier inside the label ("+14.1% saves · simulated", "≈8.2 mAh · estimate"), shown as **metric tiles**: inset well, dirt-dark 4 px top strip, gold mono ExtraBold number, muted label of ≤6 words (UX-DR6)
 **And** the short title + Captions total **≤25 words** per card, enforced by a Vitest test over `quests.json` (UX-DR19)
 **And** the 3 cards with existing diagrams use them (Communitech → newsletter pipeline, MIS → cross-section, capstone → cartridge + pod); the 3 Side Quests use an icon (FR10)
 **And** until a Main card's diagram exists, its diagram well shows the **Station's placeholder icon** at the same size, so card shapes stay consistent (Sneha's choice (a))
@@ -603,7 +603,30 @@ So that I trust everything else on the page.
 **When** it scans the capstone entry and its rendered card
 **Then** it fails if "built", "tested" or "working device" appear, or any teammate name (FR30), and a unit test proves this rule
 
-### Story 3.5: Inspect drawer and sheet
+### Story 3.5: Deep links and knowing where you are
+
+As a hiring manager sharing a project with my panel,
+I want a link that opens exactly that card, and the page to know which Station I'm in,
+So that colleagues land in the right place.
+
+**Acceptance Criteria:**
+
+**Given** `src/game/router.ts`, the only writer of `history` and `location.hash` (AD-6)
+**When** the page loads with `#<station>` or `#<station>/<item>`
+**Then** it scrolls to the target instantly (no smooth scroll) and skips the Glance Card (FR28, UX-DR25)
+**And** an unknown hash lands on the Glance Card with no error
+**And** without JS, the same hashes still scroll natively (AD-3)
+
+**Given** `islands/TrackController.tsx` from Story 2.5, extended (still the only viewport observer: one `IntersectionObserver`, 50% threshold, AD-5)
+**When** the visitor scrolls
+**Then** `state.currentStation` updates, `markVisited(station)` records a Station once it is 50% in view, and the router updates the hash with `replaceState` (no new history entries while scrolling)
+**And** progress is stored in `sessionStorage` under `fabline:progress` (PRD FR-7)
+
+**Given** Vitest
+**When** the router and state tests run
+**Then** they cover a valid deep link, an unknown hash, `replaceState`-only on scroll, the visited set being idempotent, and blocked storage
+
+### Story 3.6: Inspect drawer and sheet
 
 As a hiring manager who wants depth on one project,
 I want a focused panel with the details,
@@ -627,7 +650,7 @@ So that I can dig in without losing my place.
 **When** the visitor activates the disclosure
 **Then** the native `<details>` still opens in place (NFR-12)
 
-### Story 3.6: Copy link on every card
+### Story 3.7: Copy link on every card
 
 As a hiring manager,
 I want to copy a link straight to a project,
@@ -640,29 +663,6 @@ So that I can paste it into the panel's notes.
 **Then** `https://<site>/#<station>/<item>` is copied, and "Copied" is announced in the polite live region (FR29, UX-DR23)
 **And** if clipboard access is denied, the URL appears in a selected read-only field with "Press Ctrl/⌘+C" (UX-DR25)
 **And** opening the copied link in a fresh tab lands on that card with L1 open (FR28)
-
-### Story 3.7: Deep links and knowing where you are
-
-As a hiring manager sharing a project with my panel,
-I want a link that opens exactly that card, and the page to know which Station I'm in,
-So that colleagues land in the right place.
-
-**Acceptance Criteria:**
-
-**Given** `src/game/router.ts`, the only writer of `history` and `location.hash` (AD-6)
-**When** the page loads with `#<station>` or `#<station>/<item>`
-**Then** it scrolls to the target instantly (no smooth scroll) and skips the Glance Card (FR28, UX-DR25)
-**And** an unknown hash lands on the Glance Card with no error
-**And** without JS, the same hashes still scroll natively (AD-3)
-
-**Given** `islands/TrackController.tsx` from Story 2.5, extended (still the only viewport observer: one `IntersectionObserver`, 50% threshold, AD-5)
-**When** the visitor scrolls
-**Then** `state.currentStation` updates, `markVisited(station)` records a Station once it is 50% in view, and the router updates the hash with `replaceState` (no new history entries while scrolling)
-**And** progress is stored in `sessionStorage` under `fabline:progress` (PRD FR-7)
-
-**Given** Vitest
-**When** the router and state tests run
-**Then** they cover a valid deep link, an unknown hash, `replaceState`-only on scroll, the visited set being idempotent, and blocked storage
 
 ### Story 3.8: New diagrams for AI in Production, part 1 (The Plug Co, Avanade, muse)
 
@@ -718,7 +718,7 @@ So that my next step is obvious.
 - the contact pitch
 - the largest button on the page, **Résumé (PDF)**
 - Email (with copy), LinkedIn and GitHub
-- a collapsed **"Earlier work"** `<details>` row with yunus-AI, Selenium_Python_BestBuy and tic-tac-toe and their links (FR20, D15)
+- a collapsed **"Earlier work"** `<details>` row with yunus-AI, Selenium_Python_BestBuy and tic-tac-toe and their links (FR20, D15, UX-DR28)
 
 **And** visible words total ≤30, excluding the Earlier-work contents (UX-DR19), and every link resolves (linkinator)
 
