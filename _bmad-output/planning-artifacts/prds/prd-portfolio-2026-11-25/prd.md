@@ -11,6 +11,8 @@ inputs:
 
 # PRD: The Fab Line
 
+> **Change D15 (2026-11-25, Sneha):** Recruiter Mode is removed. There is one view with progressive depth: Glance Card → scroll → Inspect. The on-page résumé sheet is removed (Résumé = PDF), early work moves to the Shipping Dock, and the Path moves to the Quest Log. Affected: FR-1, FR-2, FR-18, FR-20, FR-22, FR-23, FR-25, FR-26 (removed), FR-27, FR-28, FR-31, NFR-12, SM-1.
+
 ## 0. Document purpose
 This PRD is for Sneha, as owner and builder, and for the downstream UX, architecture and epics/stories steps.
 - **How it is organised:** features are grouped, with FRs nested under them (FR-1…FR-N, globally numbered). Cross-cutting NFRs are in §6.
@@ -22,7 +24,7 @@ This PRD is for Sneha, as owner and builder, and for the downstream UX, architec
 ## 1. Vision
 Sneha Islam's portfolio becomes **The Fab Line**, a short scroll-driven game in which Sneha, the main character, travels her own production line **in reverse, from software back to silicon**. The line starts at the AI systems she shipped, passes through embedded and compiler work, and reaches the cleanroom where she fabricates devices. It ends at a locked door marked *Dream: quantum computer hardware*.
 
-Every stop leads with a diagram, three numbers and one short line. A recruiter learns who she is, what she can do and what she has shipped **in under 60 seconds**. Anyone who doesn't want to play can reach the **résumé or a plain Recruiter Mode in one click**.
+Every stop leads with a diagram, three numbers and one short line. A recruiter learns who she is, what she can do and what she has shipped **in under 60 seconds**. There is **one view, no modes**. The first screen alone gives the whole pitch, scrolling gives the evidence, and depth is one click away. The **résumé PDF is one click from every screen**.
 
 ## 2. Target users
 
@@ -39,11 +41,11 @@ General gamers looking for a challenge; anyone expecting accounts, saves or comp
 *[ASSUMPTION: these personas were inferred from the brief's three user types; Sneha to confirm or replace them with real recruiter interactions.]*
 
 - **UJ-1. Dana, a tech recruiter, screens 30 co-op candidates before lunch.**
-  - She opens a shared link on her laptop and sees the Title Screen: Sneha's portrait, "from silicon to software", and *4 terms · 8 repos · Azure ×2*.
+  - She opens a shared link on her laptop and sees the Glance Card: Sneha's portrait, "from silicon to software", *8-month co-op · Jan–Aug 2027*, and three Proof Tiles: **1,200+** companies · **±2%** SoC · **102.6 nm** film.
   - She scrolls once. The Character Card shows *8-month co-op · Jan–Aug 2027 · Toronto*, so the role fits.
   - Two more scrolls show AI in Production (*50+ sources/day, 1,200+ companies*) and Power & Control (*±2% SoC, −35% test time*).
   - She clicks **Résumé** in the HUD and the PDF opens. Total time: about 40 s.
-  - **Edge case:** on a phone in a corridor, she taps **Recruiter Mode** straight from the Title Screen and skims the plain page.
+  - **Edge case:** on a phone in a corridor, she reads the Glance Card (availability + 3 proof numbers) and taps **Résumé** without scrolling at all.
 - **UJ-2. Omar, a hiring manager on a displays-software team, checks the depth of one project.**
   - From a deep link (`#ai/communitech`) he lands directly on the Communitech Level Card, which leads with its pipeline diagram.
   - He uses **Inspect** to open the metrics, then the full bullets (React/TypeScript UI, personalization, root-causing silent sources).
@@ -53,8 +55,9 @@ General gamers looking for a challenge; anyone expecting accounts, saves or comp
   - Inspect leads her to the repo link, and she opens GitHub.
 
 ## 3. Glossary
-- **Game Mode:** the default, animated experience. The opposite of Recruiter Mode.
-- **Recruiter Mode:** a plain, single-page, non-animated view of **all** content.
+- **Glance Card:** the first screen (the Title Screen). Who, role, availability, 3 Proof Tiles and the Résumé button, ≤30 visible words.
+- **Proof Tile:** one of the 3 headline numbers on the Glance Card, each a verbatim inventory fact with a ≤6-word label.
+- **Static baseline:** the pre-rendered page as it appears without JavaScript. It is not a mode the visitor chooses. *(Recruiter Mode and Game Mode were removed by D15.)*
 - **Track:** the ordered sequence of screens: Title Screen → Character Card → 4 Stations → Speedrun Banner → Shipping Dock → Quantum Fab.
 - **Station:** one themed stop on the Track holding Level Cards. It is the "zone" in Sneha's step-04 prompt. There are four, in Track order: **AI in Production** (`ai`), **Power & Control** (`power`), **Compiler & EDA** (`compiler`), **Cleanroom** (`cleanroom`).
 - **Level Card:** the card for one work term, project or repo inside a Station.
@@ -68,7 +71,7 @@ General gamers looking for a challenge; anyone expecting accounts, saves or comp
 - **Quest Log:** the timeline of Quests and Path items with their status.
 - **Achievement:** a toast unlocked by viewing a specific real fact. There are 5 in total.
 - **XP Bar:** the share of the 17 Quests the visitor has viewed.
-- **HUD:** the persistent overlay holding Résumé, contact icons, the Recruiter Mode toggle, the motion toggle, the Mini-map and progress.
+- **HUD:** the persistent overlay holding Résumé, contact icons, the motion toggle, the Mini-map and progress.
 - **Mini-map:** the HUD's compact Track diagram, showing the current location and the Stations visited.
 - **Skill Tree:** skills grouped as on the site; each **Skill Node** links to the Level Cards that prove it.
 - **Deep Link:** a URL hash `#<station>/<item>` that opens a specific Station or Level Card.
@@ -88,26 +91,28 @@ General gamers looking for a challenge; anyone expecting accounts, saves or comp
 | 8 | Shipping Dock | Quest Log · Résumé · Contact | Path §07, Résumé §08 (inv §11), Contact §09 (inv §12) |
 | 9 | Quantum Fab (locked) | — | About §01 ¶4 + Interests "Quantum hardware" (inv §3–4) |
 
-Side Quest placement is by topic (econ → AI, tensor → Compiler, recycling → Cleanroom), and earlier & collaborative work (yunus-AI, Selenium scraper, tic-tac-toe; inv §7) appears in Recruiter Mode only and is not a Quest. *(Confirmed by Sneha.)* The Engineering Ambassador role is **not** in the game; it appears only inside the résumé sheet and PDF (D10).
+Side Quest placement is by topic (econ → AI, tensor → Compiler, recycling → Cleanroom), and earlier & collaborative work (yunus-AI, Selenium scraper, tic-tac-toe; inv §7) appears as a collapsed "Earlier work" row at the Shipping Dock and is not a Quest. The Path timeline lives in the Quest Log. The on-page HTML résumé sheet is removed; the résumé is the PDF only (D15). The Engineering Ambassador role is **not** on the page; it appears only in the résumé PDF (D10).
 
 ## 5. Features
 
-### 5.1 Title Screen
-**Description:** the first screen. It introduces the main character and offers two clear ways in. Realizes UJ-1.
+### 5.1 Title Screen (Glance Card)
+**Description:** the first screen, and for many recruiters the only one. It gives the whole pitch with zero clicks: who, role, availability, 3 proof numbers and the Résumé. Realizes UJ-1.
 
 #### FR-1: Character intro
 The visitor sees Sneha's name, class and one line on first paint.
 **Source:** Hero `#top` (inv §1); class label "Nano-Engineer" from Sneha's shared context.
 **Acceptance:**
-- It shows "Sneha Islam", the class "Nano-Engineer", the line "from silicon to software.", the portrait (`sneha-scene.webp` or a crop of it, D1) and three chips: **4 terms · 8 repos · Azure ×2**.
+- It shows "Sneha Islam", the class "Nano-Engineer" · University of Waterloo, the line "from silicon to software.", the portrait (D1), and the availability "8-month co-op · Jan–Aug 2027".
+- It shows **3 Proof Tiles**, verbatim facts: **1,200+** companies covered by the AI system she shipped (inv §5.1), **±2%** state-of-charge accuracy on the EV battery (inv §5.3), and **102.6 nm** SiNₓ film she fabricated and measured (inv §6.1).
+- It shows a large **Résumé** button (opens the PDF, 1 click).
+- Visible words total ≤30, excluding button labels.
 - All of that text is in the pre-rendered HTML, not in images.
 
-#### FR-2: Start and Recruiter Mode entry
-The visitor can press **Start** or **Recruiter Mode**.
+#### FR-2: Start
+The visitor can press **▶ Start** (Sneha's choice, D15) or simply scroll.
 **Acceptance:**
 - **Start**, Space, Enter, ↓ and scrolling all advance to the Character Card.
-- **Recruiter Mode** switches to FR-25's view in one click.
-- Both buttons are reachable by Tab, have visible focus, and are at least 44×44 px.
+- Start and Résumé are the only two buttons on the Glance Card. Both are reachable by Tab, have visible focus, and are at least 44×44 px.
 
 ### 5.2 Character Card
 **Description:** an RPG-style character sheet that replaces the About section. Realizes UJ-1.
@@ -245,7 +250,6 @@ The HUD shows "Quests viewed n/17".
 **Acceptance:**
 - **When it counts:** a Quest counts as viewed when its Level Card's L0 has been 50% in view.
 - **Wording:** the label never suggests a skill rating.
-- **Recruiter Mode:** the bar is hidden.
 
 ### 5.8 Speedrun Banner and Shipping Dock
 
@@ -256,7 +260,7 @@ The visitor sees "8 repos shipped · Nov 2026" with 8 repo badges, each linking 
 - All 8 names are present and the links match inv §7.
 
 #### FR-20: Shipping Dock
-The final screen shows the Quest Log, a large **Résumé (PDF)** button, the contact pitch and links, and the availability status.
+The final screen shows the Quest Log, a large **Résumé (PDF)** button, the contact pitch and links, the availability status, and a collapsed **"Earlier work"** row (yunus-AI, Selenium_Python_BestBuy, tic-tac-toe, with links; inv §7).
 **Source:** Contact §09 (inv §12), D2, D4.
 **Acceptance:**
 - **Availability:** reads "Available · 8-month co-op · Jan–Aug 2027".
@@ -285,13 +289,12 @@ The 5 Achievements unlock on viewing their source:
 
 **Acceptance:**
 - **Display:** at most one toast is visible at a time. It is dismissed automatically after about 3 s, is announced through a polite `aria-live` region, and never blocks input.
-- **Recruiter Mode:** no toasts appear.
 - **Reduced motion:** the toast appears without animation.
 
 ### 5.10 Persistent HUD
 
 #### FR-23: HUD contents
-Every Game Mode screen shows the HUD with **Résumé**, **Email**, **LinkedIn**, **GitHub**, **Recruiter Mode**, **Motion on/off**, the **Mini-map** and progress (FR-7, FR-18).
+Every screen after the Glance Card shows the HUD with **Résumé**, **Email**, **LinkedIn**, **GitHub**, **Motion on/off**, the **Mini-map** and progress (FR-7, FR-18).
 **Acceptance:**
 - **Résumé:** opens `/Sneha_Islam_Resume.pdf` in a new tab with **1 click**.
 - **Contact links:** each is **1 click**.
@@ -305,23 +308,23 @@ The visitor can turn animation off.
 - The default follows the OS setting.
 - The choice is kept in `localStorage`, wrapped in try/catch.
 
-### 5.11 Recruiter Mode
+### 5.11 One view, progressive depth (replaces Recruiter Mode, D15)
 
-#### FR-25: Plain one-page view
-The visitor can switch to Recruiter Mode at any time.
+#### FR-25: Progressive depth
+The visitor gets the pitch with 0 clicks (Glance Card), the evidence by scrolling (0 clicks), and depth on demand (1 click, Inspect).
 **Acceptance:**
-- **Content:** shows **all** content: every Level Card at full L2 depth, the early & collaborative work, coursework, skills, the Path and the full HTML résumé sheet (which includes its Leadership section, D10). It follows the current site's section order and layout (`index.html` §01–§09).
-- **Game layer off:** no Track, toasts, XP or animation.
+- **Glance:** the first screen meets FR-1.
+- **Scroll:** each Level Card shows only L0 (diagram, ≤3 metrics, ≤25 words).
+- **Inspect:** L1–L3 open with one action.
+- **Résumé:** 1 click from every screen (FR-23).
+- **No mode switch:** there is no Recruiter Mode, Game Mode or `?mode=` parameter.
+- **Inspect layers** are native `<details>` disclosures, enhanced into the drawer or sheet when JS runs.
 
-#### FR-26: Mode persistence and switching
-**Acceptance:**
-- **URL:** `?mode=recruiter` opens Recruiter Mode directly and can be shared.
-- **Persistence:** the toggle remembers the last choice.
-- **Switching back:** a visible "Play the game" control returns to Game Mode at the corresponding Station.
+#### FR-26: *(Removed by D15: mode persistence and switching no longer exist.)*
 
 #### FR-27: Works without JavaScript
 **Acceptance:**
-- With JavaScript disabled, the pre-rendered HTML shows the Recruiter Mode content in full, with working links.
+- With JavaScript disabled, the static baseline shows every screen and every Level Card. Inspect layers open as native `<details>`, and all links work.
 
 ### 5.12 Deep links and sharing
 
@@ -329,7 +332,6 @@ The visitor can switch to Recruiter Mode at any time.
 **Acceptance:**
 - **Format:** `#<station>` and `#<station>/<item>`, e.g. `#ai/communitech`, `#cleanroom/capstone`.
 - **On open:** the page scrolls to the target. If it is a Level Card, the card's L1 opens.
-- **Recruiter Mode:** the same hash scrolls to the matching section.
 - **Unknown hash:** goes to the Title Screen with no error.
 
 #### FR-29: Copy link
@@ -349,9 +351,9 @@ The build fails if any number or Character Line in the rendered page is missing 
 - It is implemented in Python (D9; see the addendum).
 
 #### FR-31: Single content source
-All copy and metrics live in one structured content file that Game Mode and Recruiter Mode both render.
+All copy and metrics live in one structured content source that the page renders.
 **Acceptance:**
-- Changing a metric in that file changes it in both modes, and the Fact Audit checks that same file.
+- Changing a metric in that source changes it everywhere it appears (Glance Card, Level Card, Inspect), and the Fact Audit checks that same source.
 
 ## 6. Cross-cutting non-functional requirements
 
@@ -368,7 +370,7 @@ All copy and metrics live in one structured content file that Game Mode and Recr
 | NFR-9 | **Real text, SEO and previews** | All content is in the pre-rendered DOM. `<title>` reads "Sneha Islam — Nanotechnology Engineering · Software & AI" (inv §1). Includes a meta description and Open Graph / Twitter tags. The OG image is a crop of the D1 art with no baked-in text *[ASSUMPTION]*. |
 | NFR-10 | **Privacy and analytics** | No cookies and no third-party trackers. The only analytics is **Vercel Web Analytics** (cookie-less page views, same-origin script, free Hobby plan; D12). It must not delay first paint, so it is loaded with `defer`. `localStorage` is used only for the mode and motion preferences. |
 | NFR-11 | **Browsers** | Latest two versions of Chrome, Edge, Firefox and Safari, plus iOS Safari 16+ *[ASSUMPTION]*. |
-| NFR-12 | **Resilience** | A JS error in the game layer must not hide content; the pre-rendered Recruiter content stays usable (FR-27). |
+| NFR-12 | **Resilience** | A JS error in the game layer must not hide content; the static baseline stays usable (FR-27). |
 
 ## 7. Not building (explicit)
 - Sound design or music. No audio at all in v1.
@@ -386,7 +388,7 @@ All copy and metrics live in one structured content file that Game Mode and Recr
 **Post-launch signal (D12):** Vercel Web Analytics page views, used to see whether visitors arrive and on which devices. It is not a release gate.
 
 **Primary (release gate)**
-- **SM-1: Résumé reached in ≤2 clicks** from every screen, in both modes. The design target is 1. Validates FR-23 and FR-20.
+- **SM-1: Résumé reached in ≤2 clicks** from every screen. The design target is 1. Validates FR-23 and FR-20.
 - **SM-2: Any Level Card's key metric visible in ≤3 clicks** from the Title Screen (Mini-map → Station → card). Validates FR-8, FR-9 and FR-13.
 - **SM-3: Works on a phone.** Every FR passes manually at 400 px on iOS Safari and Android Chrome. Validates NFR-5.
 - **SM-4: Lighthouse Performance ≥90 and Accessibility ≥90** (mobile) on the deployed URL. Validates NFR-2 and NFR-8.

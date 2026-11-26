@@ -2,6 +2,8 @@
 
 This is the human companion to [`ARCHITECTURE-SPINE.md`](ARCHITECTURE-SPINE.md). The spine holds the rules (AD-1…AD-13); this file holds the reasons, the folder tree, and the deploy and migration steps. If the two disagree, the spine wins.
 
+> **Change D15 (2026-11-25, Sneha):** there is no Recruiter Mode and no Game Mode. It is **one view with progressive depth**: the Glance Card (0 clicks) → scroll the Stations (0 clicks) → Inspect (1 click), with the Résumé PDF 1 click from everywhere. The static page without JS is the baseline, not a mode. Spines win; anything below that still mentions modes is superseded.
+
 ## 1. The recommended stack: **Astro + React islands + TypeScript**, with Python build tools, on Vercel
 
 | Decision | Recommendation | Why | Trade-off accepted |
@@ -11,10 +13,10 @@ This is the human companion to [`ARCHITECTURE-SPINE.md`](ARCHITECTURE-SPINE.md).
 | *Rejected:* plain HTML/JS or Svelte (step-06 options) | — | Simplest, but it contradicts your D9 choice of React/TypeScript, which is also the stack your résumé headline sells. | — |
 | *Rejected:* canvas or a game engine | — | Canvas text isn't crawlable or accessible, and engines blow the JS budget. The UX (DOM cards, SVG diagrams, CSS motion) doesn't need one. | — |
 | **Rendering** | DOM + inline SVG + CSS animation | Accessible, crawlable, sharp at any zoom, and animatable with CSS that respects reduced motion (AD-7). | Fancy particle effects are off the table, which suits the blocky style anyway. |
-| **Content model** | JSON files in `src/content/`, validated by **zod schemas** (Astro content collections) | **One source of truth** (FR-31). Game Mode, Recruiter Mode and the Python fact audit all read the same files. Schemas catch a missing metric or a typo'd slug at build time, before deploy. | JSON is a little verbose to edit by hand; schemas give clear error messages in return. |
+| **Content model** | JSON files in `src/content/`, validated by **zod schemas** (Astro content collections) | **One source of truth** (FR-31). The page and the Python fact audit read the same files. Schemas catch a missing metric or a typo'd slug at build time, before deploy. | JSON is a little verbose to edit by hand; schemas give clear error messages in return. |
 | **Routing** | One page; hash deep links `#ai/communitech` | The PRD's format (FR-28). It works **without JS** too, because each card's HTML `id` *is* `ai/communitech`. | No separate URL per project page, which isn't needed for a 60-second visit. |
 | **State** | One **nanostores** store (`src/game/state.ts`), tiny (<1 KB) | Islands are separate React roots; a shared store is Astro's recommended way to let the HUD, Quest Log and toasts agree on "what's been visited". | Progress lasts for the session only (PRD FR-7). Preferences (mode, motion) are remembered in `localStorage`. |
-| **Mode switching** | `data-mode` / `data-motion` attributes on `<html>`, set before paint | One markup tree for both modes means they can't drift apart (AD-4), and there's no flash of the wrong mode. | Game-only elements need care in CSS. |
+| **One view (D15)** | No modes. Inspect layers are native `<details>` enhanced into a drawer; only `data-motion` is set before paint | One markup tree that works with or without JS (AD-4); fewer clicks and nothing to choose for recruiters. | Enhancing `<details>` into a drawer needs care with focus. |
 | **Styling** | Plain CSS with custom properties from DESIGN.md (`tokens.css`) | Zero runtime cost. Tokens enforce the AA-checked Block Biome palette (AD-8). | No Tailwind; you write CSS, which also keeps the JS budget clean. |
 | **Assets** | SVG for icons and diagrams; WebP for the portrait; **PNG sprite sheet** for the pixel sprite | Matches the final UX. Pixel art needs PNG with `image-rendering: pixelated`. | — |
 | **Python** | **Build-time only:** `fact_audit.py` (stdlib), `images.py` | As you chose: it guards "no invented facts" automatically, with no server. | Python must be installed in CI, which takes one line in the workflow. |
@@ -77,9 +79,9 @@ portfolio/
 
 | Milestone | What ships | The site looks like |
 |---|---|---|
-| **M1 · Same site, new engine** | Astro project at the repo root; today's `index.html` ported into Astro components + content JSON (Recruiter Mode only); `legacy/index.html` saved; CI gate + fact audit + analytics component; branch protection on | **Identical to today** |
-| **M2 · Block Biome look** | `tokens.css` from DESIGN.md; Recruiter Mode restyled; Title Screen; character assets via `images.py`; OG image | New colours and blocks, no game yet |
-| **M3 · Game skeleton** | `data-mode` switching, HUD, Mini-map, TrackController, router + deep links, XP, Quest Log | Playable track, cards static |
+| **M1 · Same site, new engine** | Astro project at the repo root; today's `index.html` ported into Astro components + content JSON (plain page, current look); `legacy/index.html` saved; CI gate + fact audit + analytics component; branch protection on | **Identical to today** |
+| **M2 · Block Biome look** | `tokens.css` from DESIGN.md; whole page restyled; Glance Card (Title Screen); character assets via `images.py`; OG image | New colours and blocks, no game yet |
+| **M3 · Game skeleton** | HUD, Mini-map, TrackController, router + deep links, XP, Quest Log | Playable track, cards static |
 | **M4 · Stations** | Level Cards with diagrams (one Station per PR: AI → Power → Compiler → Cleanroom), Inspect drawer, Skill Tree | Full content as a game |
 | **M5 · Delight** | Achievements + toasts, sprite (when your art arrives), motion polish, Speedrun, Dock, Quantum Fab | The finished Fab Line |
 

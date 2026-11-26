@@ -12,6 +12,8 @@ sources:
 
 **Stack:** React + TypeScript (static, pre-rendered) · Python build-time tooling · Vercel. No backend.
 
+> **Change D15 (2026-11-25):** Recruiter Mode is removed. The page is one view with progressive depth: Glance Card (pitch + 3 Proof Tiles + Résumé, 0 clicks) → scroll → Inspect (1 click). Where this brief mentions Recruiter Mode, read "the Glance Card + 1-click Résumé PDF + the no-JS static baseline".
+
 ## Summary
 Sneha's portfolio becomes a short, scroll-driven game. **Sneha, the "Nano-Engineer", travels her own production line in reverse, *from software back to silicon*.** The line starts at the AI systems she shipped, passes through embedded and compiler work, and reaches the cleanroom where she fabricates devices. It ends at a locked door marked *Dream: quantum computer hardware*.
 

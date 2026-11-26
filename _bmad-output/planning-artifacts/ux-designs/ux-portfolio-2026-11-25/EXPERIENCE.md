@@ -15,12 +15,12 @@ sources:
 - Wireframes are in [`wireframes/wireframes.md`](wireframes/wireframes.md).
 - If a wireframe and this spine disagree, the spine wins.
 
+> **Change D15 (2026-11-25, Sneha):** there is no Recruiter Mode and no Game Mode. It is **one view with progressive depth**: the Glance Card (0 clicks) → scroll the Stations (0 clicks) → Inspect (1 click), with the Résumé PDF 1 click from everywhere. The static page without JS is the baseline, not a mode. Spines win; anything below that still mentions modes is superseded.
+
 ## 1. Foundation
 - **Form factor:** a single-surface responsive web page that works from 360 px to wide desktop.
 - **Input:** mouse, touch and keyboard all have full parity.
-- **Two modes over one content source (FR-31):**
-  - **Game Mode** is the default.
-  - **Recruiter Mode** is the plain view, and it is also what the page shows before JavaScript loads or if it fails (FR-27).
+- **One view, progressive depth (D15):** Glance Card → scroll → Inspect. The same pre-rendered page is the **static baseline** before JavaScript loads or if it fails (FR-27); there is no mode switch.
 - **UI system:** none inherited. The current site's tokens are extended in `DESIGN.md`.
 - **Stack constraints that shape UX** (D9): React + TypeScript pre-rendered to static HTML, so every word on screen exists in the HTML before any script runs.
 
@@ -57,7 +57,7 @@ The Track is a single vertical page. Every screen is a full-viewport section in 
 | Contact | HUD (every screen) + Shipping Dock | F1, F3 |
 | Project depth | Inspect | F2 |
 | Repos / diagrams / metrics | Level Card + Inspect L3 | F2 |
-| Plain view | Recruiter Mode | F3 |
+| Fast skim | Glance Card (availability + 3 Proof Tiles + Résumé) | F1, F3 |
 
 ## 3. Voice and tone
 Sneha speaks in the first person: **confident, warm, nerdy, concise**. UI chrome speaks plainly. **No in-fiction labels on escape hatches.** "Résumé" stays "Résumé", never "Inventory scroll".
@@ -67,7 +67,7 @@ Sneha speaks in the first person: **confident, warm, nerdy, concise**. UI chrome
 | "I routed 2,218 blocks on a 54×54 FPGA." | "Behold my mighty FPGA skills!!" |
 | "Achievement: Shipped to production" | "Epic win unlocked! 🎉🎉" |
 | "Not unlocked yet. That's the long-term goal." | "Coming soon™" |
-| "Résumé" · "Recruiter Mode" · "Play the game" | "Skip boring stuff" / "Normie mode" |
+| "Résumé" · "▶ Start" · "Inspect ▸" | "Skip boring stuff" / "Normie mode" |
 | "Design proposal ✓ · Build Sep 2027" | "Capstone: done!" |
 | Qualifier next to the number: "+14.1% saves · simulated" | A footnote that says "*simulated" |
 
@@ -76,7 +76,7 @@ These are hard caps. The Fact Audit (FR-30) can enforce them as warnings. Number
 
 | Surface | Visible words | What counts | Behind Inspect |
 |---|---|---|---|
-| Title Screen | **≤15** | name + class + tagline + 3 chips (button and HUD labels excluded): currently 13 | — |
+| Glance Card (Title Screen) | **≤30** | name + class + tagline + availability + 3 Proof Tile numbers and labels (button and HUD labels excluded) | — |
 | Character Card | ≤35 | values only; field labels excluded | Training (coursework) expands |
 | Station header | **≤20** | Station title + Character Line (≤12) | — |
 | Level Card (L0) | **≤25** | short title + Captions | L1 metric details, L2 full bullets, L3 links |
@@ -116,7 +116,7 @@ New diagrams follow DESIGN.md (thin strokes, mono labels, Station colour) and **
 ## 6. Component patterns (behaviour)
 | Component | Behaviour |
 |---|---|
-| **HUD** | Always on screen in Game Mode. **Résumé** opens the PDF in a new tab (1 click). The Email icon copies the address and shows "Copied", and the address also appears in a tooltip. LinkedIn and GitHub open in a new tab. "More" opens a menu: Recruiter Mode · Motion on/off · Skill Tree · Quest Log. It hides nothing that's needed for SM-1. |
+| **HUD** | Always on screen after the Glance Card. **Résumé** opens the PDF in a new tab (1 click). The Email icon copies the address and shows "Copied", and the address also appears in a tooltip. LinkedIn and GitHub open in a new tab. "More" opens a menu: Motion on/off · Skill Tree · Quest Log. It hides nothing that's needed for SM-1. |
 | **Mini-map** | Nodes are buttons, labelled by Station name. Click → smooth scroll (instant under reduced motion) and the hash updates. The current node has `aria-current="step"`. Visited state is kept for the session only. |
 | **Dialogue box** | Appears with the Station's arrival. It is static text with no typewriter effect, and it never needs a click to dismiss. |
 | **Level Card** | The whole card is not clickable; only its buttons are, to avoid accidental opens while scrolling. **Inspect ▸** opens the drawer at L1. Inside the drawer, "Show more ▾" reveals L2, then L3 (FR-13). |
@@ -125,14 +125,13 @@ New diagrams follow DESIGN.md (thin strokes, mono labels, Station colour) and **
 | **Quest Log sheet** | Three tabs: Completed (16) · Active (1) · Next (1), newest first. Each row → its Level Card. The same component renders inline at the Shipping Dock. |
 | **Achievement toast** | Polite live region. Auto-hides after 3 s; hovering or focusing keeps it open. A queue shows one toast at a time. It never covers the HUD's Résumé button. |
 | **Sprite** | Decorative (`aria-hidden="true"`). Its state follows the visitor: walk while scrolling, idle at rest, thinking while Inspect is open, celebrate when an Achievement unlocks. |
-| **Recruiter Mode toggle** | Switches instantly with no animation. Keeps the scroll position on the matching section. Shows a persistent "▶ Play the game" pill top-right in Recruiter Mode. |
 | **Locked door** | A button. Selecting it shows the Character Line in the dialogue box and plays a "nudge" shake (none under reduced motion). Nothing unlocks. |
 
 ## 7. State patterns
 | State | Treatment |
 |---|---|
-| **First paint, before JS** | The pre-rendered Recruiter-Mode layout is shown and fully readable. When JS hydrates, Game Mode takes over without changing layout above the fold (the Title Screen is identical in both modes). |
-| **JS fails** | The page stays in Recruiter Mode. The HUD isn't rendered; the static top nav and Résumé link still work. |
+| **First paint, before JS** | The pre-rendered page is shown and fully readable: Glance Card, Stations and every Level Card, with Inspect layers as native `<details>`. When JS hydrates, the HUD, drawer and motion layer attach without changing layout above the fold. |
+| **JS fails** | The static baseline stays. The HUD island isn't rendered, but the Glance Card's Résumé button and the Shipping Dock links still work; Inspect falls back to `<details>`. |
 | **Reduced motion or Motion off** | No scroll-linked animation, sprite walk or shake. Toasts appear without sliding. Diagrams are static (dash-flow off). Content is identical. |
 | **Deep Link on load** | Skip the Title, scroll to the target with no smooth scroll, and open L1 if it's a card. |
 | **Unknown hash** | Title Screen, no error. |
@@ -189,7 +188,7 @@ Overlays trap focus and restore it on close.
 - **Live regions:** one polite region for toasts and "Copied" feedback.
 - **Target size:** ≥44×44 px for every control (`{spacing.touch-min}`).
 - **Zoom:** works at 200% and at 400% reflow (320 CSS px wide) with no loss of content. The HUD wraps to two rows if needed.
-- **Recruiter Mode** is the guaranteed accessible baseline. If anything in Game Mode fails an a11y check, it must at least be fully available there.
+- **The static baseline** (no JS, `<details>` Inspect) is the guaranteed accessible fallback. If an enhanced interaction fails an a11y check, its content must still be reachable through the baseline.
 
 ## 11. Responsive and platform
 | Width | Layout |
@@ -237,7 +236,7 @@ Safe-area insets are respected. The iOS Safari address-bar resize must not trigg
 
 ## 13. Key flows
 **F1: Dana, a tech recruiter, does the 60-second path** (realizes UJ-1):
-1. She opens the link on her laptop. The Title Screen shows the portrait, *Sneha Islam · Nano-Engineer · from silicon to software*, and the chips *4 terms · 8 repos · Azure ×2*.
+1. She opens the link on her laptop. The Glance Card shows the portrait, *Sneha Islam · Nano-Engineer · from silicon to software*, *8-month co-op · Jan–Aug 2027*, and the Proof Tiles **1,200+ · ±2% · 102.6 nm**, with ▶ Start and Résumé.
 2. She scrolls. The Character Card shows *8-month co-op · Jan–Aug 2027 · Toronto* and the Azure badge, and the **Azure certified ×2** toast pops.
 3. She scrolls. AI in Production (Sky Plains) arrives: the sky turns blue and the block hills pop up, the sprite walks in, the dialogue says "I shipped an AI system watching 1,200+ companies." The pipeline diagram draws on, **50+ · 1,200+** count up, and the **Shipped to production** toast pops while the sprite celebrates.
 4. She scrolls through Power & Control (±2% · −35% · 46/46) and Compiler & EDA (2,218 blocks).
@@ -270,18 +269,17 @@ flowchart LR
   BWC --> CL[Copy link]
 ```
 
-**F3: Dana on her phone, between meetings, takes the skip path** (FR-23, FR-25):
-1. Title Screen on a 390 px phone. The bottom HUD shows **Résumé · ✉ · in · GitHub · More**.
-2. **Option A:** she taps **Résumé**, and the PDF opens in 1 tap.
-3. **Option B:** she taps **Recruiter Mode** on the Title Screen. The plain one-page view appears instantly, and she scrolls the experience headings.
-4. **Climax:** she taps ✉, sees "Copied", and pastes the address into her ATS.
+**F3: Dana on her phone, between meetings, takes the skip path** (FR-1, FR-23, FR-25):
+1. The Glance Card on a 390 px phone shows *Sneha Islam · Nano-Engineer · 8-month co-op · Jan–Aug 2027* and three Proof Tiles: **1,200+** · **±2%** · **102.6 nm**.
+2. She has the pitch without scrolling. **Climax:** she taps **Résumé**, and the PDF opens in 1 tap.
+3. Later, from any screen, she taps ✉ in the bottom HUD, sees "Copied", and pastes the address into her ATS.
 
 ```mermaid
 flowchart LR
-  M[Title on phone] -->|1 tap| R[(Résumé PDF)]
-  M -->|1 tap| RM[Recruiter Mode]
-  M -->|1 tap| E[Email copied]
-  RM -->|"▶ Play the game"| G[Game Mode, same section]
+  M[Glance Card on phone] -->|0 taps| P[Pitch: role, availability, 3 proofs]
+  M -->|1 tap| R[(Résumé PDF)]
+  M -->|scroll| S[Stations] -->|1 tap| I[Inspect]
+  S -->|HUD, 1 tap| E[Email copied]
 ```
 
 ## 14. Personality checklist
@@ -291,7 +289,7 @@ flowchart LR
 | **Intelligent:** every project shows how it works | §5: all 14 Main Level Cards have a diagram (3 reuse existing SVGs, 11 new); Side Quests are explicitly icon-only |
 | **Fun:** ≥3 delightful moments | (1) Achievement toast + sprite celebrate, (2) Station arrival: the biome builds itself block by block as the sprite walks in, (3) metric count-up, (4) the locked-door nudge and line |
 | **Hardworking:** Quest Log and XP visibly full | XP bar fills toward 17/17. Quest Log shows **16 Completed**. Speedrun Banner: 8 repos, Nov 2026 |
-| **Résumé in ≤2 clicks from every screen** | **1 click**, via the HUD on every Game Mode screen. Recruiter Mode has it in the top nav. |
+| **Résumé in ≤2 clicks from every screen** | **1 click**: the Glance Card's Résumé button, then the HUD on every later screen. |
 
 ## 15. Assumptions and open items
 - *[ASSUMPTION]* Sprite outfit (lab coat over the D1 outfit) and props.
