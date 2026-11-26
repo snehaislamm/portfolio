@@ -5,6 +5,8 @@
 **Inputs:** `00-shared-context.md`, `docs/content-inventory.md` (§0–§19, including Sneha's decisions D1–D3)
 **Audience for the game:** recruiters with 60 seconds. **Audience for this doc:** Sneha and the downstream agents (PM, UX, architect, dev).
 
+> **Superseded detail (2026-11-25):** the Engineering Ambassador role was removed from the portfolio (inventory D10). The quest count is now 17 Quests: **16 completed + 1 active**. Mentions of the Ambassador or of "17/18" in the rejected Concepts B and C are historical.
+
 > **Fact rule:** every number, line and achievement below comes from `docs/content-inventory.md`. Character lines are ≤12 words and only restate facts on the site.
 > **Hard constraints carried into every concept:**
 > - "Skip to Résumé" on every screen, opening `/Sneha_Islam_Resume.pdf`
@@ -51,7 +53,7 @@ The title screen uses the warm illustration (`sneha-scene.webp`). Stepping throu
 | **Curious** | An **Inspect** button at every station opens three layers: diagram → metrics → repo link. Real-fact easter eggs: "Newsletter ships Mondays, 7 AM ET", "E-stop to safe state: one 10 ms scan", "Skipped a ~$611 eval kit (~40% of budget)". A locked Quantum Fab sits at the end of the line. |
 | **Intelligent** | Every station opens with an existing "how it works" SVG: MIS cross-section (SVG-2), C–V curve (SVG-5), newsletter pipeline (SVG-3), system map (SVG-4), cartridge + pod (SVG-6). New simple diagrams are needed for stations that have none (inventory §14). |
 | **Fun** | Short first-person lines, e.g. "I routed 2,218 blocks on a 54×54 FPGA." Animated wafer progress along the track, achievement toasts, sound off by default. |
-| **Hardworking** | A persistent **XP bar = quests completed: 17 / 18**. That counts 4 work terms, 1 ambassador role, 4 completed course projects and 8 repos, with the capstone as the 18th, still active. The Nov 2026 sprint is a **speedrun banner**: "8 repos shipped · Nov 2026". |
+| **Hardworking** | A persistent **XP bar fed by 17 Quests: 16 completed** (4 work terms, 4 course projects, 8 repos) **+ the capstone, still active**. The Nov 2026 sprint is a **speedrun banner**: "8 repos shipped · Nov 2026". |
 
 ### 3. Where content lives
 | Content | Station |
@@ -176,13 +178,13 @@ Tabs, cards and one skill-tree view. **Risk:** it reads as a themed dashboard ra
 | Time | Screen | What the recruiter sees | Action |
 |---|---|---|---|
 | 0–2 s | **Title** | Sunny illustration · "Sneha Islam · Nano-Engineer · from silicon to software" · chips: **4 terms · 8 repos · Azure ×2** · HUD: Résumé · Recruiter Mode · GitHub · LinkedIn · Email | Press **Start ▸** / scroll / Space |
-| 2–8 s | **Character card** | Portrait, UWaterloo BASc NE · Nanoelectronics · 3B · **Next quest: 8-month co-op · Jan–Aug 2027** · Home base: Toronto · Equipment: AZ-900, AI-900 · XP bar 17/18 | Scroll |
+| 2–8 s | **Character card** | Portrait, UWaterloo BASc NE · Nanoelectronics · 3B · **Next quest: 8-month co-op · Jan–Aug 2027** · Home base: Toronto · Equipment: AZ-900, AI-900 · XP bar (17 Quests) | Scroll |
 | 8–20 s | **AI in Production** *(shown first; see note)* | Newsletter pipeline SVG animates · "I shipped an AI system watching 1,200+ companies." · tiles **50+ sources/day · <300 ms · 85%+** · toast 🏆 *Shipped to production* | Scroll |
 | 20–30 s | **Power & Control** | Battery pack + CAN diagram · "My fault injection cut BMS testing time 35%." · tiles **±2% SoC · −35% · 46/46 reqs** | Scroll |
 | 30–38 s | **Compiler & EDA** | FPGA grid routing animation · "I routed 2,218 blocks on a 54×54 FPGA." · tiles **15.7× matmul · 89.5 MHz** | Scroll |
 | 38–48 s | **Cleanroom** | MIS cross-section + C–V curve · "I deposited 102.6 nm of SiNₓ, then measured it two ways." · **Active Main Quest:** capstone pod diagram, amber "Design proposal ✓ → Build 2027 → Test 2028" | Scroll |
 | 48–55 s | **Speedrun banner** | "8 repos shipped · Nov 2026" with 8 repo badges · toast 🏆 *8 repos, one sprint* | Scroll |
-| 55–60 s | **Shipping Dock** | Quest Log (17 ✓ · 1 active) · 🔒 Quantum Fab: "Dream: quantum computer hardware" · big **Résumé (PDF)** + contact | Click **Résumé** |
+| 55–60 s | **Shipping Dock** | Quest Log (16 ✓ · 1 active) · 🔒 Quantum Fab: "Dream: quantum computer hardware" · big **Résumé (PDF)** + contact | Click **Résumé** |
 
 **Note on order:** the fab-line metaphor runs silicon → software. A strict 60-second ranking, though, puts the AI work first (inventory §16, rank 1). Two options:
 - **(a)** Keep the true fab order and rely on the title chips and character card to front-load the AI signal.

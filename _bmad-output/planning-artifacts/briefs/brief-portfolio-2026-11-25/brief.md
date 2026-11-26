@@ -2,7 +2,7 @@
 title: "Product Brief: The Fab Line — Sneha Islam's game portfolio"
 status: final
 created: 2026-11-25
-updated: 2026-11-25
+updated: 2026-11-25 (patched: quest count, D10)
 sources:
   - docs/content-inventory.md (decisions D1–D8)
   - _bmad-output/planning-artifacts/brainstorm-game-concepts.md (Concept A, reversed)
@@ -39,7 +39,7 @@ Student portfolios are walls of text that recruiters skim in seconds. The curren
 | 20–30 s | **Power & Control** | ±2% SoC · −35% test time · 46/46 requirements traced |
 | 30–38 s | **Compiler & EDA** | 2,218 blocks on 54×54 · 15.7× matmul |
 | 38–48 s | **Cleanroom** | 102.6 nm SiNₓ · capstone shown as the Active Main Quest (*design proposal*) |
-| 48–60 s | **Speedrun → Shipping Dock** | 8 repos, Nov 2026 · Quest Log 17 ✓ / 1 active · 🔒 Quantum Fab · **Résumé** |
+| 48–60 s | **Speedrun → Shipping Dock** | 8 repos, Nov 2026 · Quest Log 16 ✓ / 1 active · 🔒 Quantum Fab · **Résumé** |
 
 ## Design pillars, each with a pass/fail check
 | Pillar | Shows up as | Measurable check |
@@ -47,7 +47,7 @@ Student portfolios are walls of text that recruiters skim in seconds. The curren
 | **Curious** | Inspect at every station; real-fact easter eggs; locked Quantum Fab | 100% of stations have a 3-layer Inspect · ≥3 easter eggs, each traceable to an inventory line |
 | **Intelligent** | A "how it works" visual opens every station | 100% of stations lead with a diagram · no paragraph longer than 40 words in game view `[ASSUMPTION]` |
 | **Fun** | ≤12-word first-person lines, micro-animations, achievement toasts, sound off | Every station has exactly one line of ≤12 words · ≤5 achievements · 0 sounds by default |
-| **Hardworking** | XP bar and Quest Log fed by real work; Nov 2026 speedrun | Quest Log shows **17 completed / 1 active**, matching the inventory count exactly · 0 invented scores |
+| **Hardworking** | XP bar and Quest Log fed by real work; Nov 2026 speedrun | Quest Log shows **16 completed / 1 active** (17 Quests; the Ambassador role was removed per D10), matching the inventory count exactly · 0 invented scores |
 
 ## Success criteria (v1 ships when all pass)
 - **Résumé reached in ≤2 clicks** from any screen. The design target is 1, via the HUD.

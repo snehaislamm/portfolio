@@ -141,6 +141,8 @@
 
 ### 5.5 Engineering Ambassador (L617–629)
 
+> **Removed from the portfolio on 2026-11-25 (D10).** This section is kept as a historical record only. Do not use it.
+
 | Field | Content |
 |---|---|
 | Title | Engineering Ambassador |
@@ -501,3 +503,6 @@ Total ≈ 364 KB. **Not done yet:**
 | D7 | **Phone number in public PDF** | Approved by Sneha. | n/a |
 | D8 | **Planned courses** | **Removed** (PHYS 468, SYDE 572, ECE 457B/C, MTE 544 · STAT 341). They add no skill evidence. Don't show them in the game. | Yes: coursework grid and Path item |
 | D9 | **Tech stack** | **React + TypeScript** UI, pre-rendered to static HTML. **Python as build-time tooling only** (fact audit, image pipeline). No backend. Deployed on Vercel. | n/a (game) |
+| D10 | **Engineering Ambassador** | **Removed from the portfolio** (game and site). It no longer counts as a Quest. **The résumé PDF still lists it under Leadership**; Sneha must regenerate the PDF if she wants it gone there too. | Yes: Experience card, Path item text, résumé HTML Leadership section |
+| D11 | **Skill Tree scope** | Includes the résumé-only skills (JavaScript, HTML/CSS, Tailwind, Vite, Node.js, GraphQL, Figma, GCP, Linux) alongside Skills §06. | n/a (game) |
+| D12 | **Analytics** | Not in v1. Optional in v1.1, **free tier only** (e.g. Vercel Web Analytics on the Hobby plan, cookie-less). | n/a |

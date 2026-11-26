@@ -1,6 +1,6 @@
 ---
 title: "PRD: The Fab Line — Sneha Islam's game portfolio"
-status: draft
+status: final
 created: 2026-11-25
 updated: 2026-11-25
 inputs:
@@ -62,16 +62,17 @@ General gamers looking for a challenge; anyone expecting accounts, saves or comp
 - **Main Quest:** the capstone Level Card. It is always shown as *Active* and *design proposal*, never as built.
 - **Inspect:** the action that reveals the next Inspect Layer of a Level Card.
 - **Inspect Layer:** one of four depth levels: **L0** diagram + line → **L1** metrics → **L2** bullets → **L3** links.
-- **Character Line:** a first-person sentence of ≤12 words that restates a sourced fact.
-- **Quest:** one real item of work. There are **18**: 4 work terms, 1 ambassador role, 5 course projects and 8 repos. Each has a status: **Completed**, **Active** or **Next**.
+- **Character Line:** a first-person sentence of ≤12 words that restates a sourced fact. Exactly one per Station.
+- **Caption:** one of the 1–2 short sentences on a Level Card (≤20 words each), condensed from that card's source bullets without adding facts.
+- **Quest:** one real item of work. There are **17**: 4 work terms, 5 course projects and 8 repos. Each has a status: **Completed**, **Active** or **Next**.
 - **Quest Log:** the timeline of Quests and Path items with their status.
 - **Achievement:** a toast unlocked by viewing a specific real fact. There are 5 in total.
-- **XP Bar:** the share of the 18 Quests the visitor has viewed.
+- **XP Bar:** the share of the 17 Quests the visitor has viewed.
 - **HUD:** the persistent overlay holding Résumé, contact icons, the Recruiter Mode toggle, the motion toggle, the Mini-map and progress.
 - **Mini-map:** the HUD's compact Track diagram, showing the current location and the Stations visited.
 - **Skill Tree:** skills grouped as on the site; each **Skill Node** links to the Level Cards that prove it.
 - **Deep Link:** a URL hash `#<station>/<item>` that opens a specific Station or Level Card.
-- **Fact Audit:** the build-time check that every number and Character Line on screen is present in the content inventory.
+- **Fact Audit:** the build-time check that every number, Character Line and Caption on screen is traceable to the content inventory.
 
 ## 4. Information architecture: Track and content map
 
@@ -84,10 +85,10 @@ General gamers looking for a challenge; anyone expecting accounts, saves or comp
 | 5 | **Compiler & EDA** (`compiler`) | fabricfit · tilec / *Side:* Tensor solver | Open Source §04 (inv §7); Projects PRJ-005 (inv §6.3) |
 | 6 | **Cleanroom** (`cleanroom`) | MIS capacitor · vaclab · **Main Quest: capstone** / *Side:* Recycling | Projects PRJ-001, PRJ-002, PRJ-004 (inv §6); Open Source §04 (inv §7) |
 | 7 | Speedrun Banner | 8 repo badges | Path §07 "Nov 2026" (inv §10) |
-| 8 | Shipping Dock | Quest Log · Ambassador · Résumé · Contact | Path §07, Experience §02 (inv §5.5), Résumé §08 (inv §11), Contact §09 (inv §12) |
+| 8 | Shipping Dock | Quest Log · Résumé · Contact | Path §07, Résumé §08 (inv §11), Contact §09 (inv §12) |
 | 9 | Quantum Fab (locked) | — | About §01 ¶4 + Interests "Quantum hardware" (inv §3–4) |
 
-*[ASSUMPTION: Side Quest placement is by topic (econ → AI, tensor → Compiler, recycling → Cleanroom). Earlier & collaborative work (yunus-AI, Selenium scraper, tic-tac-toe; inv §7) appears in Recruiter Mode only and is not a Quest.]*
+Side Quest placement is by topic (econ → AI, tensor → Compiler, recycling → Cleanroom), and earlier & collaborative work (yunus-AI, Selenium scraper, tic-tac-toe; inv §7) appears in Recruiter Mode only and is not a Quest. *(Confirmed by Sneha.)* The Engineering Ambassador role is **not** in the portfolio (D10).
 
 ## 5. Features
 
@@ -160,10 +161,10 @@ The visitor can jump to any Station.
 **Description:** the unit of content. It leads with a diagram, not prose. Realizes UJ-1, UJ-2 and UJ-3.
 
 #### FR-9: Level Card face (L0)
-Each Level Card shows a diagram, up to 3 metrics, tech labels, 1–2 Character Lines and links.
+Each Level Card shows a diagram, up to 3 metrics, tech labels, 1–2 Captions and links.
 **Source:** the card's own section; see the §4 table.
 **Acceptance:**
-- **Order:** title → diagram → 3 metric tiles → Character Line(s) → tech labels → links.
+- **Order:** title → diagram → 3 metric tiles → Captions → tech labels → links.
 - **Metrics:** taken verbatim from the source card's stats or bullets. Fewer than 3 are shown when fewer exist, and none are padded.
 - **Qualifiers stay attached:** "simulated" (muse), "projected" (Avanade 40%), "estimate" / "design proposal" (capstone), "fictional scenario" (coa-forge).
 - **Tech labels:** text from the source chips. *[ASSUMPTION: text labels with simple glyphs, no third-party brand logos.]*
@@ -215,34 +216,32 @@ At least 3 real-fact easter eggs are discoverable inside Inspect.
 
 #### FR-15: Skill Nodes link to proof
 The visitor can open a Skill Tree from the HUD and select a Skill Node to see the Level Cards that use it.
-**Source:** Skills §06 (inv §9), plus the chips and bullets of each Level Card.
+**Source:** Skills §06 (inv §9), the Skills block of the Résumé §08 (inv §11, D11), plus the chips and bullets of each Level Card.
 **Acceptance:**
-- **Groups:** the 6 groups from §06.
+- **Groups:** the 6 groups from §06. Résumé-only skills join the matching group (D11): JavaScript → Languages; HTML/CSS, Tailwind, Vite, Node.js, GraphQL, Figma → Software & Web; GCP, Linux → Cloud & DevOps.
 - **Links:** a node links to every Level Card whose chips or bullets name that skill. Nodes with no proving card are shown unlinked and dimmed.
 - **No scores:** no levels, bars, percentages or scores appear.
 - **Navigation:** selecting a linked card closes the tree and scrolls to the card.
-
-**Notes:** see Open Question Q2 on résumé-only skills.
 
 ### 5.7 Quest Log
 **Description:** the hardworking pillar, made visible.
 
 #### FR-16: Quest statuses
-The visitor sees all 18 Quests by status.
+The visitor sees all 17 Quests by status.
 **Source:** Path §07 (inv §10), Experience §02, Projects §03, Open Source §04.
 **Acceptance:**
-- **Counts:** **16 Completed**, **2 Active** (the capstone; Engineering Ambassador, Fall 2026–present) and **1 Next** (8-month co-op, Jan–Aug 2027). The Next item is a Path milestone, not one of the 18 Quests.
+- **Counts:** **16 Completed**, **1 Active** (the capstone) and **1 Next** (8-month co-op, Jan–Aug 2027). The Next item is a Path milestone, not one of the 17 Quests.
 - **Order and dates:** items are ordered newest first and carry their source dates.
-- **Correction:** the brief and brainstorm said "17 / 1". That was wrong, because the Ambassador role is ongoing. See the memlog.
+- **No Engineering Ambassador entry** (D10).
 
 #### FR-17: Quest Log access
 The Quest Log is reachable from the HUD at any time, and appears inline at the Shipping Dock.
 **Acceptance:**
 - Opens in one click.
-- Each Quest links to its Level Card. The Ambassador entry links to its Shipping Dock card.
+- Each Quest links to its Level Card.
 
 #### FR-18: XP Bar
-The HUD shows "Quests viewed n/18".
+The HUD shows "Quests viewed n/17".
 **Acceptance:**
 - **When it counts:** a Quest counts as viewed when its Level Card's L0 has been 50% in view.
 - **Wording:** the label never suggests a skill rating.
@@ -257,8 +256,8 @@ The visitor sees "8 repos shipped · Nov 2026" with 8 repo badges, each linking 
 - All 8 names are present and the links match inv §7.
 
 #### FR-20: Shipping Dock
-The final screen shows the Quest Log, the Engineering Ambassador card, a large **Résumé (PDF)** button, the contact pitch and links, and the availability status.
-**Source:** Contact §09 (inv §12), Experience §02 (inv §5.5), D2, D4.
+The final screen shows the Quest Log, a large **Résumé (PDF)** button, the contact pitch and links, and the availability status.
+**Source:** Contact §09 (inv §12), D2, D4.
 **Acceptance:**
 - **Availability:** reads "Available · 8-month co-op · Jan–Aug 2027".
 - **Contact links:** email (with copy), LinkedIn and GitHub, each matching inv §12.
@@ -376,7 +375,7 @@ All copy and metrics live in one structured content file that Game Mode and Recr
 - Multiplayer, leaderboards, accounts, login or saved games.
 - A 3D engine, WebGL scenes, physics or a canvas-based renderer.
 - A backend, serverless functions, contact forms, a CMS or a database.
-- Analytics or tracking (revisit in v1.1, see Q4).
+- Analytics or tracking. Optional in v1.1, free tier only (D12).
 - New character art, walking or animated sprites, or redrawing the D1 illustration.
 - Any stat, level or score that is not a real count from the inventory.
 - Any content beyond the inventory: no new projects, quotes, testimonials or numbers.
@@ -395,21 +394,23 @@ All copy and metrics live in one structured content file that Game Mode and Recr
 - **Curious:** 100% of Main Level Cards have Inspect L0–L3, and there are ≥3 easter eggs.
 - **Intelligent:** 100% of Main Level Cards lead with a diagram, and no game-view paragraph exceeds 40 words.
 - **Fun:** one Character Line of ≤12 words per Station, 5 Achievements, and no sound.
-- **Hardworking:** the Quest Log shows 16 / 2 / 1 exactly.
+- **Hardworking:** the Quest Log shows 16 Completed / 1 Active / 1 Next exactly.
 
 **Counter-metrics (do not optimise)**
 - **SM-C1: Time on site.** A recruiter leaving for the résumé in 40 s is a success. Don't add friction to keep them on the page.
 - **SM-C2: Number of animations and achievements.** More is not better, and the cap of 5 achievements stands.
 
 ## 9. Open questions
-1. **Q1. Quest count correction.** The Ambassador role is ongoing, so the counts are 16 Completed / 2 Active, not 17 / 1. Confirm, and the brief will be patched.
-2. **Q2. Résumé-only skills.** Should JavaScript, HTML/CSS, Tailwind, Vite, Node.js, GraphQL, Figma, GCP and Linux, which appear only in the résumé sheet, join the Skill Tree? They are on the site (Résumé §08) but not in Skills §06.
-3. **Q3. Side Quest placement and early work** (§4 assumption). OK as proposed?
-4. **Q4. Post-launch signal.** Add cookie-less analytics in v1.1?
+All four draft questions were resolved by Sneha on 2026-11-25:
+- **Q1:** the Engineering Ambassador role is removed from the portfolio (D10), so there are 17 Quests (16 Completed / 1 Active).
+- **Q2:** the résumé-only skills join the Skill Tree (D11).
+- **Q3:** Side Quest placement and Recruiter-Mode-only early work are confirmed.
+- **Q4:** no analytics in v1; optional in v1.1, free tier only (D12).
+
+No open questions remain.
 
 ## 10. Assumptions index
 - §2.3: the UJ personas (Dana, Omar, Lin) are illustrative.
-- §4: Side Quest placement; early & collaborative work shown only in Recruiter Mode.
 - FR-9: tech labels are text with glyphs, not brand logos.
 - FR-21: the Quantum Fab line's wording.
 - NFR-2: LCP measured on mobile; ≤600 KB first load.
