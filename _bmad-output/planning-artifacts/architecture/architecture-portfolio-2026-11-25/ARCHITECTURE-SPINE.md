@@ -118,7 +118,8 @@ Arrows point from dependency to dependent. Nothing depends on `src/islands`. `sr
 - **Binds:** FR-30, NFR-1, SM-4, SM-5
 - **Prevents:** an invented fact or a perf/a11y regression going live
 - **Rule:**
-  - **The check:** GitHub Actions workflow `ci.yml` runs on every pull request: `astro check` → `vitest run` → `astro build` → `python tools/fact_audit.py` → `linkinator dist` → `lhci autorun` (static `dist/`, performance and accessibility ≥0.9, plus budgets).
+  - **The check:** GitHub Actions workflow `ci.yml` runs on every pull request: `astro check` → `vitest run` → `astro build` → `python tools/fact_audit.py` → `linkinator dist` → `lhci autorun` against static `dist/`. **Hard failures:** Accessibility ≥0.9, total JS ≤100 KB gzip, first-load transfer ≤600 KB. **Warning only in CI:** the Performance score, because shared runners are noisy. *(Amended after the epics roundtable.)*
+  - **Release gate:** Performance ≥0.9 and LCP <2.0 s (median of 3 mobile runs) are hard-gated against the **deployed Vercel Preview** at the cutover (Story 3.11) and at each release (Story 9.3).
   - **Branch protection:** `main` requires this check. All changes reach `main` by PR, never by direct push. Vercel previews every PR and deploys `main`.
 
 ### AD-11: Fact audit contract
@@ -127,8 +128,9 @@ Arrows point from dependency to dependent. Nothing depends on `src/islands`. `sr
 - **Rule:**
   - **The tool:** `tools/fact_audit.py` uses Python ≥3.12 and the standard library only.
   - **What it checks:**
-    - every numeric token and every Character Line / Caption in `src/content/*.json` **and** in the visible text of `dist/index.html` (text nodes plus `alt`/`aria-label`/`<title>`/`<desc>`; `<script>`, `<style>` and other attributes excluded) must appear in `docs/content-inventory.md` or `legacy/index.html`
-    - the banned list must be absent: teammate names, "built" / "tested" / "working device" within the capstone entry, planned course codes, "Engineering Ambassador" outside the résumé entry
+    - every numeric token and every Character Line / Caption in each `src/content/*.json` that exists **and** in the visible text of the built pages (`dist/index.html`, plus `dist/next/index.html` until the cutover) (text nodes plus `alt`/`aria-label`/`<title>`/`<desc>`; `<script>`, `<style>` and other attributes excluded) must appear in `docs/content-inventory.md` or `legacy/index.html`
+    - every Caption, Character Line, Proof Tile label and easter egg in the content JSON carries a `source` field citing the inventory (e.g. `"inv §5.1"`); a missing `source` fails *(amended after the epics roundtable)*
+    - the banned list must be absent: teammate names, "built" / "tested" / "working device" within the capstone entry, planned course codes, and "Engineering Ambassador" **anywhere on the game page** (it exists only in the résumé PDF, D10/D15). The legacy page served before the cutover is exempt.
   - **Failure:** it exits non-zero and lists each offending string and file.
   - **Exceptions:** an allow-list file `tools/fact_audit_allow.txt` holds approved non-fact strings (UI chrome). Each entry needs a comment.
 

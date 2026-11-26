@@ -1,0 +1,26 @@
+---
+/**
+ * The one layout. Owns <html>, charset/viewport, <title> and analytics.
+ * <Analytics /> lives here and nowhere else (AD-13).
+ */
+import Analytics from '@vercel/analytics/astro';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+    <Analytics />
+  </body>
+</html>

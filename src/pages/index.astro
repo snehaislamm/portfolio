@@ -1,0 +1,12 @@
+---
+/**
+ * `/` serves the frozen legacy page unchanged until the Story 3.11 cutover.
+ * Head styles and body markup come verbatim from legacy/index.html via set:html,
+ * so Astro neither scopes nor bundles them (equivalent to is:global / is:inline).
+ */
+import Base from '../layouts/Base.astro';
+import { legacy } from '../lib/legacy';
+
+const { title, headInner, bodyInner } = legacy();
+---
+<Base title={title}><Fragment slot="head" set:html={headInner} /><Fragment set:html={bodyInner} /></Base>
