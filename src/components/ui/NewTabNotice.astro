@@ -1,0 +1,21 @@
+---
+/**
+ * Shared new-tab notice (Story 2.2, reused by the HUD in Story 2.5): a small block "box + arrow" icon,
+ * hidden from assistive tech, plus screen-reader text. The text comes from `ui.opensInNewTab` via `label`
+ * (components hold no copy, AD-2). Put it inside an <a target="_blank" rel="noopener">.
+ */
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+<svg class="newtab" aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 12 12" shape-rendering="crispEdges" fill="currentColor"><path d="M0 2h6v2H2v6h6V6h2v6H0z" /><path d="M7 0h5v5h-2V3.4L6.7 6.7 5.3 5.3 8.6 2H7z" /></svg><span class="sr-only">{` ${label}`}</span>
+
+<style>
+  .newtab {
+    flex: none;
+    width: 12px;
+    height: 12px;
+  }
+</style>

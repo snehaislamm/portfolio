@@ -17,6 +17,10 @@ Usage: python tools/check_dist.py [legacy/index.html] [dist]
    - no fonts.googleapis.com / fonts.gstatic.com anywhere
    - at least one linked /_astro/*.css stylesheet, and every linked one exists in dist
    - the CSS references self-hosted .woff2 fonts under /_astro/ and defines --color-coal (tokens loaded)
+   - the CSS defines a .sr-only rule (the shared new-tab notice relies on it)
+4. /next page structure (Story 2.2), on dist/next/index.html:
+   - #glance has a data-next naming an element id that exists (the target ▶ Start and the keys advance to)
+   - exactly one <h1> on the page
 
 Exits 0 when everything holds; exits 1 and lists every problem otherwise.
 """
@@ -35,6 +39,7 @@ NEXT_PAGE = "next/index.html"
 GOOGLE_FONTS = ("fonts.googleapis.com", "fonts.gstatic.com")
 WOFF2_URL = re.compile(r"""url\(\s*['"]?/_astro/[^)'"\s]+\.woff2""")
 COAL_TOKEN = re.compile(r"--color-coal\s*:")
+SR_ONLY_RULE = re.compile(r"\.sr-only(?![\w-])[^{]*\{")
 BODY_ATTRS = ("href", "src", "alt", "aria-label")
 
 
@@ -210,6 +215,24 @@ def check_next_styles(html: str, css: dict[str, str | None], name: str = NEXT_PA
         problems.append(f"{name}: CSS references no self-hosted /_astro/*.woff2 font")
     if not COAL_TOKEN.search(combined):
         problems.append(f"{name}: CSS does not define --color-coal (tokens not loaded)")
+    if not SR_ONLY_RULE.search(combined):
+        problems.append(f"{name}: CSS defines no .sr-only rule")
+    return problems
+
+
+def check_next_page(html: str, name: str = NEXT_PAGE) -> list[str]:
+    page = parse(html)
+    problems: list[str] = []
+    ids = [e.attrs.get("id") for e in page.elements if e.attrs.get("id")]
+    glance = [e for e in page.elements if e.attrs.get("id") == "glance"]
+    target = glance[0].attrs.get("data-next") if glance else None
+    if not target:
+        problems.append(f"{name}: no #glance with a data-next target")
+    elif target not in ids:
+        problems.append(f"{name}: #glance data-next={target!r} names no element id")
+    h1s = len(page.find("h1"))
+    if h1s != 1:
+        problems.append(f"{name}: expected exactly one <h1>, found {h1s}")
     return problems
 
 
@@ -218,6 +241,8 @@ def check(legacy_html: str, pages: dict[str, str], next_css: dict[str, str | Non
     problems = check_parity(legacy_html, pages["index.html"]) if "index.html" in pages else []
     for name, html in pages.items():
         problems += check_analytics(html, name)
+    if NEXT_PAGE in pages:
+        problems += check_next_page(pages[NEXT_PAGE])
     if next_css is not None and NEXT_PAGE in pages:
         problems += check_next_styles(pages[NEXT_PAGE], next_css)
     return problems
@@ -255,7 +280,7 @@ def main(argv: list[str]) -> int:
         for problem in problems:
             print(f"  - {problem}", file=sys.stderr)
         return 1
-    print(f"OK: legacy parity and analytics hold for {', '.join(PAGES)}, and {NEXT_PAGE} styles are self-hosted, in {dist}")
+    print(f"OK: legacy parity and analytics hold for {', '.join(PAGES)}, and {NEXT_PAGE} styles are self-hosted with .sr-only, and #glance/<h1> hold, in {dist}")
     return 0
 
 

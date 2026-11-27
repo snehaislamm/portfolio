@@ -1,6 +1,6 @@
 # Handoff: The Fab Line portfolio rebuild
 
-**Written:** 2026-11-25, at the end of the first (very long) planning + Story 1.1 session.
+**Updated:** 2026-11-26, at the end of the session that built Stories 1.1–2.1.
 **For:** the next Claude Code chat and Sneha.
 **Start here:** read this file, then `_bmad-output/implementation-artifacts/sprint-status.yaml`.
 
@@ -10,107 +10,102 @@
 
 Sneha Islam's portfolio (`snehaislam.vercel.app`, repo `snehaislamm/portfolio`) is being rebuilt into **The Fab Line**: a short, scroll-driven, character-based game for **recruiters with 60 seconds**.
 - **The game:** Sneha travels her work **from software back to silicon** through 4 Stations (biomes) and ends at a locked "Quantum Fab" door.
-- **The first screen:** the **Glance Card**: name, role, availability, 3 proof numbers and a Résumé button.
+- **The first screen:** the **Glance Card**: name, role, availability, 3 Proof Tiles and a Résumé button.
 - **Everything else:** scroll to see the evidence, or click **Inspect** for depth.
 
-**Stack (decided, binding):**
-- **Astro + React islands + TypeScript**, pre-rendered static HTML. The pinned versions are in the architecture spine.
-- **Python build-time tools only:** the fact audit and the image pipeline. **No backend.**
-- **Vercel** builds the site from `main`.
+**Stack (binding):** Astro 7.4 + React islands + TypeScript 6.0.3, static output; Python ≥3.12 build-time tools (stdlib only); Vercel deploys `main`. No backend.
 
 ---
 
-## 2. Where everything lives (all final unless noted)
+## 2. Where everything lives
 
 | What | Path |
 |---|---|
-| **Fact source + all decisions D1–D15** | `docs/content-inventory.md` |
-| Product brief | `_bmad-output/planning-artifacts/briefs/brief-portfolio-2026-11-25/brief.md` |
-| PRD (+ addendum) | `_bmad-output/planning-artifacts/prds/prd-portfolio-2026-11-25/` |
-| UX: look (Block Biome) / behaviour | `_bmad-output/planning-artifacts/ux-designs/ux-portfolio-2026-11-25/DESIGN.md`, `EXPERIENCE.md`, `wireframes/`, `mockups/key-screens.html` |
-| Architecture spine (AD-1…AD-13) + explainer | `_bmad-output/planning-artifacts/architecture/architecture-portfolio-2026-11-25/` |
+| **Fact source + decisions D1–D16** | `docs/content-inventory.md` |
+| Brief / PRD / UX / architecture | `_bmad-output/planning-artifacts/` (UX: `ux-designs/.../DESIGN.md`, `EXPERIENCE.md`; architecture spine AD-1…AD-13) |
 | **Epics & stories** (9 epics, 42 stories) | `_bmad-output/planning-artifacts/epics.md` |
 | **Sprint tracking** | `_bmad-output/implementation-artifacts/sprint-status.yaml` |
-| Epic 1 compiled context | `_bmad-output/implementation-artifacts/epic-1-context.md` |
-| Story 1.1 spec (done) | `_bmad-output/implementation-artifacts/spec-1-1-astro-scaffold.md` |
-| **Deferred work → Story 1.2** | `_bmad-output/implementation-artifacts/deferred-work.md` |
+| Epic contexts | `_bmad-output/implementation-artifacts/epic-1-context.md`, `epic-2-context.md` |
+| Story specs (all `done`) | `spec-1-1-…`, `spec-1-2-ci-quality-gate.md`, `spec-1-3-fact-audit.md`, `spec-1-4-content-json.md`, `spec-2-1-block-biome-tokens.md` |
+| Deferred work | `_bmad-output/implementation-artifacts/deferred-work.md` (Story 1.1's three items were all done in 1.2) |
 | Frozen original site | `legacy/index.html` (never edit) |
-| Résumé PDF, character art | `public/Sneha_Islam_Resume.pdf`, `public/assets/character/*` |
+| **Content** (all copy) | `src/content/*.json` (9 collections), schemas in `src/content/schemas.ts`, wired in `src/content.config.ts` |
+| **Design tokens + primitives** | `src/styles/tokens.css` (the only file in `src/` with hex colours), `fonts.css`, `base.css`; `src/components/ui/Button.astro`, `Pill.astro`, `Chip.astro`; layout `src/layouts/Game.astro` |
+| Quality tools | `.github/workflows/ci.yml`, `lighthouserc.json`, `tools/check_dist.py`, `tools/compare_legacy_text.py`, `tools/fact_audit.py` (+ `tools/test_*.py`) |
+| **Pixel-art sprite (first version)** | `docs/sprite/`: `sneha-sprite.png` (10 frames, 32×48, 1.4 KB), `sneha-sprite-preview.png` (×8), `make_sprite.py` (redraws it: `python docs/sprite/make_sprite.py [outdir]`). Not served yet; Epic 8 moves it into `public/`. |
 
 ---
 
-## 3. Key decisions (the full list is in the content inventory)
+## 3. Key decisions (full list in the inventory)
 
-- **No invented facts.** Every number and claim must trace to `docs/content-inventory.md`. A Python fact audit will enforce this from Story 1.3.
-- **D3:** no capstone teammate names anywhere. Say "4-person team". The capstone is a **design proposal**: never "built" or "tested".
-- **D4/D5:** available for an **8-month co-op, Jan–Aug 2027**. Home: **Toronto**.
-- **D8:** planned courses removed.
-- **D10:** Engineering Ambassador appears **only in the résumé PDF**, not on the page or in the game.
-- **D12:** free, cookie-less Vercel Web Analytics, using the `<Analytics />` component in `Base.astro` only.
-- **D13/D14:** **Block Biome** look (blocky, earthy, gold accent, one biome per Station). The Ghibli portrait is the face; a **pixel-art sprite** (Sneha draws it later) walks the Track.
-- **D15:** **no Recruiter Mode.** One view: Glance Card → scroll → Inspect. The résumé is the PDF only. ▶ Start is kept.
-- **Build order:** a **vertical slice**. Launch is the **Story 3.11 cutover**, after AI in Production is fully finished. The other three Stations launch with placeholder icons in 6 diagram spots.
-- **Until the cutover:** `/` serves `legacy/index.html` untouched, and the game grows on the hidden `noindex` page `/next`.
+- **No invented facts.** Every number must trace to the inventory or the legacy page's *visible* text; the fact audit enforces it in CI.
+- **D3:** no capstone teammate names anywhere: not in files, commits, memory or chat output. Say "4-person team". The capstone is a **design proposal** (never "built"/"tested").
+- **D4/D5:** 8-month co-op, Jan–Aug 2027; home Toronto. **D8:** no planned courses. **D10:** Engineering Ambassador only in the résumé PDF.
+- **D13/D14:** Block Biome look; Ghibli portrait = the face; pixel sprite walks the Track.
+- **D15:** no Recruiter Mode. **D16 (new):** **3A = Spring 2026, 3B = Fall 2026**; all four course projects are dated Spring 2026 (the legacy page's "2025 · 3A" is out of date).
+- **Diagrams:** keep the plan: AI in Production gets all its diagrams before launch; other Stations show placeholder icons until Epics 4–6 (Story 6.2 removes the last).
+- **Build order:** vertical slice; launch = **Story 3.11 cutover**. Until then `/` serves `legacy/index.html` untouched and the game grows on the hidden `noindex` page `/next`.
+- **Fonts:** `/next` uses self-hosted Fontsource fonts; `/` keeps the legacy Google Fonts links until the cutover (the parity check requires them).
 
 ---
 
-## 4. How we work (Sneha's preferences)
+## 4. How we work
 
-- **Sneha does all git commits and pushes herself.** Never run `git commit` or `git push`. Leave changes in the working tree and give her the exact commands. She opens PRs on the GitHub website (the `gh` CLI isn't installed).
-- **Work on a branch per story,** with a PR into `main`. Vercel previews every PR.
-- Build stories with the **`bmad-build`** skill: say "build story X.Y". It plans a spec (checkpoint for approval), implements with a subagent, runs 3 reviewers, and presents. Sneha allowed subagents for builds.
-- She prefers **fast paths** and short, plain explanations, and likes to be asked before big or irreversible choices.
+- **Sneha does all git commits, pushes and PR merges herself.** Never run `git commit`/`git push`. Leave changes in the working tree and give her the commands. She opens PRs on github.com (no `gh` CLI) and merges with **"Create a merge commit"**.
+- **Branch per story** (`story-X-Y-…`), PR into `main`. **Branch protection** on `main` requires a PR and the **`ci`** check.
+- Build stories with **`bmad-build`** ("build story X.Y"): spec → checkpoint approval → implementation subagent → full gate → 3 reviewers (blind, edge-case, verification-gap) → patches → present. Sneha approves subagents for builds.
+- Sneha prefers **fast paths**, short plain explanations, and being asked before big or irreversible choices.
 
 ---
 
 ## 5. Environment gotchas (Windows + VS Code)
 
-- **`uv`** was installed via winget at `C:\Users\sneha\AppData\Local\Microsoft\WinGet\Packages\astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe\uv.exe`. After a VS Code restart it should be on PATH as `uv`. If not, call it by that full path. BMAD skills (`bmad-build`, the config resolvers) need it.
-- **BMAD config clash (fixed locally):** the `[modules.gds]` copies of `planning_artifacts`, `implementation_artifacts` and `project_knowledge` in `_bmad/config.toml` are **commented out**. They duplicated `[modules.bmm]` and made `bmad-build` halt with "ambiguous config value". A BMAD reinstall will restore the clash; comment them out again, or reinstall without Game Dev Studio.
-- `_bmad/` and `.claude/` are **gitignored** (local agent tooling, not part of the site).
-- In the Bash tool, **heredocs containing quotes can break.** Write scripts to a file in the scratchpad and run them instead.
-- Node 26, npm 11 and Python 3.14 are installed. Run `npm ci` after cloning or switching branches.
+- **`uv`** isn't on PATH until VS Code fully restarts. Full path: `C:\Users\sneha\AppData\Local\Microsoft\WinGet\Packages\astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe\uv.exe`. `bmad-build` needs it.
+- **BMAD config clash:** the `[modules.gds]` copies of `planning_artifacts`, `implementation_artifacts`, `project_knowledge` in `_bmad/config.toml` are commented out. A BMAD reinstall restores the clash.
+- **Run `npm test` (Vitest) from PowerShell.** From Git Bash it fails ("failed to find the current suite") because of the lowercase `c:` path. CI on Linux is fine.
+- **Bash heredocs with quotes or `\n` can break.** Write scripts to the scratchpad and run them.
+- **Lighthouse locally** needs `$env:CHROME_PATH = 'C:\Program Files\Google\Chrome\Application\chrome.exe'`.
+- **Teammate names** live only in the GitHub Actions secret `BANNED_NAMES`. Locally the name check is skipped with a warning unless `FACT_AUDIT_BANNED_NAMES` is set for one command, or a gitignored `tools/banned_names.local.txt` exists.
+- Node 26, npm 11, Python 3.14. Run `npm ci` after switching branches if `package-lock.json` changed.
+
+**The full local gate** (same as CI; see README "CI quality gate"):
+```powershell
+npm run check; npm test; npm run build
+python -m unittest discover -s tools -p "test_*.py"
+python tools/compare_legacy_text.py legacy/index.html dist/index.html
+python tools/check_dist.py
+python tools/fact_audit.py
+npx linkinator . next/index.html --server-root dist --recurse --skip '^https?://(?!127\.0\.0\.1[:/])'
+npx lhci autorun
+```
 
 ---
 
 ## 6. Current status (end of this session)
 
-- Planning: content inventory ✓, brief ✓, PRD ✓, UX ✓, architecture ✓, epics ✓, readiness gate **PASS** ✓.
-- **Story 1.1 (Astro scaffold that still serves today's site) is implemented, reviewed and verified.**
-  - The spec is `done`, and `sprint-status.yaml` shows `review`. That becomes `done` once the PR is merged.
-  - **It is NOT committed yet.** Everything sits in the working tree on branch `story-1-1-astro-scaffold`. The page and asset moves are already staged.
-  - The same commit also carries the readiness fixes (AD-10, AD-11, the explainer release plan), the sprint files, and this handoff.
+- **Epic 1 — done** (PRs #5–#8): Astro scaffold serving legacy `/`; CI gate on every PR; fact audit; all content in 9 schema-validated JSON collections (17 Quests: 16 done + capstone active).
+- **Epic 2 — in progress.** **Story 2.1 done** (PR #9): tokens, self-hosted fonts, buttons/pills/chips/focus ring, shown in a "Building blocks" section on `/next` (Lighthouse a11y 1.0, perf 0.99).
+- `sprint-status.yaml` is up to date (2.1 `done`). This handoff, the sprint-status update and `docs/sprite/` are **uncommitted**: commit them with Story 2.2.
+- Story 2.1 notes for later:
+  - The done pill says "Completed" (`ui.statusCompleted`); DESIGN shows "✓ DONE". Sneha may change the word in `ui.json`.
+  - The showcase Résumé button opens in the same tab. Story 2.5 (HUD) decides the real Résumé button's behaviour; if it opens a new tab, add a visible notice.
+  - `/next` has no `<h1>` yet; the Glance Card (2.2) should provide it.
+- Optional: **Epic 1 retrospective** (`bmad-retrospective`) was skipped.
 
 ---
 
-## 7. Next steps (in order)
+## 7. Next steps
 
-1. **Sneha commits and pushes Story 1.1:**
+1. **Sneha:** create the 2.2 branch (uncommitted files carry over):
    ```powershell
-   git add -A
-   git commit -m "Story 1.1: Astro scaffold serving the legacy page"
-   git push -u origin story-1-1-astro-scaffold
+   git checkout main
+   git pull
+   git checkout -b story-2-2-glance-card
    ```
-2. **Open the PR** on GitHub (`story-1-1-astro-scaffold` → `main`). On the **Vercel Preview**, check:
-   - the page looks exactly like today's
-   - **"Copy as text" and the email "Copy" button work** (an automated browser couldn't test the clipboard)
-   - the **PDF ↗** link opens
-   - if the Preview fails to build: Vercel → Settings → Build & Deployment → **Framework Preset = Astro**, then redeploy
-3. **Merge.** Then mark Story 1.1 `done` in `sprint-status.yaml`: set `1-1-astro-scaffold-that-still-serves-today-s-site: done` (or run `bmad-sprint-planning` and ask for "sprint status").
-4. **Start Story 1.2** in the new chat: `git checkout main; git pull; git checkout -b story-1-2-ci-gate`, then say **"build story 1.2"**.
-   - **Include the 3 items in `deferred-work.md`:**
-     - a build-output parity test (head styles, inline script and attributes match legacy)
-     - a post-build analytics assertion (exactly one `<Analytics />` loader, no `window.va`)
-     - unit tests for `legacy()`'s error paths
-   - **AD-10:** Accessibility, JS ≤100 KB gzip and transfer ≤600 KB are **hard** CI failures. The Performance **score** is **warn-only** in CI.
-5. **Open question for Story 1.3 (fact audit):** the audit must ban teammate names (D3), but the names are deliberately **not** in the repo. Suggested approach: store **hashes** of the names in the ban list (or have Sneha supply them locally), so no plaintext names are committed. Ask Sneha before implementing.
+2. **New chat:** say "Read `_bmad-output/HANDOFF.md`, then build story 2.2".
+3. **Story 2.2 — Glance Card** is the largest story in the plan (11 acceptance clauses):
+   - **Content:** portrait, name, class "Nano-Engineer", tagline "from silicon to software", availability, 3 Proof Tiles (**1,200+ · ±2% · 102.6 nm**), ▶ Start and Résumé, ≤30 visible words. All copy already exists in `src/content/profile.json` and `ui.json`.
+   - **Test:** it includes a **5-second test with real people**, which takes calendar time.
+4. **Before launch (3.11):** Performance ≥0.9 and LCP <2 s are hard-gated on the deployed preview. Legacy `/` scores ~0.74 today, so expect tuning on the new page.
 
-After Epic 1: Epic 2 (Block Biome tokens, Glance Card with a 5-second test, Character Card, motion setting, HUD, link previews), then Epic 3 through the **3.11 cutover** (launch).
-
----
-
-## 8. How to start the next chat
-
-Open a new Claude Code chat in this folder and say:
-
-> Read `_bmad-output/HANDOFF.md`, then help me finish Story 1.1's PR checks and build story 1.2.
+After Epic 2: Epic 3 through the **3.11 cutover** (launch). With 1.1–2.1 done, **17 stories remain to launch** and 37 of 42 overall.

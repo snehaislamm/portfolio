@@ -4,22 +4,26 @@
  * 3 px black border, 3 px bevel (light top-left, dark bottom-right), 0 radius, min 44×44 px.
  * :active swaps to the pressed bevel and moves down 2 px.
  * Renders <a> when `href` is given, otherwise <button>. The label comes from the slot (content strings only).
+ * `newTab` (links only) takes the screen-reader notice text (`ui.opensInNewTab`): the link opens in a new
+ * tab (`target="_blank" rel="noopener"`) and shows the shared NewTabNotice (aria-hidden icon + sr-only text).
  */
 import type { HTMLAttributes } from 'astro/types';
+import NewTabNotice from './NewTabNotice.astro';
 
 type Variant = 'gold' | 'stone' | 'grass';
 
 type Props = { variant?: Variant } & (
-  | ({ href: string } & Omit<HTMLAttributes<'a'>, 'href'>)
-  | ({ href?: undefined } & HTMLAttributes<'button'>)
+  | ({ href: string; newTab?: string } & Omit<HTMLAttributes<'a'>, 'href'>)
+  | ({ href?: undefined; newTab?: undefined } & HTMLAttributes<'button'>)
 );
 
-const { variant = 'stone', class: className, ...rest } = Astro.props;
+const { variant = 'stone', class: className, newTab, ...rest } = Astro.props;
 const classes = ['btn', `btn--${variant}`, className];
+const newTabAttrs = newTab ? { target: '_blank', rel: 'noopener' } : {};
 ---
 {
   'href' in rest && rest.href !== undefined ? (
-    <a class:list={classes} {...(rest as HTMLAttributes<'a'>)}><slot /></a>
+    <a class:list={classes} {...(rest as HTMLAttributes<'a'>)} {...newTabAttrs}><slot />{newTab && <NewTabNotice label={newTab} />}</a>
   ) : (
     <button type="button" class:list={classes} {...(rest as HTMLAttributes<'button'>)}><slot /></button>
   )
