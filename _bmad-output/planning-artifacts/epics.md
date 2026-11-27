@@ -12,6 +12,9 @@ inputDocuments:
   - _bmad-output/planning-artifacts/architecture/architecture-portfolio-2026-11-25/architecture-explainer.md
   - _bmad-output/planning-artifacts/briefs/brief-portfolio-2026-11-25/brief.md
   - docs/content-inventory.md
+  - docs/sprite/
+revisions:
+  - "2026-11-26: targeted update: D16 term dates (7.5), 10-frame sprite map (8.2), sprite story unblocked (8.3), Glance Card <h1> (2.2), new-tab notice (2.2, 2.5)"
 ---
 
 # The Fab Line (portfolio): Epic Breakdown
@@ -407,6 +410,8 @@ So that I can decide in seconds, with the résumé one click away.
   - **102.6 nm** "SiNₓ film I made" (inv §6.1)
 
 **And** there are exactly two buttons: **▶ Start** (grass) and **Résumé** (gold, opens the PDF in a new tab: 1 click) (FR1, FR2)
+**And** the Résumé button shows a small new-tab icon (`aria-hidden`) plus screen-reader text "(opens in a new tab)" (rev 2026-11-26, Story 2.1 note)
+**And** "Sneha Islam" is the page's one and only `<h1>`; `/next` has no `<h1>` today (rev 2026-11-26, Story 2.1 note)
 **And** visible words, excluding button labels, are ≤30, and Proof Tile labels are ≤6 words each (UX-DR19)
 **And** the portrait's alt text is "Illustration of Sneha Islam: long wavy brown hair, round glasses, smiling."
 **And** the fact audit passes on all Glance Card text
@@ -484,6 +489,7 @@ So that I never have to scroll back or hunt for them.
 
 **And** the HUD is hidden while the Glance Card is in view, since that screen has its own Résumé button. This needs viewport observation, so this story creates the **first, minimal `islands/TrackController.tsx`** (the only viewport observer, AD-5), which only tracks `glanceInView`; Story 3.5 extends it (party decision)
 **And** Résumé opens `/Sneha_Islam_Resume.pdf` in a new tab in **1 click**; LinkedIn and GitHub open in a new tab; Email copies the address and announces "Copied" in a polite live region, with a selectable-text fallback if the clipboard is denied (FR23, UX-DR25)
+**And** every control that opens a new tab (Résumé, LinkedIn, GitHub) carries the same new-tab icon (`aria-hidden`) and screen-reader text "(opens in a new tab)" as the Glance Card's Résumé button (rev 2026-11-26)
 **And** Motion calls `setMotion` and behaves like `prefers-reduced-motion` (FR24)
 
 **Given** a viewport below 600 px
@@ -941,7 +947,8 @@ So that I see the arc of her experience at a glance.
 - **→ Next · 1:** 8-month co-op · Jan–Aug 2027
 
 (FR16)
-**And** the Path milestones (Nov 2026 open-source sprint, Fall 2026 3B, 2025 3A, Sep 2023 started BASc) appear in the timeline as milestone rows, not counted as Quests (D15)
+**And** the Path milestones (Nov 2026 open-source sprint, Fall 2026 3B, Spring 2026 3A, Sep 2023 started BASc) appear in the timeline as milestone rows, not counted as Quests (D15, D16)
+**And** the 4 course projects (NE 343 MIS capacitor, MSE 261, NE 333, NE 318) are dated **Spring 2026** and the capstone **Fall 2026**, and the legacy "2025 · 3A" appears nowhere in the game; the fact audit checks these dates (D16)
 **And** there is no separate Path section
 **And** there is **no Engineering Ambassador entry** (D10)
 **And** each Quest row links to its Level Card (FR17)
@@ -1018,11 +1025,11 @@ So that the portfolio feels like her adventure.
 - **thinking** (a thought-bubble chip while `openOverlay` is an Inspect panel)
 - **celebrate** (a 700 ms hop + sparkle squares when an achievement unlocks)
 
-**And** the engine accepts an optional PNG sprite sheet config (`public/assets/character/sprite.png` + `sprite.json` frame map: idle, walk×4, thinking, celebrate×2) and, when present, renders frames at **integer ×2 scale** with `image-rendering: pixelated`
+**And** the engine accepts an optional PNG sprite sheet config (`public/assets/character/sprite.png` + `sprite.json` frame map: idle×2, walk×4, thinking×2, celebrate×2, i.e. 10 frames of 32×48 in one row, matching `docs/sprite/sneha-sprite.png`) and, when present, renders frames at **integer ×2 scale** with `image-rendering: pixelated`
 **And** under `data-motion="off"` the marker shows a static idle frame only (NFR-7)
 **And** total JS stays ≤100 KB gzip
 
-### Story 8.3: Sneha's pixel art goes in *(starts when Sneha delivers the sprite sheet)*
+### Story 8.3: Sneha's pixel art goes in *(first version in docs/sprite/)*
 
 As a recruiter,
 I want the character to look like Sneha,
@@ -1030,7 +1037,7 @@ So that the game feels personal.
 
 **Acceptance Criteria:**
 
-**Given** Sneha's sprite sheet, made to the EXPERIENCE §12 brief: 32×48 native, ≤16 colours, 1 px black outline, recognisably her (wavy dark-brown hair, round glasses, lab coat), original, not resembling any existing character
+**Given** the first-version sheet `docs/sprite/sneha-sprite.png` (10 frames: idle×2, walk×4, thinking×2, celebrate×2; redrawn by `python docs/sprite/make_sprite.py`), or a redraw by Sneha by hand or via that script with the same frame layout, made to the EXPERIENCE §12 brief: 32×48 native, ≤16 colours, 1 px black outline, recognisably her (wavy dark-brown hair, round glasses, lab coat), original, not resembling any existing character
 **When** `tools/images.py` processes it into `public/assets/character/sprite.png` (≤20 KB) and `sprite.json`
 **Then** the Sprite island uses it automatically, with no code change beyond the config (Story 8.2)
 **And** every state reads clearly at 64×96, and the fallback marker is no longer shown
