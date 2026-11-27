@@ -215,4 +215,12 @@ export const uiSchema = z.strictObject({
   gameTitle: text,
   workInProgress: text,
   buildingBlocks: text,
+  charClass: text,
+  charSchool: text,
+  charHome: text,
+  charNextQuest: text,
+  charEquipment: text,
+  charInterests: text,
+  training: text,
+  courses: text,
 });

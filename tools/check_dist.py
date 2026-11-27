@@ -20,6 +20,8 @@ Usage: python tools/check_dist.py [legacy/index.html] [dist]
    - the CSS defines a .sr-only rule (the shared new-tab notice relies on it)
 4. /next page structure (Story 2.2), on dist/next/index.html:
    - #glance has a data-next naming an element id that exists (the target ▶ Start and the keys advance to)
+   - that target is the Character Card (Story 2.3): data-next="character", a <section id="character">
+     after #glance and before #track in document order
    - exactly one <h1> on the page
 
 Exits 0 when everything holds; exits 1 and lists every problem otherwise.
@@ -230,6 +232,14 @@ def check_next_page(html: str, name: str = NEXT_PAGE) -> list[str]:
         problems.append(f"{name}: no #glance with a data-next target")
     elif target not in ids:
         problems.append(f"{name}: #glance data-next={target!r} names no element id")
+    if glance and target != "character":
+        problems.append(f"{name}: #glance data-next={target!r}, expected 'character'")
+    order = [e.attrs.get("id") for e in page.elements]
+    card = [e for e in page.elements if e.attrs.get("id") == "character"]
+    if not card or card[0].tag != "section":
+        problems.append(f"{name}: no <section id=\"character\">")
+    elif not (glance and "track" in order and order.index("glance") < order.index("character") < order.index("track")):
+        problems.append(f"{name}: #character must come after #glance and before #track")
     h1s = len(page.find("h1"))
     if h1s != 1:
         problems.append(f"{name}: expected exactly one <h1>, found {h1s}")

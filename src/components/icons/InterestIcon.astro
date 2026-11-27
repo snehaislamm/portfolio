@@ -1,0 +1,89 @@
+---
+/**
+ * Interest icons (Story 2.3): the 4 legacy line icons (legacy/index.html, viewBox 0 0 48 48, stroke 1.6),
+ * keyed by `profile.interests[].icon`. Strokes and fills use currentColor; the colour comes from a token
+ * per icon (atom = sky, film-stack = amethyst, node-graph = lava, line-chart = gold). Always decorative:
+ * the interest title next to it is the visible text.
+ */
+type Icon = 'atom' | 'film-stack' | 'node-graph' | 'line-chart';
+
+interface Props {
+  icon: Icon;
+}
+
+const { icon } = Astro.props;
+---
+<svg
+  class:list={['interest-icon', `interest-icon--${icon}`]}
+  viewBox="0 0 48 48"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.6"
+  aria-hidden="true"
+  focusable="false"
+>
+  {
+    icon === 'atom' && (
+      <>
+        <circle cx="24" cy="24" r="4" fill="currentColor" />
+        <ellipse cx="24" cy="24" rx="20" ry="8" />
+        <ellipse cx="24" cy="24" rx="20" ry="8" transform="rotate(60 24 24)" />
+        <ellipse cx="24" cy="24" rx="20" ry="8" transform="rotate(120 24 24)" />
+      </>
+    )
+  }
+  {
+    icon === 'film-stack' && (
+      <>
+        <rect x="6" y="30" width="36" height="8" />
+        <rect x="10" y="22" width="28" height="8" />
+        <rect x="16" y="14" width="16" height="8" />
+        <line x1="24" y1="4" x2="24" y2="14" />
+      </>
+    )
+  }
+  {
+    icon === 'node-graph' && (
+      <>
+        <circle cx="10" cy="24" r="4" />
+        <circle cx="38" cy="12" r="4" />
+        <circle cx="38" cy="36" r="4" />
+        <circle cx="24" cy="24" r="5" fill="currentColor" fill-opacity=".25" />
+        <line x1="14" y1="24" x2="19" y2="24" />
+        <line x1="28" y1="21" x2="34" y2="14" />
+        <line x1="28" y1="27" x2="34" y2="34" />
+      </>
+    )
+  }
+  {
+    icon === 'line-chart' && (
+      <>
+        <polyline points="4,38 14,28 22,32 32,16 44,10" />
+        <line x1="4" y1="44" x2="44" y2="44" />
+        <line x1="4" y1="4" x2="4" y2="44" />
+        <circle cx="32" cy="16" r="2.5" fill="currentColor" />
+      </>
+    )
+  }
+</svg>
+
+<style>
+  .interest-icon {
+    display: block;
+    flex: none;
+    width: 42px;
+    height: 42px;
+  }
+  .interest-icon--atom {
+    color: var(--color-sky);
+  }
+  .interest-icon--film-stack {
+    color: var(--color-amethyst);
+  }
+  .interest-icon--node-graph {
+    color: var(--color-lava);
+  }
+  .interest-icon--line-chart {
+    color: var(--color-gold);
+  }
+</style>
