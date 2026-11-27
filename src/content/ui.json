@@ -2,6 +2,7 @@
   "ui": {
     "resume": "Résumé",
     "resumePdf": "Résumé (PDF)",
+    "opensInNewTab": "(opens in a new tab)",
     "start": "▶ Start",
     "inspect": "Inspect ▸",
     "showMore": "Show more ▾",

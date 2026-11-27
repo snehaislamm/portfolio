@@ -12,9 +12,9 @@
       "source": "inv §18 D4"
     },
     "proofTiles": [
-      { "value": "1,200+", "label": "companies covered", "quest": "ai/communitech", "source": "inv §5.1" },
-      { "value": "±2%", "label": "state-of-charge accuracy", "quest": "power/battery-wc", "source": "inv §5.3" },
-      { "value": "102.6 nm", "label": "SiNₓ film (ellipsometry)", "quest": "cleanroom/mis-capacitor", "source": "inv §6.1" }
+      { "value": "1,200+", "label": "companies covered, AI I shipped", "quest": "ai/communitech", "source": "inv §5.1" },
+      { "value": "±2%", "label": "SoC accuracy, EV battery", "quest": "power/battery-wc", "source": "inv §5.3" },
+      { "value": "102.6 nm", "label": "SiNₓ film I made", "quest": "cleanroom/mis-capacitor", "source": "inv §6.1" }
     ],
     "character": {
       "institution": "University of Waterloo",

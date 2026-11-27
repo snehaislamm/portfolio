@@ -14,10 +14,10 @@ OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).parent
 # Palette (DESIGN.md tokens where possible), <=16 colours incl. transparent.
 PAL = {
     "K": (0x00, 0x00, 0x00),  # outline (edge)
-    "H": (0x3E, 0x27, 0x16),  # hair dark / pupils
-    "h": (0x6E, 0x48, 0x24),  # hair light (dirt-dark)
-    "S": (0xEC, 0xB8, 0x8C),  # skin
-    "s": (0xC9, 0x8E, 0x63),  # skin shade / smile
+    "H": (0x2A, 0x1A, 0x0F),  # hair dark / pupils
+    "h": (0x4E, 0x33, 0x1C),  # hair light (highlight strands)
+    "S": (0xD9, 0xA0, 0x74),  # skin
+    "s": (0xB3, 0x77, 0x4E),  # skin shade / smile
     "T": (0x2B, 0x2A, 0x25),  # black top (panel)
     "C": (0xE6, 0xEE, 0xF2),  # lab coat (snow)
     "c": (0xB5, 0xB5, 0xAE),  # coat shade (stone-light)
@@ -39,11 +39,11 @@ HEAD = [
     "......HHhHHHHHHHHHHHHHhHH.......",
     "......HhHHHHHHHHHHHHHHHHH.......",
     "......HhHHHHSSHHHSSSSHHHH.......",
-    "......HhHHSllllSllllSSSHH.......",
-    "......HhHHSlSHlllSHlSSSHH.......",
-    "......HhHHSlSHlSlSHlSSSHH.......",
-    "......HhHHSllllSllllSSSSH.......",
-    "......HhHHSSSSSSSSSSSSSSH.......",
+    "......HhHHSlllSSSlllSSSHH.......",
+    "......HhHHlSHSlllSHSlSSHH.......",
+    "......HhHHlSHSlSlSHSlSSHH.......",
+    "......HhHHlSSSlSlSSSlSSSH.......",
+    "......HhHHSlllSSSlllSSSSH.......",
     "......HhHHSSSSSSSSSSSSSH........",
     "......HhHHHSSSSSssSSSSHH........",
     "......HhhHHHSSSSSSSSSHHH........",
@@ -104,6 +104,12 @@ def body(f: Frame, bob: int = 0, hem: int = 0) -> None:
     for y in range(19 + b, 34 + b):
         f.put(12, y, "c"); f.put(19, y, "c")
     f.put(10, 33 + b, "c"); f.put(21, 33 + b, "c")
+    # UWaterloo colours badge on the viewer's left: gold / black stripe / gold (not the real crest)
+    f.rect(10, 21 + b, 11, 21 + b, "Y"); f.rect(10, 22 + b, 11, 22 + b, "K")
+    f.rect(10, 23 + b, 11, 23 + b, "Y"); f.rect(10, 24 + b, 11, 24 + b, "y")
+    # patch pocket on the viewer's right, low on the coat
+    f.rect(20, 29 + b, 21, 29 + b, "c"); f.rect(20, 32 + b, 21, 32 + b, "c")
+    f.put(21, 30 + b, "c"); f.put(21, 31 + b, "c")
     # skirt below the coat: long, pale gold, slight flare
     for i, y in enumerate(range(34 + b, 45)):
         flare = 1 if i >= 5 else 0

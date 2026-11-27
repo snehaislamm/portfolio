@@ -179,6 +179,7 @@ export const achievementSchema = z.strictObject({
 export const uiSchema = z.strictObject({
   resume: text,
   resumePdf: text,
+  opensInNewTab: text,
   start: text,
   inspect: text,
   showMore: text,

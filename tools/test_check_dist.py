@@ -34,7 +34,8 @@ def built(head: str = f"{FONT}{STYLE.replace(chr(13), '')}", body: str = f"{BODY
     return f'<!DOCTYPE html><html><head><meta charset="UTF-8"><title>T</title>{head}</head><body>{body}{analytics}</body></html>'
 
 
-NEXT = built(head="", body="<p>wip</p>")
+NEXT_BODY = '<main><section id="glance" data-next="track"><h1>N</h1></section><div id="track"></div></main>'
+NEXT = built(head="", body=NEXT_BODY)
 
 
 class CheckDistTest(unittest.TestCase):
@@ -80,7 +81,7 @@ class CheckDistTest(unittest.TestCase):
 
     def test_extra_island_module_script_passes(self) -> None:
         island = '<script type="module" src="/_astro/client.xyz.js"></script>'
-        self.assertEqual(self.problems(built(), built(head="", body=island)), [])
+        self.assertEqual(self.problems(built(), built(head="", body=NEXT_BODY + island)), [])
         # On / an island is not an analytics problem, but it is a parity change to the legacy body.
         self.assertEqual(
             self.problems(built(body=f"{island}{BODY}{SCRIPT}")),
@@ -107,10 +108,10 @@ class CheckDistTest(unittest.TestCase):
 
     # --- rule 3: /next styles ---------------------------------------------------
     NEXT_LINK = '<link rel="stylesheet" href="/_astro/next.abc.css">'
-    GOOD_CSS = ":root{--color-coal:#1a1a17}@font-face{src:url(/_astro/mono.x1.woff2) format('woff2')}"
+    GOOD_CSS = ":root{--color-coal:#1a1a17}.sr-only{position:absolute}@font-face{src:url(/_astro/mono.x1.woff2) format('woff2')}"
 
     def next_problems(self, head: str = NEXT_LINK, css: dict[str, str | None] | None = None) -> list[str]:
-        nxt = built(head=head, body="<p>wip</p>")
+        nxt = built(head=head, body=NEXT_BODY)
         return check_dist.check(LEGACY, {"index.html": built(), "next/index.html": nxt},
                                 {"/_astro/next.abc.css": self.GOOD_CSS} if css is None else css)
 
@@ -138,6 +139,30 @@ class CheckDistTest(unittest.TestCase):
     def test_next_no_tokens_fails(self) -> None:
         css = {"/_astro/next.abc.css": "@font-face{src:url(/_astro/mono.x1.woff2)}"}
         self.assertFails(self.next_problems(css=css), "does not define --color-coal")
+
+    def test_next_no_sr_only_fails(self) -> None:
+        css = {"/_astro/next.abc.css": self.GOOD_CSS.replace(".sr-only", ".sr-only-ish")}
+        self.assertFails(self.next_problems(css=css), "CSS defines no .sr-only rule")
+
+    # --- rule 4: /next page structure -------------------------------------------
+    def test_next_page_structure_passes(self) -> None:
+        self.assertEqual(check_dist.check_next_page(NEXT), [])
+
+    def test_next_glance_target_missing_fails(self) -> None:
+        nxt = built(head="", body=NEXT_BODY.replace('id="track"', 'id="trak"'))
+        self.assertFails(self.problems(built(), nxt), "#glance data-next='track' names no element id")
+
+    def test_next_no_glance_fails(self) -> None:
+        nxt = built(head="", body="<main><h1>N</h1></main>")
+        self.assertFails(self.problems(built(), nxt), "no #glance with a data-next target")
+
+    def test_next_two_h1_fails(self) -> None:
+        nxt = built(head="", body=NEXT_BODY + "<h1>again</h1>")
+        self.assertFails(self.problems(built(), nxt), "expected exactly one <h1>, found 2")
+
+    def test_next_no_h1_fails(self) -> None:
+        nxt = built(head="", body=NEXT_BODY.replace("<h1>N</h1>", ""))
+        self.assertFails(self.problems(built(), nxt), "expected exactly one <h1>, found 0")
 
     def test_main_reports_missing_dist(self) -> None:
         legacy = Path(__file__).resolve().parents[1] / "legacy" / "index.html"
