@@ -116,7 +116,7 @@ New diagrams follow DESIGN.md (thin strokes, mono labels, Station colour) and **
 ## 6. Component patterns (behaviour)
 | Component | Behaviour |
 |---|---|
-| **HUD** | Always on screen after the Glance Card. **Résumé** opens the PDF in a new tab (1 click). The Email icon copies the address and shows "Copied", and the address also appears in a tooltip. LinkedIn and GitHub open in a new tab. "More" opens a menu: Motion on/off · Skill Tree · Quest Log. It hides nothing that's needed for SM-1. |
+| **HUD** | Always on screen after the Glance Card. **Résumé** opens the PDF in a new tab (1 click). The Email icon copies the address and shows "Copied", and the address also appears in a tooltip. LinkedIn and GitHub open in a new tab. "More" opens a menu: Motion on/off · Sound on/off · Skill Tree · Quest Log. Sound is off by default (D17). It hides nothing that's needed for SM-1. |
 | **Mini-map** | Nodes are buttons, labelled by Station name. Click → smooth scroll (instant under reduced motion) and the hash updates. The current node has `aria-current="step"`. Visited state is kept for the session only. |
 | **Dialogue box** | Appears with the Station's arrival. It is static text with no typewriter effect, and it never needs a click to dismiss. |
 | **Level Card** | The whole card is not clickable; only its buttons are, to avoid accidental opens while scrolling. **Inspect ▸** opens the drawer at L1. Inside the drawer, "Show more ▾" reveals L2, then L3 (FR-13). |
@@ -176,9 +176,20 @@ Overlays trap focus and restore it on close.
 | Locked door nudge | 300 ms | None |
 | Mini-map jump | Native smooth scroll | Instant jump |
 
+**Sound cues (D17, FR-32; all off by default, synthesized, ≤300 ms, master volume ≤30%):**
+
+| Cue | Trigger | Character |
+|---|---|---|
+| Place | ▶ Start | Short filtered-noise click + low thud, like setting down a block |
+| Thunk | Inspect opens | Hollow wooden knock, a slight pitch drop |
+| Pop | Achievement unlocks | Two-note rising blip, soft attack |
+| Step | Sprite walk frame (max 1 / 350 ms; none when motion is off) | Very quiet gravel crunch, slight random pitch |
+| Knock | Locked door selected | Two dull taps |
+
 **Never:** parallax on more than one layer, motion tied to scroll velocity, camera shake, flashing (>3 flashes per second), or autoplaying sound.
 
 ## 10. Accessibility floor
+- **Sound:** never carries information that isn't also on screen; the Sound toggle is a keyboard-reachable `aria-pressed` button (D17).
 - **Contrast:** WCAG 2.1 AA. Text uses `{colors.text}`, `{colors.muted}` and `{colors.dim}` only (all ≥4.5:1 on `{colors.panel}`, `{colors.inset}` and `{colors.coal}`). `{colors.dirt}` and `{colors.stone}` are never used for text. Status is never shown by colour alone.
 - **Landmarks:** `header` (HUD), `nav` (Mini-map, labelled "Track"), `main` (Track), each Station a `section` with `aria-labelledby` pointing at its title.
 - **Diagram alt text:**

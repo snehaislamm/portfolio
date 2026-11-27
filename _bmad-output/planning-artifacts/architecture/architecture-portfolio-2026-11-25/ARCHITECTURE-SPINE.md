@@ -82,7 +82,7 @@ Arrows point from dependency to dependent. Nothing depends on `src/islands`. `sr
 - **Binds:** FR-7, FR-18, FR-22, FR-24
 - **Prevents:** two islands tracking visits or achievements separately, and storage written from many places
 - **Rule:**
-  - **The store:** one nanostores module holds `motion`, `currentStation`, `visitedStations`, `viewedQuests`, `unlockedAchievements` and `openOverlay`. Islands read through `@nanostores/react` and change state only by calling exported actions.
+  - **The store:** one nanostores module holds `motion`, `sound`, `currentStation`, `visitedStations`, `viewedQuests`, `unlockedAchievements` and `openOverlay`. Islands read through `@nanostores/react` and change state only by calling exported actions.
   - **Persistence:** goes through one adapter wrapped in try/catch. The motion preference uses `localStorage`. Progress uses `sessionStorage` (PRD FR-7; confirmed by Sneha).
   - **Achievement rules:** live in `src/game/achievements.ts` as data (`trigger: "<station>/<item>" | screen slug`), never inside islands.
   - **Viewport observation:** only `islands/TrackController.tsx` observes it (one `IntersectionObserver`, 50% threshold) and calls `markVisited` / `markViewed`. No other island decides what has been seen.
@@ -146,6 +146,11 @@ Arrows point from dependency to dependent. Nothing depends on `src/islands`. `sr
 - **Binds:** NFR-10, D12
 - **Prevents:** extra trackers and cookies
 - **Rule:** `<Analytics />` from `@vercel/analytics/astro` appears only in `src/layouts/Base.astro`. No other analytics, tracking or third-party scripts.
+
+### AD-14: One sound switch, one sound module *(D17)*
+- **Binds:** FR-32, UX §9 sound cues
+- **Prevents:** sounds that play while off, audio files creeping in, sound code costing bytes for visitors who never enable it
+- **Rule:** `src/game/sound.ts` is the only audio code. It synthesizes every cue with Web Audio (oscillators + filtered noise) and exposes `playCue(name)`. Islands call `playCue` only via a tiny wrapper that is a no-op while `state.sound` is false; `sound.ts` is dynamically imported on the first switch-on, and the `AudioContext` is created inside that user gesture. No files under `public/` are audio. Chunk ≤3 KB gzip.
 
 ## Consistency Conventions
 
@@ -242,6 +247,7 @@ There are two environments, Preview (per PR) and Production (`main`). There are 
 | Inspect L1–L3, easter eggs (FR-13, FR-14) | `LevelCard.astro` (content) + `islands/InspectDrawer.tsx` (reveal) | AD-1, AD-5, AD-6 |
 | Skill Tree, Quest Log, XP (FR-15…FR-18) | `islands/SkillTree.tsx`, `islands/QuestLog.tsx`, `game/state.ts` | AD-2, AD-3, AD-5 |
 | Achievements (FR-22) | `game/achievements.ts` + `islands/Toasts.tsx` | AD-5, AD-7 |
+| Sound effects (FR-32) | `game/sound.ts` + HUD "More" toggle | AD-5, AD-14 |
 | HUD, Mini-map, motion toggle (FR-23, FR-24, FR-7, FR-8) | `islands/Hud.tsx` (static fallback nav in `Base.astro`) | AD-4, AD-5, AD-6, AD-7 |
 | Progressive depth, no-JS (FR-25, FR-27) | `LevelCard.astro` `<details>` + `islands/InspectDrawer.tsx`; `Base.astro` motion script | AD-1, AD-4 |
 | Deep links, copy link (FR-28, FR-29) | `game/router.ts` | AD-3, AD-6 |

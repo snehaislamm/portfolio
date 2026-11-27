@@ -23,6 +23,12 @@ Usage: python tools/check_dist.py [legacy/index.html] [dist]
    - that target is the Character Card (Story 2.3): data-next="character", a <section id="character">
      after #glance and before #track in document order
    - exactly one <h1> on the page
+5. Motion preference (Story 2.4, AD-7):
+   - dist/next/index.html: <html data-motion="off"> (the no-JS default) and an inline <head> <script> that
+     reads "fabline:motion" and sets data-motion, placed before every <head> stylesheet <link> and <style>
+     (so it runs before first paint)
+   - exactly one such script, and it is classic (no src; no type, empty, or text/javascript), not a module
+   - dist/index.html (legacy): neither the data-motion attribute nor the motion script
 
 Exits 0 when everything holds; exits 1 and lists every problem otherwise.
 """
@@ -246,6 +252,57 @@ def check_next_page(html: str, name: str = NEXT_PAGE) -> list[str]:
     return problems
 
 
+MOTION_KEY = "fabline:motion"
+
+
+CLASSIC_SCRIPT_TYPES = ("", "text/javascript")
+
+
+def motion_scripts(page: Page) -> list[Element]:
+    """<head> scripts mentioning the stored motion preference and data-motion (any type, inline or not)."""
+    return [e for e in page.find("script", body=False) if MOTION_KEY in e.text and "data-motion" in e.text]
+
+
+def is_blocking_inline(el: Element) -> bool:
+    """A classic inline script (no src; no type, empty, or text/javascript): runs before first paint."""
+    kind = (el.attrs.get("type") or "").strip().lower()
+    return "src" not in el.attrs and kind in CLASSIC_SCRIPT_TYPES
+
+
+def check_motion(html: str, name: str, *, expected: bool) -> list[str]:
+    page = parse(html)
+    problems: list[str] = []
+    roots = page.find("html")
+    has_attr = bool(roots) and "data-motion" in roots[0].attrs
+    scripts = motion_scripts(page)
+    if not expected:
+        if has_attr:
+            problems.append(f"{name}: <html> must not carry data-motion (legacy page)")
+        if scripts:
+            problems.append(f"{name}: must not include the motion head script (legacy page)")
+        return problems
+    value = roots[0].attrs.get("data-motion") if roots else None
+    if value != "off":
+        problems.append(f'{name}: expected <html data-motion="off"> (no-JS default), found {value!r}')
+    if len(scripts) > 1:
+        problems.append(f"{name}: expected exactly one motion head script, found {len(scripts)}")
+    blocking = [e for e in scripts if is_blocking_inline(e)]
+    if not blocking:
+        problems.append(
+            f"{name}: no inline <head> motion script (classic, no src/type; reads {MOTION_KEY!r}, sets data-motion)"
+        )
+    if len(scripts) != 1 or not blocking:
+        return problems
+    first_script = page.elements.index(scripts[0])
+    for el in page.elements[:first_script]:
+        if el.in_body:
+            break
+        if el.tag == "style" or (el.tag == "link" and "stylesheet" in (el.attrs.get("rel") or "").split()):
+            problems.append(f"{name}: the motion head script must come before every stylesheet <link> and <style>")
+            break
+    return problems
+
+
 def check(legacy_html: str, pages: dict[str, str], next_css: dict[str, str | None] | None = None) -> list[str]:
     """`pages` maps a dist-relative path (see PAGES) to its HTML; `next_css` (href -> CSS text) enables rule 3."""
     problems = check_parity(legacy_html, pages["index.html"]) if "index.html" in pages else []
@@ -253,6 +310,9 @@ def check(legacy_html: str, pages: dict[str, str], next_css: dict[str, str | Non
         problems += check_analytics(html, name)
     if NEXT_PAGE in pages:
         problems += check_next_page(pages[NEXT_PAGE])
+        problems += check_motion(pages[NEXT_PAGE], NEXT_PAGE, expected=True)
+    if "index.html" in pages:
+        problems += check_motion(pages["index.html"], "index.html", expected=False)
     if next_css is not None and NEXT_PAGE in pages:
         problems += check_next_styles(pages[NEXT_PAGE], next_css)
     return problems
@@ -290,7 +350,7 @@ def main(argv: list[str]) -> int:
         for problem in problems:
             print(f"  - {problem}", file=sys.stderr)
         return 1
-    print(f"OK: legacy parity and analytics hold for {', '.join(PAGES)}, and {NEXT_PAGE} styles are self-hosted with .sr-only, and #glance/<h1> hold, in {dist}")
+    print(f"OK: legacy parity and analytics hold for {', '.join(PAGES)}, and {NEXT_PAGE} styles are self-hosted with .sr-only, and #glance/<h1> and the motion head script hold, in {dist}")
     return 0
 
 
