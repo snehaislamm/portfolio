@@ -2,17 +2,19 @@
 /**
  * The one layout. Owns <html>, charset/viewport, <title> and analytics.
  * <Analytics /> lives here and nowhere else (AD-13).
+ * `htmlAttrs` (optional) adds attributes to <html>; `/` (legacy) never passes it, so its output is unchanged.
  */
 import Analytics from '@vercel/analytics/astro';
 
 interface Props {
   title: string;
+  htmlAttrs?: { 'data-motion'?: 'on' | 'off' };
 }
 
-const { title } = Astro.props;
+const { title, htmlAttrs = {} } = Astro.props;
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" {...htmlAttrs}>
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

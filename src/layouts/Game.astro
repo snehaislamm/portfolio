@@ -3,6 +3,11 @@
  * The Fab Line layout (/next): wraps Base and loads the Block Biome styles.
  * Tokens, fonts and base styles are imported here and never from Base.astro, so `/` (legacy) gains no
  * <link> or <style> (Story 1.2 parity check).
+ *
+ * Motion (Story 2.4, AD-7): the markup default is `<html data-motion="off">` (no-JS visitors get a still
+ * page). The blocking inline script below runs first in <head>, before any stylesheet, and sets
+ * `data-motion` before first paint. It must resolve exactly like `resolveMotion()` in src/game/state.ts:
+ * stored "on"/"off" wins, else prefers-reduced-motion (reduce -> off), any error -> off.
  */
 import Base from './Base.astro';
 import '../styles/tokens.css';
@@ -15,7 +20,28 @@ interface Props {
 
 const { title } = Astro.props;
 ---
-<Base title={title}>
+<Base title={title} htmlAttrs={{ 'data-motion': 'off' }}>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        var m = 'off';
+        var s = null;
+        try {
+          s = window.localStorage.getItem('fabline:motion');
+        } catch (e) {}
+        if (s === 'on' || s === 'off') {
+          m = s;
+        } else {
+          try {
+            m = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'off' : 'on';
+          } catch (e) {
+            m = 'off';
+          }
+        }
+        document.documentElement.setAttribute('data-motion', m);
+      })();
+    </script>
+  </Fragment>
   <slot name="head" slot="head" />
   <slot />
 </Base>

@@ -58,6 +58,7 @@ FR28: Deep links `#<station>` and `#<station>/<item>` scroll to the target and o
 FR29: Each Level Card has "Copy link", with text confirmation, and shows the URL if clipboard access fails.
 FR30: The Fact Audit build gate fails CI if any number, Character Line or Caption is missing from the inventory, or banned content appears (teammate names, built/tested/working device near the capstone, planned course codes). It reports the string and file, and is implemented in Python.
 FR31: All copy and metrics live in one structured content source rendered by both modes and checked by the Fact Audit.
+FR32: Sound effects (D17): opt-in, off by default, synthesized Minecraft-inspired cues; no files, no music, no autoplay.
 
 ### NonFunctional Requirements
 
@@ -221,6 +222,7 @@ FR26: Removed by D15
 FR28: Epic 3 - Deep links
 FR29: Epic 3 - Copy link
 FR30, FR31: Epic 1 - Fact audit, single content source
+FR32: Epic 8 - Sound effects (Story 8.6)
 NFR1, NFR10, NFR12: Epic 1 onward
 NFR2–NFR9, NFR11: CI from Epic 1; release gate at the Epic 3 cutover; full verification in Epic 9
 
@@ -255,8 +257,8 @@ The Mini-map, keyboard travel, the Skill Tree (skills as proof), the Quest Log (
 **Stories:** 6
 
 ### Epic 8: Delight
-Achievements, Sneha's sprite, the world coming alive, and real-fact easter eggs. Every effect respects the motion switch.
-**Stories:** 5
+Achievements, Sneha's sprite, the world coming alive, real-fact easter eggs, and opt-in sound effects. Every effect respects the motion switch, and every sound the sound switch.
+**Stories:** 6
 
 ### Epic 9: Polish for every recruiter
 Phone, accessibility, release performance and the browser matrix are verified and fixed. Link previews already shipped in Story 2.6.
@@ -980,7 +982,7 @@ So that I know what I haven't seen yet.
 
 ## Epic 8: Delight
 
-Achievements, Sneha's sprite, the world coming alive, and real-fact easter eggs. Every effect respects the motion switch. *Shippable after every story.*
+Achievements, Sneha's sprite, the world coming alive, real-fact easter eggs, and opt-in sound effects. Every effect respects the motion switch, and every sound the sound switch. *Shippable after every story.*
 
 ### Story 8.1: Achievements and toasts
 
@@ -1096,6 +1098,33 @@ So that exploring feels worthwhile.
 - **Hardworking:** Quest Log + XP full of shipped work
 
 **And** each of these is recorded as verified in the PR description
+
+### Story 8.6: Sound effects, off by default *(D17)*
+
+As a recruiter who enjoys the game,
+I want short, blocky sound effects I can switch on,
+So that the world feels alive without ever surprising me with noise.
+
+**Acceptance Criteria:**
+
+**Given** the HUD "More" menu
+**When** it opens
+**Then** it shows a **Sound on/off** `aria-pressed` button (labels from `ui.json`) next to Motion; sound is **off** by default, `setSound` in `state.ts` is the only way to change it, and the choice persists at `localStorage["fabline:sound"]` via `storage.ts` (blocked storage → off) (FR32, AD-5)
+
+**Given** sound is off (the default)
+**When** any cue would fire
+**Then** nothing plays, no `AudioContext` exists, and `src/game/sound.ts` has not been fetched (verified in the Network panel and by a Vitest test of the wrapper) (AD-14)
+
+**Given** the visitor turns sound on
+**When** they press ▶ Start, open Inspect, unlock an Achievement, walk the Track, or select the locked door
+**Then** the matching cue plays per UX §9 (Place, Thunk, Pop, Step ≤1 / 350 ms and none when motion is off, Knock), each ≤300 ms at master gain ≤0.3
+**And** every cue is synthesized (oscillators + filtered noise); no audio file exists in the repo, and the PR notes confirm no Minecraft samples or recreations were used (D17)
+**And** no cue loops, nothing autoplays, and no information is conveyed by sound alone
+
+**Given** the CI gate
+**When** the PR runs
+**Then** the sound chunk is ≤3 KB gzip, total JS ≤100 KB, and Lighthouse a11y ≥0.9
+**And** Sneha signs off on how the cues sound in the Vercel Preview before merge
 
 ## Epic 9: Polish for every recruiter
 

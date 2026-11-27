@@ -71,7 +71,7 @@ General gamers looking for a challenge; anyone expecting accounts, saves or comp
 - **Quest Log:** the timeline of Quests and Path items with their status.
 - **Achievement:** a toast unlocked by viewing a specific real fact. There are 5 in total.
 - **XP Bar:** the share of the 17 Quests the visitor has viewed.
-- **HUD:** the persistent overlay holding Résumé, contact icons, the motion toggle, the Mini-map and progress.
+- **HUD:** the persistent overlay holding Résumé, contact icons, the motion and sound toggles, the Mini-map and progress.
 - **Mini-map:** the HUD's compact Track diagram, showing the current location and the Stations visited.
 - **Skill Tree:** skills grouped as on the site; each **Skill Node** links to the Level Cards that prove it.
 - **Deep Link:** a URL hash `#<station>/<item>` that opens a specific Station or Level Card.
@@ -308,6 +308,16 @@ The visitor can turn animation off.
 - The default follows the OS setting.
 - The choice is kept in `localStorage`, wrapped in try/catch.
 
+#### FR-32: Sound effects (D17)
+The visitor can turn on short, original, Minecraft-inspired sound effects.
+**Acceptance:**
+- **Off by default** on every first visit; turned on/off from the HUD "More" menu; the choice is kept in `localStorage`, wrapped in try/catch.
+- **Synthesized** with the Web Audio API at runtime; no audio files are shipped. Never real Minecraft sounds or recreations of them.
+- **Cues (each ≤300 ms):** ▶ Start = block place · Inspect open = wooden thunk · Achievement = soft pop · sprite walking = quiet footsteps (at most one per 350 ms) · locked Quantum Fab door = two dull knocks.
+- **Never** autoplays, never plays music or loops, and never carries information that isn't also shown on screen.
+- Footsteps follow the sprite: none when motion is off.
+- Zero cost when off: the sound code loads only after the visitor turns sound on.
+
 ### 5.11 One view, progressive depth (replaces Recruiter Mode, D15)
 
 #### FR-25: Progressive depth
@@ -368,12 +378,12 @@ All copy and metrics live in one structured content source that the page renders
 | NFR-7 | **Reduced motion** | `prefers-reduced-motion` or the Motion toggle removes all non-essential animation, with no content lost. |
 | NFR-8 | **Accessibility** | WCAG 2.1 **AA** (text contrast ≥4.5:1, UI ≥3:1). Lighthouse **Accessibility ≥90**. Diagrams have `role="img"` and `aria-label` or adjacent text. |
 | NFR-9 | **Real text, SEO and previews** | All content is in the pre-rendered DOM. `<title>` reads "Sneha Islam — Nanotechnology Engineering · Software & AI" (inv §1). Includes a meta description and Open Graph / Twitter tags. The OG image is a crop of the D1 art with no baked-in text *[ASSUMPTION]*. |
-| NFR-10 | **Privacy and analytics** | No cookies and no third-party trackers. The only analytics is **Vercel Web Analytics** (cookie-less page views, same-origin script, free Hobby plan; D12). It must not delay first paint, so it is loaded with `defer`. `localStorage` is used only for the mode and motion preferences. |
+| NFR-10 | **Privacy and analytics** | No cookies and no third-party trackers. The only analytics is **Vercel Web Analytics** (cookie-less page views, same-origin script, free Hobby plan; D12). It must not delay first paint, so it is loaded with `defer`. `localStorage` is used only for the motion and sound preferences. |
 | NFR-11 | **Browsers** | Latest two versions of Chrome, Edge, Firefox and Safari, plus iOS Safari 16+ *[ASSUMPTION]*. |
 | NFR-12 | **Resilience** | A JS error in the game layer must not hide content; the static baseline stays usable (FR-27). |
 
 ## 7. Not building (explicit)
-- Sound design or music. No audio at all in v1.
+- Music, ambient loops, voice or recorded audio files. Sound is limited to the opt-in synthesized effects of FR-32 (D17).
 - Multiplayer, leaderboards, accounts, login or saved games.
 - A 3D engine, WebGL scenes, physics or a canvas-based renderer.
 - A backend, serverless functions, contact forms, a CMS or a database.
@@ -397,7 +407,7 @@ All copy and metrics live in one structured content source that the page renders
 **Pillar checks (from the brief)**
 - **Curious:** 100% of Main Level Cards have Inspect L0–L3, and there are ≥3 easter eggs.
 - **Intelligent:** 100% of Main Level Cards lead with a diagram, and no game-view paragraph exceeds 40 words.
-- **Fun:** one Character Line of ≤12 words per Station, 5 Achievements, and no sound.
+- **Fun:** one Character Line of ≤12 words per Station, 5 Achievements, and sound **off by default** (FR-32).
 - **Hardworking:** the Quest Log shows 16 Completed / 1 Active / 1 Next exactly.
 
 **Counter-metrics (do not optimise)**

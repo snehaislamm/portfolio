@@ -30,15 +30,29 @@ ANALYTICS = (
 LEGACY = f"<!DOCTYPE html><html><head><title>T</title>\r\n{FONT}\r\n{STYLE}\r\n{VA}</head><body>{BODY}{SCRIPT}</body></html>"
 
 
-def built(head: str = f"{FONT}{STYLE.replace(chr(13), '')}", body: str = f"{BODY}{SCRIPT}", analytics: str = ANALYTICS) -> str:
-    return f'<!DOCTYPE html><html><head><meta charset="UTF-8"><title>T</title>{head}</head><body>{body}{analytics}</body></html>'
+def built(head: str = f"{FONT}{STYLE.replace(chr(13), '')}", body: str = f"{BODY}{SCRIPT}", analytics: str = ANALYTICS,
+          html_attrs: str = "") -> str:
+    return f'<!DOCTYPE html><html{html_attrs}><head><meta charset="UTF-8"><title>T</title>{head}</head><body>{body}{analytics}</body></html>'
+
+
+MOTION_SCRIPT = (
+    "<script>var s=localStorage.getItem('fabline:motion');"
+    "document.documentElement.setAttribute('data-motion',s==='on'?'on':'off');</script>"
+)
+MOTION_ATTRS = ' lang="en" data-motion="off"'
+
+
+def next_built(head: str = "", body: str = "", analytics: str = ANALYTICS, motion: str = MOTION_SCRIPT,
+               html_attrs: str = MOTION_ATTRS) -> str:
+    """A /next page: the motion head script first in <head>, then `head`."""
+    return built(head=f"{motion}{head}", body=body, analytics=analytics, html_attrs=html_attrs)
 
 
 NEXT_BODY = (
     '<main><section id="glance" data-next="character"><h1>N</h1></section>'
     '<section id="character"></section><div id="track"></div></main>'
 )
-NEXT = built(head="", body=NEXT_BODY)
+NEXT = next_built(body=NEXT_BODY)
 
 
 class CheckDistTest(unittest.TestCase):
@@ -74,7 +88,7 @@ class CheckDistTest(unittest.TestCase):
         self.assertFails(problems, "index.html: expected exactly one /_astro module <script>, found 0")
 
     def test_two_analytics_loaders_fails(self) -> None:
-        problems = self.problems(built(), built(head="", body="", analytics=ANALYTICS * 2))
+        problems = self.problems(built(), next_built(body="", analytics=ANALYTICS * 2))
         self.assertFails(problems, "next/index.html: expected exactly one <vercel-analytics>, found 2")
         self.assertFails(problems, "next/index.html: expected exactly one /_astro module <script>, found 2")
 
@@ -84,7 +98,7 @@ class CheckDistTest(unittest.TestCase):
 
     def test_extra_island_module_script_passes(self) -> None:
         island = '<script type="module" src="/_astro/client.xyz.js"></script>'
-        self.assertEqual(self.problems(built(), built(head="", body=NEXT_BODY + island)), [])
+        self.assertEqual(self.problems(built(), next_built(body=NEXT_BODY + island)), [])
         # On / an island is not an analytics problem, but it is a parity change to the legacy body.
         self.assertEqual(
             self.problems(built(body=f"{island}{BODY}{SCRIPT}")),
@@ -114,7 +128,7 @@ class CheckDistTest(unittest.TestCase):
     GOOD_CSS = ":root{--color-coal:#1a1a17}.sr-only{position:absolute}@font-face{src:url(/_astro/mono.x1.woff2) format('woff2')}"
 
     def next_problems(self, head: str = NEXT_LINK, css: dict[str, str | None] | None = None) -> list[str]:
-        nxt = built(head=head, body=NEXT_BODY)
+        nxt = next_built(head=head, body=NEXT_BODY)
         return check_dist.check(LEGACY, {"index.html": built(), "next/index.html": nxt},
                                 {"/_astro/next.abc.css": self.GOOD_CSS} if css is None else css)
 
@@ -152,15 +166,15 @@ class CheckDistTest(unittest.TestCase):
         self.assertEqual(check_dist.check_next_page(NEXT), [])
 
     def test_next_glance_target_missing_fails(self) -> None:
-        nxt = built(head="", body=NEXT_BODY.replace('id="character"', 'id="charactr"'))
+        nxt = next_built(body=NEXT_BODY.replace('id="character"', 'id="charactr"'))
         self.assertFails(self.problems(built(), nxt), "#glance data-next='character' names no element id")
 
     def test_next_glance_target_not_character_fails(self) -> None:
-        nxt = built(head="", body=NEXT_BODY.replace('data-next="character"', 'data-next="track"'))
+        nxt = next_built(body=NEXT_BODY.replace('data-next="character"', 'data-next="track"'))
         self.assertFails(self.problems(built(), nxt), "#glance data-next='track', expected 'character'")
 
     def test_next_character_not_a_section_fails(self) -> None:
-        nxt = built(head="", body=NEXT_BODY.replace('<section id="character"></section>', '<div id="character"></div>'))
+        nxt = next_built(body=NEXT_BODY.replace('<section id="character"></section>', '<div id="character"></div>'))
         self.assertFails(self.problems(built(), nxt), 'no <section id="character">')
 
     def test_next_character_before_glance_fails(self) -> None:
@@ -168,30 +182,91 @@ class CheckDistTest(unittest.TestCase):
             '<main><section id="character"></section><section id="glance" data-next="character"><h1>N</h1></section>'
             '<div id="track"></div></main>'
         )
-        self.assertFails(self.problems(built(), built(head="", body=body)), "#character must come after #glance and before #track")
+        self.assertFails(self.problems(built(), next_built(body=body)), "#character must come after #glance and before #track")
 
     def test_next_character_after_track_fails(self) -> None:
         body = (
             '<main><section id="glance" data-next="character"><h1>N</h1></section><div id="track"></div>'
             '<section id="character"></section></main>'
         )
-        self.assertFails(self.problems(built(), built(head="", body=body)), "#character must come after #glance and before #track")
+        self.assertFails(self.problems(built(), next_built(body=body)), "#character must come after #glance and before #track")
 
     def test_next_no_track_fails(self) -> None:
-        nxt = built(head="", body=NEXT_BODY.replace('<div id="track"></div>', ""))
+        nxt = next_built(body=NEXT_BODY.replace('<div id="track"></div>', ""))
         self.assertFails(self.problems(built(), nxt), "#character must come after #glance and before #track")
 
     def test_next_no_glance_fails(self) -> None:
-        nxt = built(head="", body="<main><h1>N</h1></main>")
+        nxt = next_built(body="<main><h1>N</h1></main>")
         self.assertFails(self.problems(built(), nxt), "no #glance with a data-next target")
 
     def test_next_two_h1_fails(self) -> None:
-        nxt = built(head="", body=NEXT_BODY + "<h1>again</h1>")
+        nxt = next_built(body=NEXT_BODY + "<h1>again</h1>")
         self.assertFails(self.problems(built(), nxt), "expected exactly one <h1>, found 2")
 
     def test_next_no_h1_fails(self) -> None:
-        nxt = built(head="", body=NEXT_BODY.replace("<h1>N</h1>", ""))
+        nxt = next_built(body=NEXT_BODY.replace("<h1>N</h1>", ""))
         self.assertFails(self.problems(built(), nxt), "expected exactly one <h1>, found 0")
+
+    # --- rule 5: motion preference ------------------------------------------------
+    def test_next_motion_passes(self) -> None:
+        self.assertEqual(check_dist.check_motion(NEXT, "next/index.html", expected=True), [])
+
+    def test_next_motion_before_stylesheet_passes(self) -> None:
+        self.assertEqual(self.next_problems(), [])
+
+    def test_next_no_motion_attr_fails(self) -> None:
+        nxt = next_built(body=NEXT_BODY, html_attrs=' lang="en"')
+        self.assertFails(self.problems(built(), nxt), 'expected <html data-motion="off">')
+
+    def test_next_motion_attr_on_fails(self) -> None:
+        nxt = next_built(body=NEXT_BODY, html_attrs=' data-motion="on"')
+        self.assertFails(self.problems(built(), nxt), "found 'on'")
+
+    def test_next_no_motion_script_fails(self) -> None:
+        nxt = next_built(body=NEXT_BODY, motion="")
+        self.assertFails(self.problems(built(), nxt), "no inline <head> motion script")
+
+    def test_next_motion_script_in_body_fails(self) -> None:
+        nxt = next_built(body=MOTION_SCRIPT + NEXT_BODY, motion="")
+        self.assertFails(self.problems(built(), nxt), "no inline <head> motion script")
+
+    def test_next_external_motion_script_fails(self) -> None:
+        ext = '<script src="/_astro/motion.js">/* fabline:motion data-motion */</script>'
+        nxt = next_built(body=NEXT_BODY, motion=ext)
+        self.assertFails(self.problems(built(), nxt), "no inline <head> motion script")
+
+    def test_next_module_motion_script_fails(self) -> None:
+        nxt = next_built(body=NEXT_BODY, motion=MOTION_SCRIPT.replace("<script>", '<script type="module">'))
+        self.assertFails(self.problems(built(), nxt), "no inline <head> motion script")
+
+    def test_next_json_motion_script_fails(self) -> None:
+        nxt = next_built(body=NEXT_BODY, motion=MOTION_SCRIPT.replace("<script>", '<script type="application/json">'))
+        self.assertFails(self.problems(built(), nxt), "no inline <head> motion script")
+
+    def test_next_text_javascript_motion_script_passes(self) -> None:
+        motion = MOTION_SCRIPT.replace("<script>", '<script type="text/javascript">')
+        nxt = next_built(body=NEXT_BODY, motion=motion)
+        self.assertEqual(check_dist.check_motion(nxt, "next/index.html", expected=True), [])
+
+    def test_next_two_motion_scripts_fails(self) -> None:
+        nxt = next_built(body=NEXT_BODY, motion=MOTION_SCRIPT * 2)
+        self.assertFails(self.problems(built(), nxt), "expected exactly one motion head script, found 2")
+
+    def test_next_motion_script_after_stylesheet_fails(self) -> None:
+        nxt = next_built(head=self.NEXT_LINK + MOTION_SCRIPT, body=NEXT_BODY, motion="")
+        self.assertFails(self.problems(built(), nxt), "must come before every stylesheet")
+
+    def test_next_motion_script_after_style_fails(self) -> None:
+        nxt = next_built(head="<style>a{}</style>" + MOTION_SCRIPT, body=NEXT_BODY, motion="")
+        self.assertFails(self.problems(built(), nxt), "must come before every stylesheet")
+
+    def test_index_motion_attr_fails(self) -> None:
+        index = built(html_attrs=' data-motion="off"')
+        self.assertFails(self.problems(index), "index.html: <html> must not carry data-motion")
+
+    def test_index_motion_script_fails(self) -> None:
+        index = built(head=f"{MOTION_SCRIPT}{FONT}{STYLE.replace(chr(13), '')}")
+        self.assertFails(self.problems(index), "index.html: must not include the motion head script")
 
     def test_main_reports_missing_dist(self) -> None:
         legacy = Path(__file__).resolve().parents[1] / "legacy" / "index.html"
