@@ -34,7 +34,10 @@ def built(head: str = f"{FONT}{STYLE.replace(chr(13), '')}", body: str = f"{BODY
     return f'<!DOCTYPE html><html><head><meta charset="UTF-8"><title>T</title>{head}</head><body>{body}{analytics}</body></html>'
 
 
-NEXT_BODY = '<main><section id="glance" data-next="track"><h1>N</h1></section><div id="track"></div></main>'
+NEXT_BODY = (
+    '<main><section id="glance" data-next="character"><h1>N</h1></section>'
+    '<section id="character"></section><div id="track"></div></main>'
+)
 NEXT = built(head="", body=NEXT_BODY)
 
 
@@ -149,8 +152,34 @@ class CheckDistTest(unittest.TestCase):
         self.assertEqual(check_dist.check_next_page(NEXT), [])
 
     def test_next_glance_target_missing_fails(self) -> None:
-        nxt = built(head="", body=NEXT_BODY.replace('id="track"', 'id="trak"'))
-        self.assertFails(self.problems(built(), nxt), "#glance data-next='track' names no element id")
+        nxt = built(head="", body=NEXT_BODY.replace('id="character"', 'id="charactr"'))
+        self.assertFails(self.problems(built(), nxt), "#glance data-next='character' names no element id")
+
+    def test_next_glance_target_not_character_fails(self) -> None:
+        nxt = built(head="", body=NEXT_BODY.replace('data-next="character"', 'data-next="track"'))
+        self.assertFails(self.problems(built(), nxt), "#glance data-next='track', expected 'character'")
+
+    def test_next_character_not_a_section_fails(self) -> None:
+        nxt = built(head="", body=NEXT_BODY.replace('<section id="character"></section>', '<div id="character"></div>'))
+        self.assertFails(self.problems(built(), nxt), 'no <section id="character">')
+
+    def test_next_character_before_glance_fails(self) -> None:
+        body = (
+            '<main><section id="character"></section><section id="glance" data-next="character"><h1>N</h1></section>'
+            '<div id="track"></div></main>'
+        )
+        self.assertFails(self.problems(built(), built(head="", body=body)), "#character must come after #glance and before #track")
+
+    def test_next_character_after_track_fails(self) -> None:
+        body = (
+            '<main><section id="glance" data-next="character"><h1>N</h1></section><div id="track"></div>'
+            '<section id="character"></section></main>'
+        )
+        self.assertFails(self.problems(built(), built(head="", body=body)), "#character must come after #glance and before #track")
+
+    def test_next_no_track_fails(self) -> None:
+        nxt = built(head="", body=NEXT_BODY.replace('<div id="track"></div>', ""))
+        self.assertFails(self.problems(built(), nxt), "#character must come after #glance and before #track")
 
     def test_next_no_glance_fails(self) -> None:
         nxt = built(head="", body="<main><h1>N</h1></main>")

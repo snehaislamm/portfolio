@@ -139,6 +139,17 @@ def right_arm_down(f: Frame, b: int = 0) -> None:
     f.rect(22, 31 + b, 23, 32 + b, "S")
 
 
+def coffee(f: Frame, b: int = 0) -> None:
+    """Takeaway coffee cup in the left hand."""
+    # takeaway coffee cup in the left hand: dark lid, white cup, brown sleeve, fingers wrapped on the side
+    f.rect(4, 29 + b, 8, 29 + b, "l")          # lid (wider lip)
+    f.rect(5, 30 + b, 8, 33 + b, "C")          # cup
+    f.rect(6, 34 + b, 7, 34 + b, "C")          # tapered base
+    f.rect(5, 31 + b, 8, 32 + b, "h")          # sleeve
+    f.rect(8, 31 + b, 9, 32 + b, "S")          # fingers
+    f.put(5, 27 + b, "c"); f.put(4, 26 + b, "c")  # steam wisp
+
+
 def sparkle(f: Frame, x: int, y: int, big: bool = True) -> None:
     f.put(x, y, "W")
     if big:
@@ -150,6 +161,7 @@ def idle(n: int) -> Frame:
     f = Frame()
     b = n  # frame 2 breathes down 1 px
     body(f, b); left_arm_down(f, b); right_arm_down(f, b)
+    coffee(f, b)
     # probe in the right hand, pointing down, gold tip
     f.rect(23, 33 + b, 23, 38 + b, "L"); f.put(23, 39 + b, "Y")
     head(f, b); shoes(f, 11, 17)
@@ -165,11 +177,17 @@ def walk(n: int) -> Frame:
     f = Frame()
     body(f, bob, hem)
     left_arm_down(f, bob)
-    # right arm bent, laptop tucked under it
+    coffee(f, bob)
+    # right arm bent, holding an OPEN laptop with the screen facing her: we see the lid's back
     f.rect(22, 20 + bob, 23, 26 + bob, "C")
-    f.rect(19, 26 + bob, 26, 28 + bob, "L"); f.rect(19, 28 + bob, 26, 28 + bob, "l")
-    f.put(25, 27 + bob, "P")
-    f.rect(21, 25 + bob, 22, 25 + bob, "S")
+    f.rect(19, 20 + bob, 26, 26 + bob, "l")          # lid edge
+    f.rect(20, 21 + bob, 25, 25 + bob, "L")          # lid back
+    # small generic round logo in the middle of the lid (not any real brand's mark)
+    f.rect(22, 22 + bob, 23, 22 + bob, "C"); f.rect(22, 24 + bob, 23, 24 + bob, "C")
+    f.put(21, 23 + bob, "C"); f.put(24, 23 + bob, "C")
+    f.rect(18, 27 + bob, 27, 27 + bob, "L")          # keyboard deck
+    f.rect(18, 28 + bob, 27, 28 + bob, "l")          # base edge
+    f.rect(19, 29 + bob, 20, 29 + bob, "S")          # fingers under the base
     head(f, bob); shoes(f, *feet)
     f.outline()
     return f

@@ -1,12 +1,15 @@
 ---
 /**
  * `/next`: hidden home of The Fab Line until the Story 3.11 cutover.
- * Story 2.2: the Glance Card is the first screen; the Story 2.1 building-blocks showcase sits below it as
- * #track (the section ▶ Start advances to) until Story 2.3. Every string comes from content (AD-2).
+ * Story 2.2: the Glance Card is the first screen. Story 2.3: the Character Card is the second (#character,
+ * the section ▶ Start and the keys advance to); the Story 2.1 building-blocks showcase stays below it as
+ * #track. Every string comes from content (AD-2).
  */
-import { getEntry } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import Game from '../layouts/Game.astro';
 import GlanceCard from '../components/GlanceCard.astro';
+import CharacterCard from '../components/CharacterCard.astro';
+import { sortCourses } from '../lib/coursework';
 import Button from '../components/ui/Button.astro';
 import Pill from '../components/ui/Pill.astro';
 import Chip from '../components/ui/Chip.astro';
@@ -14,11 +17,14 @@ import Chip from '../components/ui/Chip.astro';
 const ui = (await getEntry('ui', 'ui'))!.data;
 const profile = (await getEntry('profile', 'profile'))!.data;
 const quest = (await getEntry('quests', 'ai/communitech'))!.data;
+const characterScreen = (await getEntry('stations', 'character'))!.data;
+const courses = sortCourses((await getCollection('coursework')).map((entry) => entry.data));
 ---
 <Game title={ui.gameTitle}>
   <meta slot="head" name="robots" content="noindex">
   <main>
-    <GlanceCard profile={profile} ui={ui} next="track" />
+    <GlanceCard profile={profile} ui={ui} next="character" />
+    <CharacterCard title={characterScreen.title} profile={profile} courses={courses} ui={ui} />
 
     <div id="track" class="wip">
       <p>{ui.workInProgress}</p>

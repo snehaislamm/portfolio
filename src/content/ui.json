@@ -37,6 +37,14 @@
     "statusLocked": "Locked",
     "workInProgress": "The Fab Line: work in progress.",
     "buildingBlocks": "Building blocks",
+    "charClass": "Class",
+    "charSchool": "School",
+    "charHome": "Home",
+    "charNextQuest": "Next Quest",
+    "charEquipment": "Equipment",
+    "charInterests": "Interests",
+    "training": "Training",
+    "courses": "courses",
     "gameTitle": "The Fab Line"
   }
 }
